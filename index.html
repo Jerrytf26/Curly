@@ -11,12 +11,13 @@ margin:0;
 padding:0;
 height:100vh;
 overflow:hidden;
-font-family: Arial, sans-serif;
+font-family: Georgia, serif;
 background:linear-gradient(to bottom,#ff758c,#ff7eb3);
 color:white;
 text-align:center;
 }
 
+/* Pantalla contraseña */
 #bloqueo{
 position:absolute;
 width:100%;
@@ -48,11 +49,11 @@ cursor:pointer;
 
 #contenido{
 display:none;
-padding-top:50px;
+padding-top:40px;
 }
 
 .corazon{
-font-size:80px;
+font-size:90px;
 animation:latido 1s infinite;
 cursor:pointer;
 }
@@ -67,13 +68,42 @@ cursor:pointer;
 margin-top:20px;
 font-size:18px;
 white-space:pre-line;
+padding:0 20px;
 }
 
 #mensajeFinal{
 display:none;
-margin-top:20px;
+margin-top:25px;
 font-size:22px;
 font-weight:bold;
+animation:aparecer 3s forwards;
+}
+
+@keyframes aparecer{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+.flor{
+position:fixed;
+bottom:-50px;
+font-size:30px;
+animation:crecer 3s forwards;
+}
+
+@keyframes crecer{
+to{
+transform:translateY(-120px);
+opacity:1;
+}
+}
+
+#corazonGrande{
+display:none;
+font-size:20px;
+margin-top:20px;
+white-space:pre;
+animation:aparecer 3s forwards;
 }
 </style>
 </head>
@@ -94,28 +124,34 @@ font-weight:bold;
 <div id="poema"></div>
 
 <div id="mensajeFinal">
-💌 Meli, feliz San Valentín. Te amo, mi reina. 💌
-<br><br>
-💖💖💖💖   💖💖💖💖  
-💖💖💖💖💖 💖💖💖💖💖  
-💖💖💖💖💖💖💖💖💖💖  
- 💖💖💖💖💖💖💖💖💖  
-   💖💖💖💖💖💖💖  
-     💖💖💖💖💖  
-       💖💖💖  
+Meli, feliz San Valentín.  
+Te amo con todo mi corazón, mi reina. 💌
+</div>
+
+<div id="corazonGrande">
+  💖💖💖💖   💖💖💖💖
+💖💖💖💖💖 💖💖💖💖💖
+💖💖💖💖💖💖💖💖💖💖
+ 💖💖💖💖💖💖💖💖💖
+   💖💖💖💖💖💖💖
+     💖💖💖💖💖
+       💖💖💖
          💖
 </div>
 
+<br>
+
+<audio id="musica" controls>
 <source src="https://drive.google.com/uc?export=download&id=1XnFrDQT2D9z2qCErGTm6J6RzDDmwlxdU" type="audio/mpeg">
- 
+</audio>
+
 </div>
 
 <script>
 
 function verificar(){
-var clave = document.getElementById("clave").value.toLowerCase();
-
-if(clave === "te amo"){
+var clave=document.getElementById("clave").value.toLowerCase();
+if(clave==="te amo"){
 document.getElementById("bloqueo").style.display="none";
 document.getElementById("contenido").style.display="block";
 }else{
@@ -123,7 +159,7 @@ document.getElementById("error").innerHTML="❌ Pista: son dos palabras del cora
 }
 }
 
-var texto = "Amor mío...\n\nHoy quiero prometerte algo eterno.\nPrometo cuidarte, respetarte y elegirte todos los días.\nNo es un sentimiento pasajero,\nes un voto sincero.\n\nTe elijo hoy,\nte elegiré mañana,\ny en cada vida si existieran más.\n\nEres mi hogar. 💖";
+var texto="Amor mío...\n\nDesde que llegaste a mi vida,\ntodo tiene más sentido.\nNo eres solo mi amor,\neres mi paz,\nmi fuerza,\nmi hogar.\n\nPrometo elegirte incluso cuando el mundo pese,\nabrazarte cuando tengas miedo,\ny cuidar tu corazón como el tesoro más valioso.\n\nNo quiero un momento contigo,\nquiero una vida entera.\nQuiero tus risas,\ntus sueños,\ntu mano junto a la mía.\n\nSi alguna vez dudas,\nrecuerda esto:\nte amo más de lo que las palabras pueden explicar.\n\nY si existieran mil vidas,\nen cada una volvería a buscarte.\n\nSiempre tú. 💖";
 
 function activar(){
 document.getElementById("musica").play();
@@ -140,9 +176,22 @@ poema.innerHTML+=texto.charAt(i);
 i++;
 if(i>=texto.length){
 clearInterval(intervalo);
-document.getElementById("mensajeFinal").style.display="block";
+finalRomantico();
 }
 },40);
+}
+
+function finalRomantico(){
+document.getElementById("mensajeFinal").style.display="block";
+document.getElementById("corazonGrande").style.display="block";
+
+for(var i=0;i<10;i++){
+var flor=document.createElement("div");
+flor.className="flor";
+flor.innerHTML="🌹";
+flor.style.left=Math.random()*100+"vw";
+document.body.appendChild(flor);
+}
 }
 
 </script>
