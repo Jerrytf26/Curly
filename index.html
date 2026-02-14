@@ -17,7 +17,6 @@ color:white;
 text-align:center;
 }
 
-/* Pantalla contraseña */
 #bloqueo{
 position:absolute;
 width:100%;
@@ -76,26 +75,6 @@ display:none;
 margin-top:25px;
 font-size:22px;
 font-weight:bold;
-animation:aparecer 3s forwards;
-}
-
-@keyframes aparecer{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-.flor{
-position:fixed;
-bottom:-50px;
-font-size:30px;
-animation:crecer 3s forwards;
-}
-
-@keyframes crecer{
-to{
-transform:translateY(-120px);
-opacity:1;
-}
 }
 
 #corazonGrande{
@@ -103,7 +82,6 @@ display:none;
 font-size:20px;
 margin-top:20px;
 white-space:pre;
-animation:aparecer 3s forwards;
 }
 </style>
 </head>
@@ -113,13 +91,13 @@ animation:aparecer 3s forwards;
 <div id="bloqueo">
 <h2>🔐 Ingresa la contraseña 💖</h2>
 <input type="text" id="clave" placeholder="Escribe aquí...">
-<button onclick="verificar()">Entrar</button>
+<button id="btnEntrar">Entrar</button>
 <p id="error"></p>
 </div>
 
 <div id="contenido">
 <h1>✨ Feliz primer San Valentín, Meli ✨</h1>
-<div class="corazon" onclick="activar()">❤️</div>
+<div class="corazon" id="btnCorazon">❤️</div>
 
 <div id="poema"></div>
 
@@ -149,22 +127,25 @@ Te amo con todo mi corazón, mi reina. 💌
 
 <script>
 
-function verificar(){
-var clave=document.getElementById("clave").value.toLowerCase();
-if(clave==="te amo"){
+// CONTRASEÑA
+document.getElementById("btnEntrar").addEventListener("click", function(){
+var clave = document.getElementById("clave").value.trim().toLowerCase();
+
+if(clave.includes("te amo")){
 document.getElementById("bloqueo").style.display="none";
 document.getElementById("contenido").style.display="block";
 }else{
 document.getElementById("error").innerHTML="❌ Pista: son dos palabras del corazón 💕";
 }
-}
+});
 
-var texto="Amor mío...\n\nDesde que llegaste a mi vida,\ntodo tiene más sentido.\nNo eres solo mi amor,\neres mi paz,\nmi fuerza,\nmi hogar.\n\nPrometo elegirte incluso cuando el mundo pese,\nabrazarte cuando tengas miedo,\ny cuidar tu corazón como el tesoro más valioso.\n\nNo quiero un momento contigo,\nquiero una vida entera.\nQuiero tus risas,\ntus sueños,\ntu mano junto a la mía.\n\nSi alguna vez dudas,\nrecuerda esto:\nte amo más de lo que las palabras pueden explicar.\n\nY si existieran mil vidas,\nen cada una volvería a buscarte.\n\nSiempre tú. 💖";
+// POEMA
+var texto="Amor mío...\n\nDesde que llegaste a mi vida,\ntodo tiene más luz.\nNo eres solo mi amor,\neres mi paz,\nmi sueño,\nmi hogar.\n\nPrometo elegirte cada día,\nabrazarte en tus miedos,\ny cuidar tu corazón como lo más sagrado.\n\nSi existieran mil vidas,\nen cada una volvería a buscarte.\n\nSiempre tú. 💖";
 
-function activar(){
+document.getElementById("btnCorazon").addEventListener("click", function(){
 document.getElementById("musica").play();
 escribir();
-}
+});
 
 function escribir(){
 var i=0;
@@ -176,25 +157,14 @@ poema.innerHTML+=texto.charAt(i);
 i++;
 if(i>=texto.length){
 clearInterval(intervalo);
-finalRomantico();
-}
-},40);
-}
-
-function finalRomantico(){
 document.getElementById("mensajeFinal").style.display="block";
 document.getElementById("corazonGrande").style.display="block";
-
-for(var i=0;i<10;i++){
-var flor=document.createElement("div");
-flor.className="flor";
-flor.innerHTML="🌹";
-flor.style.left=Math.random()*100+"vw";
-document.body.appendChild(flor);
 }
+},40);
 }
 
 </script>
 
 </body>
 </html>
+
