@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Meli 💖</title>
+
+<style>
+body{
+margin:0;
+padding:0;
+height:100vh;
+overflow:hidden;
+font-family: Arial, sans-serif;
+background:linear-gradient(to bottom,#ff758c,#ff7eb3);
+color:white;
+text-align:center;
+}
+
+#bloqueo{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+text-align:center;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:white;
+color:#ff4e50;
+font-weight:bold;
+margin-top:15px;
+cursor:pointer;
+}
+
+#contenido{
+display:none;
+padding-top:50px;
+}
+
+.corazon{
+font-size:80px;
+animation:latido 1s infinite;
+cursor:pointer;
+}
+
+@keyframes latido{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+#poema{
+margin-top:20px;
+font-size:18px;
+white-space:pre-line;
+}
+
+#mensajeFinal{
+display:none;
+margin-top:20px;
+font-size:22px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div id="bloqueo">
+<h2>🔐 Ingresa la contraseña 💖</h2>
+<input type="text" id="clave" placeholder="Escribe aquí...">
+<button onclick="verificar()">Entrar</button>
+<p id="error"></p>
+</div>
+
+<div id="contenido">
+<h1>✨ Feliz primer San Valentín, Meli ✨</h1>
+<div class="corazon" onclick="activar()">❤️</div>
+
+<div id="poema"></div>
+
+<div id="mensajeFinal">
+💌 Meli, feliz San Valentín. Te amo, mi reina. 💌
+<br><br>
+💖💖💖💖   💖💖💖💖  
+💖💖💖💖💖 💖💖💖💖💖  
+💖💖💖💖💖💖💖💖💖💖  
+ 💖💖💖💖💖💖💖💖💖  
+   💖💖💖💖💖💖💖  
+     💖💖💖💖💖  
+       💖💖💖  
+         💖
+</div>
+
+<br>
+<audio id="musica" controls>
+<source src="meli.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+function verificar(){
+var clave = document.getElementById("clave").value.toLowerCase();
+
+if(clave === "te amo"){
+document.getElementById("bloqueo").style.display="none";
+document.getElementById("contenido").style.display="block";
+}else{
+document.getElementById("error").innerHTML="❌ Pista: son dos palabras del corazón 💕";
+}
+}
+
+var texto = "Amor mío...\n\nHoy quiero prometerte algo eterno.\nPrometo cuidarte, respetarte y elegirte todos los días.\nNo es un sentimiento pasajero,\nes un voto sincero.\n\nTe elijo hoy,\nte elegiré mañana,\ny en cada vida si existieran más.\n\nEres mi hogar. 💖";
+
+function activar(){
+document.getElementById("musica").play();
+escribir();
+}
+
+function escribir(){
+var i=0;
+var poema=document.getElementById("poema");
+poema.innerHTML="";
+
+var intervalo=setInterval(function(){
+poema.innerHTML+=texto.charAt(i);
+i++;
+if(i>=texto.length){
+clearInterval(intervalo);
+document.getElementById("mensajeFinal").style.display="block";
+}
+},40);
+}
+
+</script>
+
+</body>
+</html>
+
