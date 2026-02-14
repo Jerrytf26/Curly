@@ -43,7 +43,7 @@ body{
   to{opacity:1;}
 }
 
-/* Pantalla de inicio */
+/* Inicio */
 #bloqueo{
   position:absolute;
   width:100%;
@@ -81,7 +81,7 @@ button{
 }
 button:hover{transform:scale(1.05);}
 
-/* Contenido principal */
+/* Contenido */
 #contenido{
   display:none;
   padding-top:40px;
@@ -180,29 +180,6 @@ h1{
 
 <div class="estrellas" id="estrellas"></div>
 
-<!-- Cerezos iniciales -->
-<script>
-for(let i=0;i<30;i++){
-  let flor=document.createElement("div");
-  flor.className="cerezo";
-  flor.innerHTML="🌸";
-  flor.style.left=Math.random()*100+"vw";
-  flor.style.fontSize=(15 + Math.random()*25)+"px";
-  flor.style.animationDuration=(6 + Math.random()*6)+"s";
-  flor.style.animationDelay=(Math.random()*5)+"s";
-  document.body.appendChild(flor);
-}
-for(let i=0;i<15;i++){
-  let flor=document.createElement("div");
-  flor.className="flor";
-  flor.innerHTML="🌹";
-  flor.style.left=Math.random()*100+"vw";
-  flor.style.fontSize=(20 + Math.random()*15)+"px";
-  flor.style.animationDuration=(4 + Math.random()*4)+"s";
-  document.body.appendChild(flor);
-}
-</script>
-
 <div id="bloqueo">
 <h2>🔐 Ingresa la contraseña 💖</h2>
 <input type="text" id="clave" placeholder="Escribe aquí...">
@@ -213,25 +190,20 @@ for(let i=0;i<15;i++){
 <div id="contenido">
 <h1>✨ Feliz primer San Valentín, Meli ✨</h1>
 <div class="corazon" id="btnCorazon">❤️</div>
-
 <div id="poema"></div>
-
 <div id="mensajeFinal">
 Meli… gracias por existir.<br>
 Te amo con todo lo que soy, mi reina. 💌
 </div>
-
 <br>
-
 <audio id="musica" preload="auto">
 <source src="meli.mp3" type="audio/mpeg">
 </audio>
-
 <button class="botonMusica" onclick="reproducirMusica()">🎵 Escuchar nuestra canción</button>
 </div>
 
 <script>
-// estrellas dinámicas
+// estrellas
 for(let i=0;i<120;i++){
   let estrella=document.createElement("div");
   estrella.className="estrella";
@@ -252,7 +224,7 @@ document.getElementById("btnEntrar").addEventListener("click", function(){
   }
 });
 
-// poema palabra por palabra (por oración)
+// poema palabra por palabra
 let texto = [
   "Meli… 🌸\n\n",
   "Hoy celebramos nuestro primer San Valentín juntos,\n",
@@ -273,14 +245,16 @@ let texto = [
 ];
 let highlightWords = ["Meli","San Valentín","alegría","dulce","Siempre tú"];
 
-document.getElementById("btnCorazon").addEventListener("click",function(){escribir();});
+document.getElementById("btnCorazon").addEventListener("click",function(){
+  empezarPoema();
+});
 
-function escribir(){
+function empezarPoema(){
+  crearCerezos(); // cerezos empiezan al tocar el corazón
   let poema=document.getElementById("poema");
   poema.innerHTML="";
   poema.style.opacity=1;
   let i=0;
-
   function escribirOracion(){
     if(i>=texto.length){finalRomantico(); return;}
     let linea=texto[i];
@@ -290,7 +264,7 @@ function escribir(){
     });
     poema.innerHTML+=linea;
     i++;
-    setTimeout(escribirOracion,2000); // 2s por oración, lectura cómoda
+    setTimeout(escribirOracion,2000);
   }
   escribirOracion();
 }
@@ -301,20 +275,16 @@ function reproducirMusica(){
   audio.play().catch(function(error){alert("Toca nuevamente el botón para activar la música 💕");});
 }
 
-// final romántico extra
-function finalRomantico(){
-  document.getElementById("mensajeFinal").style.display="block";
-  let musica=document.getElementById("musica");
-  let duracion=musica.duration || 5;
-
-  for(let i=0;i<20;i++){
+// cerezos y flores al inicio del poema
+function crearCerezos(){
+  for(let i=0;i<30;i++){
     let flor=document.createElement("div");
     flor.className="cerezo";
     flor.innerHTML="🌸";
     flor.style.left=Math.random()*100+"vw";
     flor.style.fontSize=(15 + Math.random()*25)+"px";
-    flor.style.animationDuration=(4 + Math.random()*5)+"s";
-    flor.style.animationDelay=(Math.random()*duracion*Math.random())+"s";
+    flor.style.animationDuration=(6 + Math.random()*6)+"s";
+    flor.style.animationDelay=(Math.random()*2)+"s";
     document.body.appendChild(flor);
   }
   for(let i=0;i<15;i++){
@@ -323,9 +293,14 @@ function finalRomantico(){
     flor.innerHTML="🌹";
     flor.style.left=Math.random()*100+"vw";
     flor.style.fontSize=(20 + Math.random()*15)+"px";
-    flor.style.animationDuration=(3 + Math.random()*3)+"s";
+    flor.style.animationDuration=(4 + Math.random()*4)+"s";
     document.body.appendChild(flor);
   }
+}
+
+// final romántico extra
+function finalRomantico(){
+  document.getElementById("mensajeFinal").style.display="block";
 }
 </script>
 </body>
