@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -14,29 +14,168 @@ body{
   font-family: 'Dancing Script', cursive;
   color:white;
   text-align:center;
-  background:radial-gradient(circle at bottom,#1b0033,#000010);
+  background: linear-gradient(180deg, #1b0033, #3d003f, #000010);
+  animation: fondoAnim 20s infinite alternate;
 }
-.estrellas{position:fixed;width:100%;height:100%;z-index:0;}
-.estrella{position:absolute;width:2px;height:2px;background:white;animation:brillar 2s infinite alternate;}
-@keyframes brillar{from{opacity:0.2;} to{opacity:1;}}
-#bloqueo{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;}
-input{padding:10px;border-radius:20px;border:none;text-align:center;font-size:16px;}
-button{padding:10px 20px;border:none;border-radius:20px;background:#ff4e88;color:white;font-weight:bold;margin-top:15px;cursor:pointer;box-shadow:0 0 15px #ff4e88;font-family:'Dancing Script', cursive;}
-#contenido{display:none;padding-top:40px;z-index:2;position:relative;}
-h1{font-size:2.5em;text-shadow:0 0 20px #ff4e88;margin-bottom:20px;}
-.corazon{font-size:90px;animation:latido 1s infinite;cursor:pointer;transition: transform 0.3s, text-shadow 0.3s;}
-.corazon:hover{transform:scale(1.3);text-shadow:0 0 30px #ff4e88;}
-@keyframes latido{0%{transform:scale(1);}50%{transform:scale(1.25);}100%{transform:scale(1);}}
-#poema{margin-top:20px;font-size:24px;font-style:italic;white-space:pre-line;padding:0 25px;line-height:1.9;opacity:0;transform:translateY(30px);transition:opacity 1s ease, transform 1s ease;text-shadow:0 0 8px #ff4e88;}
-.highlight{color:#ffe4e1;text-shadow:0 0 15px #ff4e88;font-weight:700;animation:destello 1s ease-in-out;}
-@keyframes destello{0%{text-shadow:0 0 5px #ff4e88;}50%{text-shadow:0 0 20px #ff4e88;}100%{text-shadow:0 0 5px #ff4e88;}}
-#mensajeFinal{display:none;margin-top:25px;font-size:26px;font-weight:bold;animation:aparecer 3s forwards;text-shadow:0 0 20px #ff4e88;font-style:italic;}
-@keyframes aparecer{from{opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);}}
-.flor{position:fixed;bottom:-40px;font-size:28px;animation:crecer 3s forwards;}
-@keyframes crecer{to{transform:translateY(-120px) rotate(360deg);opacity:1;}}
-.cerezo{position:fixed;top:-20px;font-size:20px;opacity:0.8;animation-name:caer;animation-timing-function:linear;animation-iteration-count:infinite;}
-@keyframes caer{0%{transform:translateY(0) rotate(0deg);}100%{transform:translateY(110vh) rotate(360deg);}}
-.botonMusica{margin-top:20px;background:#ff4e88;box-shadow:0 0 15px #ff4e88;font-size:16px;font-family:'Dancing Script', cursive;}
+
+/* Fondo animado */
+@keyframes fondoAnim{
+  0%{background: linear-gradient(180deg, #1b0033, #3d003f, #000010);}
+  50%{background: linear-gradient(180deg, #2a0044, #4d004d, #000020);}
+  100%{background: linear-gradient(180deg, #1b0033, #3d003f, #000010);}
+}
+
+/* Estrellas */
+.estrellas{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+.estrella{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:brillar 2s infinite alternate;
+}
+@keyframes brillar{
+  from{opacity:0.2;}
+  to{opacity:1;}
+}
+
+/* Pantalla de inicio */
+#bloqueo{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:2;
+  animation:entradaInicio 1.5s ease-out;
+}
+@keyframes entradaInicio{
+  0%{opacity:0; transform:translateY(-50px);}
+  100%{opacity:1; transform:translateY(0);}
+}
+input{
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  text-align:center;
+  font-size:16px;
+}
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4e88;
+  color:white;
+  font-weight:bold;
+  margin-top:15px;
+  cursor:pointer;
+  box-shadow:0 0 15px #ff4e88;
+  font-family: 'Dancing Script', cursive;
+  transition: transform 0.2s;
+}
+button:hover{transform:scale(1.05);}
+
+/* Contenido principal */
+#contenido{
+  display:none;
+  padding-top:40px;
+  z-index:2;
+  position:relative;
+}
+h1{
+  font-size:2.5em;
+  text-shadow:0 0 20px #ff4e88;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(-30px);
+  animation:entradaH1 1s forwards;
+}
+@keyframes entradaH1{
+  to{opacity:1; transform:translateY(0);}
+}
+.corazon{
+  font-size:90px;
+  animation:latido 1s infinite;
+  cursor:pointer;
+  transition: transform 0.3s, text-shadow 0.3s;
+}
+.corazon:hover{
+  transform:scale(1.3);
+  text-shadow:0 0 30px #ff4e88;
+}
+@keyframes latido{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.25);}
+  100%{transform:scale(1);}
+}
+
+/* Poema */
+#poema{
+  margin-top:20px;
+  font-size:24px;
+  font-style:italic;
+  white-space:pre-line;
+  padding:0 25px;
+  line-height:1.9;
+  opacity:0;
+  text-shadow:0 0 8px #ff4e88;
+  transition:opacity 1s ease;
+}
+.highlight{
+  color:#ffe4e1;
+  text-shadow:0 0 20px #ff4e88;
+  font-weight:700;
+}
+
+/* Mensaje final */
+#mensajeFinal{
+  display:none;
+  margin-top:25px;
+  font-size:26px;
+  font-weight:bold;
+  animation:aparecer 3s forwards;
+  text-shadow:0 0 20px #ff4e88;
+  font-style:italic;
+}
+
+/* Flores y cerezos */
+.flor{
+  position:fixed;
+  bottom:-40px;
+  font-size:28px;
+  animation:crecer 3s forwards;
+}
+@keyframes crecer{
+  to{transform:translateY(-120px) rotate(360deg);opacity:1;}
+}
+.cerezo{
+  position:fixed;
+  top:-20px;
+  font-size:20px;
+  opacity:0.8;
+  animation-name:caer;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+@keyframes caer{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
+}
+.botonMusica{
+  margin-top:20px;
+  background:#ff4e88;
+  box-shadow:0 0 15px #ff4e88;
+  font-size:16px;
+  font-family:'Dancing Script', cursive;
+}
 </style>
 </head>
 <body>
@@ -66,9 +205,7 @@ Te amo con todo lo que soy, mi reina. 💌
 <source src="meli.mp3" type="audio/mpeg">
 </audio>
 
-<button class="botonMusica" onclick="reproducirMusica()">
-🎵 Escuchar nuestra canción
-</button>
+<button class="botonMusica" onclick="reproducirMusica()">🎵 Escuchar nuestra canción</button>
 </div>
 
 <script>
@@ -93,7 +230,7 @@ document.getElementById("btnEntrar").addEventListener("click", function(){
   }
 });
 
-// poema interactivo
+// poema palabra por palabra (por oración)
 let texto = [
   "Meli… 🌸\n\n",
   "Hoy celebramos nuestro primer San Valentín juntos,\n",
@@ -120,10 +257,9 @@ function escribir(){
   let poema=document.getElementById("poema");
   poema.innerHTML="";
   poema.style.opacity=1;
-  poema.style.transform="translateY(30px)";
   let i=0;
 
-  function escribirLinea(){
+  function escribirOracion(){
     if(i>=texto.length){finalRomantico(); return;}
     let linea=texto[i];
     highlightWords.forEach(word=>{
@@ -131,11 +267,10 @@ function escribir(){
       linea=linea.replace(regex,`<span class="highlight">${word}</span>`);
     });
     poema.innerHTML+=linea;
-    poema.style.transform="translateY(0)";
     i++;
-    setTimeout(escribirLinea,1200); // más lenta y lectura cómoda
+    setTimeout(escribirOracion,1800); // 1.8s por oración para leer cómodamente
   }
-  escribirLinea();
+  escribirOracion();
 }
 
 // música
@@ -144,7 +279,7 @@ function reproducirMusica(){
   audio.play().catch(function(error){alert("Toca nuevamente el botón para activar la música 💕");});
 }
 
-// final romántico con cerezos y rosas
+// final romántico
 function finalRomantico(){
   document.getElementById("mensajeFinal").style.display="block";
   let musica=document.getElementById("musica");
@@ -157,7 +292,7 @@ function finalRomantico(){
     flor.style.left=Math.random()*100+"vw";
     flor.style.fontSize=(15 + Math.random()*25)+"px";
     flor.style.animationDuration=(4 + Math.random()*5)+"s";
-    flor.style.animationDelay=(Math.random()*duracion)+"s";
+    flor.style.animationDelay=(Math.random()*duracion*Math.random())+"s";
     document.body.appendChild(flor);
   }
   for(let i=0;i<25;i++){
@@ -173,3 +308,4 @@ function finalRomantico(){
 </script>
 </body>
 </html>
+
