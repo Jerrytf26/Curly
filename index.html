@@ -11,12 +11,36 @@ margin:0;
 padding:0;
 height:100vh;
 overflow:hidden;
-font-family: Georgia, serif;
-background:linear-gradient(to bottom,#ff758c,#ff7eb3);
+font-family: 'Georgia', serif;
 color:white;
 text-align:center;
+background:radial-gradient(circle at bottom,#1b0033,#000010);
 }
 
+/* estrellas */
+.estrellas{
+position:fixed;
+width:100%;
+height:100%;
+background:transparent;
+overflow:hidden;
+z-index:0;
+}
+
+.estrella{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:brillar 2s infinite alternate;
+}
+
+@keyframes brillar{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+/* pantalla contraseña */
 #bloqueo{
 position:absolute;
 width:100%;
@@ -25,6 +49,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+z-index:2;
 }
 
 input{
@@ -39,16 +64,20 @@ button{
 padding:10px 20px;
 border:none;
 border-radius:20px;
-background:white;
-color:#ff4e50;
+background:#ff4e88;
+color:white;
 font-weight:bold;
 margin-top:15px;
 cursor:pointer;
+box-shadow:0 0 15px #ff4e88;
 }
 
+/* contenido */
 #contenido{
 display:none;
 padding-top:40px;
+z-index:2;
+position:relative;
 }
 
 .corazon{
@@ -67,7 +96,8 @@ cursor:pointer;
 margin-top:20px;
 font-size:18px;
 white-space:pre-line;
-padding:0 20px;
+padding:0 25px;
+line-height:1.6;
 }
 
 #mensajeFinal{
@@ -85,8 +115,8 @@ to{opacity:1;}
 
 .flor{
 position:fixed;
-bottom:-50px;
-font-size:30px;
+bottom:-40px;
+font-size:28px;
 animation:crecer 3s forwards;
 }
 
@@ -97,17 +127,17 @@ opacity:1;
 }
 }
 
-#corazonGrande{
-display:none;
-font-size:20px;
+.botonMusica{
 margin-top:20px;
-white-space:pre;
-animation:aparecer 3s forwards;
+background:#ff4e88;
+box-shadow:0 0 15px #ff4e88;
 }
 </style>
 </head>
 
 <body>
+
+<div class="estrellas" id="estrellas"></div>
 
 <div id="bloqueo">
 <h2>🔐 Ingresa la contraseña 💖</h2>
@@ -123,56 +153,60 @@ animation:aparecer 3s forwards;
 <div id="poema"></div>
 
 <div id="mensajeFinal">
-Meli, feliz San Valentín.  
-Te amo con todo mi corazón, mi reina. 💌
-</div>
-
-<div id="corazonGrande">
-  💖💖💖💖   💖💖💖💖
-💖💖💖💖💖 💖💖💖💖💖
-💖💖💖💖💖💖💖💖💖💖
- 💖💖💖💖💖💖💖💖💖
-   💖💖💖💖💖💖💖
-     💖💖💖💖💖
-       💖💖💖
-         💖
+Meli… gracias por existir.  
+Te amo con todo lo que soy, mi reina. 💌
 </div>
 
 <br>
 
-<audio id="musica" preload="auto">
+<audio id="musica">
 <source src="https://files.catbox.moe/r5ml3u.mp3" type="audio/mpeg">
 </audio>
+
+<button class="botonMusica" onclick="reproducirMusica()">
+🎵 Escuchar nuestra canción
+</button>
 
 </div>
 
 <script>
 
+/* estrellas dinámicas */
+for(let i=0;i<120;i++){
+let estrella=document.createElement("div");
+estrella.className="estrella";
+estrella.style.left=Math.random()*100+"vw";
+estrella.style.top=Math.random()*100+"vh";
+estrella.style.animationDuration=(Math.random()*3+2)+"s";
+document.getElementById("estrellas").appendChild(estrella);
+}
+
+/* contraseña */
 document.getElementById("btnEntrar").addEventListener("click", function(){
-var clave = document.getElementById("clave").value.trim().toLowerCase();
+let clave=document.getElementById("clave").value.trim().toLowerCase();
 
 if(clave.includes("te amo")){
 document.getElementById("bloqueo").style.display="none";
 document.getElementById("contenido").style.display="block";
 }else{
-document.getElementById("error").innerHTML="❌ Pista: son dos palabras del corazón 💕";
+document.getElementById("error").innerHTML="❌ Pista: son dos palabras que laten 💕";
 }
 });
 
-var texto="Amor mío...\n\nDesde que llegaste a mi vida,\ntodo tiene más luz.\nNo eres solo mi amor,\neres mi paz,\nmi sueño,\nmi hogar.\n\nPrometo elegirte cada día,\nabrazarte en tus miedos,\ny cuidar tu corazón como lo más sagrado.\n\nSi existieran mil vidas,\nen cada una volvería a buscarte.\n\nSiempre tú. 💖";
+/* poema romántico */
+let texto="Amor mío...\n\nDesde que llegaste,\nmi mundo aprendió a brillar distinto.\nNo eres solo la persona que amo,\neres mi calma en el caos,\nmi abrazo favorito,\nmi pensamiento antes de dormir.\n\nPrometo sostener tu mano\ncuando el miedo aparezca,\nprometo mirarte siempre\ncomo la primera vez,\ncon el corazón latiendo fuerte.\n\nNo quiero un instante contigo,\nquiero todos los amaneceres posibles.\n\nSi alguna vez dudas,\nrecuerda esto:\nte elijo hoy,\nte elegiré mañana,\ny en cada vida si existieran mil.\n\nSiempre tú. 💖";
 
+/* corazón */
 document.getElementById("btnCorazon").addEventListener("click", function(){
-var musica = document.getElementById("musica");
-musica.play().catch(function(){});
 escribir();
 });
 
 function escribir(){
-var i=0;
-var poema=document.getElementById("poema");
+let i=0;
+let poema=document.getElementById("poema");
 poema.innerHTML="";
 
-var intervalo=setInterval(function(){
+let intervalo=setInterval(function(){
 poema.innerHTML+=texto.charAt(i);
 i++;
 if(i>=texto.length){
@@ -182,12 +216,17 @@ finalRomantico();
 },40);
 }
 
+/* música */
+function reproducirMusica(){
+document.getElementById("musica").play();
+}
+
+/* final con flores */
 function finalRomantico(){
 document.getElementById("mensajeFinal").style.display="block";
-document.getElementById("corazonGrande").style.display="block";
 
-for(var i=0;i<12;i++){
-var flor=document.createElement("div");
+for(let i=0;i<15;i++){
+let flor=document.createElement("div");
 flor.className="flor";
 flor.innerHTML="🌹";
 flor.style.left=Math.random()*100+"vw";
@@ -199,5 +238,6 @@ document.body.appendChild(flor);
 
 </body>
 </html>
+
 
 
