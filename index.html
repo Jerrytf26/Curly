@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -17,8 +17,6 @@ body{
   background: linear-gradient(180deg, #1b0033, #3d003f, #000010);
   animation: fondoAnim 20s infinite alternate;
 }
-
-/* Fondo animado */
 @keyframes fondoAnim{
   0%{background: linear-gradient(180deg, #1b0033, #3d003f, #000010);}
   50%{background: linear-gradient(180deg, #2a0044, #4d004d, #000020);}
@@ -179,7 +177,31 @@ h1{
 </style>
 </head>
 <body>
+
 <div class="estrellas" id="estrellas"></div>
+
+<!-- Cerezos iniciales -->
+<script>
+for(let i=0;i<30;i++){
+  let flor=document.createElement("div");
+  flor.className="cerezo";
+  flor.innerHTML="🌸";
+  flor.style.left=Math.random()*100+"vw";
+  flor.style.fontSize=(15 + Math.random()*25)+"px";
+  flor.style.animationDuration=(6 + Math.random()*6)+"s";
+  flor.style.animationDelay=(Math.random()*5)+"s";
+  document.body.appendChild(flor);
+}
+for(let i=0;i<15;i++){
+  let flor=document.createElement("div");
+  flor.className="flor";
+  flor.innerHTML="🌹";
+  flor.style.left=Math.random()*100+"vw";
+  flor.style.fontSize=(20 + Math.random()*15)+"px";
+  flor.style.animationDuration=(4 + Math.random()*4)+"s";
+  document.body.appendChild(flor);
+}
+</script>
 
 <div id="bloqueo">
 <h2>🔐 Ingresa la contraseña 💖</h2>
@@ -268,7 +290,7 @@ function escribir(){
     });
     poema.innerHTML+=linea;
     i++;
-    setTimeout(escribirOracion,1800); // 1.8s por oración para leer cómodamente
+    setTimeout(escribirOracion,2000); // 2s por oración, lectura cómoda
   }
   escribirOracion();
 }
@@ -279,13 +301,13 @@ function reproducirMusica(){
   audio.play().catch(function(error){alert("Toca nuevamente el botón para activar la música 💕");});
 }
 
-// final romántico
+// final romántico extra
 function finalRomantico(){
   document.getElementById("mensajeFinal").style.display="block";
   let musica=document.getElementById("musica");
   let duracion=musica.duration || 5;
 
-  for(let i=0;i<50;i++){
+  for(let i=0;i<20;i++){
     let flor=document.createElement("div");
     flor.className="cerezo";
     flor.innerHTML="🌸";
@@ -295,7 +317,7 @@ function finalRomantico(){
     flor.style.animationDelay=(Math.random()*duracion*Math.random())+"s";
     document.body.appendChild(flor);
   }
-  for(let i=0;i<25;i++){
+  for(let i=0;i<15;i++){
     let flor=document.createElement("div");
     flor.className="flor";
     flor.innerHTML="🌹";
@@ -308,4 +330,3 @@ function finalRomantico(){
 </script>
 </body>
 </html>
-
