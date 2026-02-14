@@ -4,14 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Meli 💖</title>
-
 <style>
 body{
   margin:0;
   padding:0;
   height:100vh;
   overflow:hidden;
-  font-family: 'Georgia', serif;
+  font-family: 'Dancing Script', 'Georgia', serif;
   color:white;
   text-align:center;
   background:radial-gradient(circle at bottom,#1b0033,#000010);
@@ -22,11 +21,8 @@ body{
   position:fixed;
   width:100%;
   height:100%;
-  background:transparent;
-  overflow:hidden;
   z-index:0;
 }
-
 .estrella{
   position:absolute;
   width:2px;
@@ -34,7 +30,6 @@ body{
   background:white;
   animation:brillar 2s infinite alternate;
 }
-
 @keyframes brillar{
   from{opacity:0.2;}
   to{opacity:1;}
@@ -51,7 +46,6 @@ body{
   align-items:center;
   z-index:2;
 }
-
 input{
   padding:10px;
   border-radius:20px;
@@ -59,7 +53,6 @@ input{
   text-align:center;
   font-size:16px;
 }
-
 button{
   padding:10px 20px;
   border:none;
@@ -79,58 +72,71 @@ button{
   z-index:2;
   position:relative;
 }
-
 .corazon{
   font-size:90px;
   animation:latido 1s infinite;
   cursor:pointer;
 }
-
 @keyframes latido{
   0%{transform:scale(1);}
   50%{transform:scale(1.2);}
   100%{transform:scale(1);}
 }
-
 #poema{
   margin-top:20px;
-  font-size:18px;
+  font-size:22px;
   white-space:pre-line;
   padding:0 25px;
-  line-height:1.6;
+  line-height:1.8;
+  opacity:0;
 }
-
+.highlight{
+  color:#ffdde1;
+  text-shadow: 0 0 10px #ff4e88;
+}
 #mensajeFinal{
   display:none;
   margin-top:25px;
-  font-size:22px;
+  font-size:24px;
   font-weight:bold;
   animation:aparecer 3s forwards;
 }
-
 @keyframes aparecer{
   from{opacity:0;}
   to{opacity:1;}
 }
 
+/* flores y cerezos */
 .flor{
   position:fixed;
   bottom:-40px;
   font-size:28px;
   animation:crecer 3s forwards;
 }
-
 @keyframes crecer{
   to{
     transform:translateY(-120px);
     opacity:1;
   }
 }
-
+.cerezo{
+  position:fixed;
+  top:-20px;
+  font-size:20px;
+  opacity:0.8;
+  animation-name:caer;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+@keyframes caer{
+  0%{transform:translateY(0) rotate(0deg);}
+  100%{transform:translateY(110vh) rotate(360deg);}
+}
 .botonMusica{
   margin-top:20px;
   background:#ff4e88;
   box-shadow:0 0 15px #ff4e88;
+  font-size:16px;
 }
 </style>
 </head>
@@ -159,7 +165,6 @@ button{
 
   <br>
 
-  <!-- Cambiado para usar preload y nombre local -->
   <audio id="musica" preload="auto">
     <source src="meli.mp3" type="audio/mpeg">
   </audio>
@@ -167,12 +172,10 @@ button{
   <button class="botonMusica" onclick="reproducirMusica()">
     🎵 Escuchar nuestra canción
   </button>
-
 </div>
 
 <script>
-
-/* estrellas dinámicas */
+// estrellas dinámicas
 for(let i=0;i<120;i++){
   let estrella=document.createElement("div");
   estrella.className="estrella";
@@ -182,10 +185,9 @@ for(let i=0;i<120;i++){
   document.getElementById("estrellas").appendChild(estrella);
 }
 
-/* contraseña */
+// contraseña
 document.getElementById("btnEntrar").addEventListener("click", function(){
   let clave=document.getElementById("clave").value.trim().toLowerCase();
-
   if(clave.includes("te amo")){
     document.getElementById("bloqueo").style.display="none";
     document.getElementById("contenido").style.display="block";
@@ -194,30 +196,50 @@ document.getElementById("btnEntrar").addEventListener("click", function(){
   }
 });
 
-/* poema romántico */
-let texto="Amor mío...\n\nDesde que llegaste,\nmi mundo aprendió a brillar distinto.\nNo eres solo la persona que amo,\neres mi calma en el caos,\nmi abrazo favorito,\nmi pensamiento antes de dormir.\n\nPrometo sostener tu mano\ncuando el miedo aparezca,\nprometo mirarte siempre\ncomo la primera vez,\ncon el corazón latiendo fuerte.\n\nNo quiero un instante contigo,\nquiero todos los amaneceres posibles.\n\nSi alguna vez dudas,\nrecuerda esto:\nte elijo hoy,\nte elegiré mañana,\ny en cada vida si existieran mil.\n\nSiempre tú. 💖";
+// poema primer San Valentín dulce y brillante
+let texto = [
+  "Meli… 🌸\n\n",
+  "Hoy celebramos nuestro primer San Valentín juntos,\n",
+  "y mi corazón no deja de sonreír.\n",
+  "Cada juego, cada risa, cada mensaje tuyo\n",
+  "me hace sentir más cerca de ti.\n\n",
+  "Me encanta escuchar tu voz, imaginar tus gestos,\n",
+  "y cada palabra tuya se queda en mi corazón.\n\n",
+  "Hoy quiero decirte que eres mi alegría,\n",
+  "mi pensamiento favorito, mi dulce compañía.\n\n",
+  "Gracias por cada momento que compartimos,\n",
+  "prometo que esto es solo el inicio de muchos San Valentines más.\n",
+  "Siempre tú… mi dulce Meli. 💖"
+];
 
-/* corazón */
+let highlightWords = ["Meli", "San Valentín", "alegría", "dulce", "Siempre tú"];
+
 document.getElementById("btnCorazon").addEventListener("click", function(){
   escribir();
 });
 
 function escribir(){
-  let i=0;
   let poema=document.getElementById("poema");
   poema.innerHTML="";
+  poema.style.opacity=1;
+  let i=0;
 
   let intervalo=setInterval(function(){
-    poema.innerHTML+=texto.charAt(i);
+    let char = texto[i];
+    highlightWords.forEach(word=>{
+      let regex = new RegExp(word, "g");
+      char = char.replace(regex, `<span class="highlight">${word}</span>`);
+    });
+    poema.innerHTML += char;
     i++;
-    if(i>=texto.length){
+    if(i >= texto.length){
       clearInterval(intervalo);
       finalRomantico();
     }
-  },40);
+  }, 70);
 }
 
-/* música actualizada con manejo de error */
+// música
 function reproducirMusica(){
   let audio = document.getElementById("musica");
   audio.play().catch(function(error){
@@ -225,11 +247,24 @@ function reproducirMusica(){
   });
 }
 
-/* final con flores */
+// final romántico con cerezos y rosas
 function finalRomantico(){
   document.getElementById("mensajeFinal").style.display="block";
 
-  for(let i=0;i<15;i++){
+  // cerezos cayendo
+  for(let i=0;i<40;i++){
+    let flor=document.createElement("div");
+    flor.className="cerezo";
+    flor.innerHTML="🌸";
+    flor.style.left=Math.random()*100+"vw";
+    flor.style.fontSize=(15 + Math.random()*20)+"px";
+    flor.style.animationDuration=(3 + Math.random()*4)+"s";
+    flor.style.animationDelay=(Math.random()*5)+"s";
+    document.body.appendChild(flor);
+  }
+
+  // rosas grandes
+  for(let i=0;i<20;i++){
     let flor=document.createElement("div");
     flor.className="flor";
     flor.innerHTML="🌹";
@@ -237,12 +272,9 @@ function finalRomantico(){
     document.body.appendChild(flor);
   }
 }
-
 </script>
-
 </body>
 </html>
-
 
 
 
