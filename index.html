@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Inicio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gael de Jesús</title>
 
 <style>
 *{
@@ -13,128 +14,126 @@ box-sizing:border-box;
 
 body{
 height:100vh;
-background:radial-gradient(circle at top,#1c1f3a,#0a0d20 80%);
 overflow:hidden;
-font-family:Georgia, serif;
+font-family: 'Georgia', serif;
 color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
+text-align:center;
+background: radial-gradient(circle at top, #1a1f3a, #0a0d1f 70%);
 }
 
-/* Pantalla contraseña */
+/* Estrellas suaves */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image: radial-gradient(white 1px, transparent 1px);
+background-size: 60px 60px;
+opacity:0.12;
+}
 
-#login{
+/* Cerezos */
+.cerezo{
+position:fixed;
+top:-20px;
+font-size:18px;
+animation: caer linear forwards;
+opacity:0.8;
+}
+
+@keyframes caer{
+to{
+transform: translateY(110vh);
+opacity:0.4;
+}
+}
+
+/* Pantalla bloqueo */
+#bloqueo{
 position:absolute;
 width:100%;
 height:100%;
-background:#0a0d20;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-z-index:10;
 }
 
 input{
-padding:12px;
-border:none;
+padding:10px;
 border-radius:20px;
-outline:none;
+border:none;
+text-align:center;
 font-size:16px;
 }
 
 button{
-margin-top:10px;
-padding:8px 20px;
+padding:10px 20px;
 border:none;
 border-radius:20px;
+background:#4aa3ff;
+color:white;
+font-weight:bold;
+margin-top:15px;
 cursor:pointer;
+box-shadow:0 0 10px #4aa3ff;
 }
 
-/* Cerezos */
-
-.petalo{
-position:absolute;
-width:12px;
-height:12px;
-background:pink;
-border-radius:50%;
-opacity:0.7;
-animation:caer linear infinite;
+/* Contenido */
+#contenido{
+display:none;
+padding-top:40px;
 }
 
-@keyframes caer{
-0%{transform:translateY(-10px);}
-100%{transform:translateY(100vh);}
+h1{
+margin-bottom:20px;
 }
 
-/* Texto */
-
-.texto{
-position:absolute;
-top:15%;
-text-align:center;
-font-size:22px;
+#poema{
+font-size:20px;
+padding:0 25px;
 line-height:1.8;
-opacity:0;
+min-height:120px;
 }
 
-/* Ramo */
-
-#ramo{
-position:absolute;
+/* Flores que crecen */
+.flor{
+position:fixed;
 bottom:0;
 display:flex;
-gap:20px;
-align-items:flex-end;
+flex-direction:column;
+align-items:center;
+animation: aparecerFlor 0.8s ease-out forwards;
 }
-
-/* Tallo */
 
 .tallo{
 width:4px;
 height:0;
-background:#3fa34d;
-animation:crecerTallo 2s forwards;
+background:#4aa3ff;
+animation: crecerTallo 1.2s forwards;
+}
+
+.petalo{
+width:40px;
+height:40px;
+background: radial-gradient(circle,#7ec8ff 30%,#4aa3ff);
+border-radius:50%;
+margin-top:-20px;
+opacity:0;
+animation: abrir 0.8s forwards 1.2s;
 }
 
 @keyframes crecerTallo{
 to{height:120px;}
 }
 
-/* Flor azul brillante */
-
-.flor{
-position:relative;
-width:60px;
-height:60px;
-animation:flotar 4s infinite ease-in-out;
+@keyframes abrir{
+to{opacity:1;}
 }
 
-.petaloFlor{
-position:absolute;
-width:25px;
-height:25px;
-background:radial-gradient(circle,#8fd3ff,#2f6fff);
-border-radius:50%;
-}
-
-.centro{
-position:absolute;
-width:18px;
-height:18px;
-background:black;
-border-radius:50%;
-top:21px;
-left:21px;
-}
-
-@keyframes flotar{
-0%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0);}
+@keyframes aparecerFlor{
+from{opacity:0;}
+to{opacity:1;}
 }
 
 </style>
@@ -142,117 +141,95 @@ left:21px;
 
 <body>
 
-<div id="login">
-<h2 style="margin-bottom:15px;">Ingresa la contraseña</h2>
-<input type="password" id="pass">
-<button onclick="entrar()">Entrar</button>
+<div id="bloqueo">
+<h2>🔐 Ingresa la contraseña</h2>
+<input type="text" id="clave" placeholder="Escribe aquí...">
+<button onclick="verificar()">Entrar</button>
+<p id="error"></p>
 </div>
 
-<div class="texto" id="mensaje"></div>
-<div id="ramo"></div>
+<div id="contenido">
+<h1>✨ Gael de Jesús ✨</h1>
+<div id="poema"></div>
+</div>
 
-<audio id="musica" loop>
+<audio id="musica">
 <source src="lana.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-function entrar(){
-let clave=document.getElementById("pass").value;
-if(clave.toLowerCase()=="lana del rey"){
-document.getElementById("login").style.display="none";
-document.getElementById("musica").play();
-iniciar();
-}
-}
-
-function iniciar(){
+/* Verificar contraseña */
+function verificar(){
+let clave=document.getElementById("clave").value.trim().toLowerCase();
+if(clave==="lana del rey"){
+document.getElementById("bloqueo").style.display="none";
+document.getElementById("contenido").style.display="block";
+reproducirMusica();
 cerezos();
-textoAnimado();
-crearFlor();
-crearFlor();
+escribir();
+}else{
+document.getElementById("error").innerHTML="Pista: su artista favorita 🌙";
+}
 }
 
+/* Música */
+function reproducirMusica(){
+let audio=document.getElementById("musica");
+audio.play().catch(()=>{});
+}
+
+/* Texto palabra por palabra */
+let texto="Hay comienzos que no hacen ruido… pero se sienten distintos. Gael de Jesús, quizás esta sea una de esas historias que empiezan suaves, entre canciones, mensajes y pequeñas coincidencias bonitas.";
+
+function escribir(){
+let palabras=texto.split(" ");
+let i=0;
+let poema=document.getElementById("poema");
+let intervalo=setInterval(()=>{
+poema.innerHTML+=palabras[i]+" ";
+i++;
+if(i>=palabras.length) clearInterval(intervalo);
+},250);
+}
+
+/* Cerezos */
 function cerezos(){
 for(let i=0;i<25;i++){
-let p=document.createElement("div");
-p.className="petalo";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(p);
+let flor=document.createElement("div");
+flor.className="cerezo";
+flor.innerHTML="🌸";
+flor.style.left=Math.random()*100+"vw";
+flor.style.animationDuration=(Math.random()*4+4)+"s";
+document.body.appendChild(flor);
 }
 }
 
-function textoAnimado(){
-let lineas=[
-"Quizás esto sea el comienzo...",
-"de una amistad tranquila y sincera,",
-"como flores que crecen bajo canciones suaves.",
-"Sin prisa, pero con intención."
-];
-
-let contenedor=document.getElementById("mensaje");
-let i=0;
-
-function mostrarLinea(){
-if(i<lineas.length){
-let p=document.createElement("div");
-p.innerText=lineas[i];
-p.style.opacity=0;
-p.style.transition="opacity 2s";
-contenedor.appendChild(p);
-setTimeout(()=>{p.style.opacity=1;},100);
-i++;
-setTimeout(mostrarLinea,2500);
+/* Crear flores al tocar */
+document.body.addEventListener("click", function(e){
+if(document.getElementById("contenido").style.display==="block"){
+crearFlor(e.clientX);
 }
-}
-contenedor.style.opacity=1;
-mostrarLinea();
-}
+});
 
-function crearFlor(){
-let ramo=document.getElementById("ramo");
-
-let contenedor=document.createElement("div");
-contenedor.style.display="flex";
-contenedor.style.flexDirection="column";
-contenedor.style.alignItems="center";
+function crearFlor(x){
+let flor=document.createElement("div");
+flor.className="flor";
+flor.style.left=x+"px";
 
 let tallo=document.createElement("div");
 tallo.className="tallo";
 
-let flor=document.createElement("div");
-flor.className="flor";
-flor.style.opacity=0;
-
-setTimeout(()=>{
-flor.style.opacity=1;
-},2000);
-
-for(let i=0;i<6;i++){
 let petalo=document.createElement("div");
-petalo.className="petaloFlor";
-petalo.style.top=20+Math.sin(i*60*Math.PI/180)*20+"px";
-petalo.style.left=20+Math.cos(i*60*Math.PI/180)*20+"px";
+petalo.className="petalo";
+
+flor.appendChild(tallo);
 flor.appendChild(petalo);
+
+document.body.appendChild(flor);
+
+setTimeout(()=>{flor.remove();},6000);
 }
-
-let centro=document.createElement("div");
-centro.className="centro";
-flor.appendChild(centro);
-
-contenedor.appendChild(flor);
-contenedor.appendChild(tallo);
-ramo.appendChild(contenedor);
-}
-
-/* Cada toque crea una flor */
-
-document.body.addEventListener("click",function(e){
-if(document.getElementById("login").style.display=="none"){
-crearFlor();
-}
-});
 
 </script>
 
