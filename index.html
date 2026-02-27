@@ -2,155 +2,328 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Gael 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
 <style>
   body {
-    background-color: #050a14;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    height: 100vh;
     overflow: hidden;
-    font-family: 'Georgia', serif;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    text-align: center;
+    background: linear-gradient(180deg, #0a001a, #1a0033, #000000);
   }
 
-  /* Contenedor de flores */
-  .contenedor {
-    position: relative;
-    width: 400px;
-    height: 500px;
-    display: flex;
-    justify-content: center;
+  /* Estrellas */
+  .estrellas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
   }
-
-  .flor {
+  .estrella {
     position: absolute;
-    bottom: 100px;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: brillar 2s infinite alternate;
+  }
+  @keyframes brillar {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+  }
+
+  /* Inicio / Bloqueo */
+  #bloqueo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    z-index: 10;
+    background: rgba(10, 0, 26, 0.9);
+  }
+  input {
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background: #4e77ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px #4e77ff;
+    font-family: 'Dancing Script', cursive;
+    transition: transform 0.2s;
+  }
+  button:hover { transform: scale(1.05); }
+
+  /* Contenido Principal */
+  #contenido {
+    display: none;
+    padding-top: 40px;
+    z-index: 2;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  h1 { font-size: 2.5em; margin-bottom: 20px; text-shadow: 0 0 10px #4e77ff; }
+
+  .corazon {
+    font-size: 90px;
+    animation: latido 1.2s infinite;
+    cursor: pointer;
+    display: inline-block;
+    filter: drop-shadow(0 0 10px #4e77ff);
+  }
+  @keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
   }
 
-  .petalos {
+  /* Poema */
+  #poema {
+    margin-top: 20px;
+    font-size: 22px;
+    font-style: italic;
+    white-space: pre-line;
+    padding: 0 25px;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  #mensajeFinal {
+    display: none;
+    margin-top: 25px;
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #4e77ff;
+  }
+
+  /* Animación de Pétalos/Cerezos */
+  .cerezo {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    opacity: 0.8;
+    z-index: 1;
+    animation: caer linear infinite;
+  }
+  @keyframes caer {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+
+  /* --- SECCIÓN DE FLORES AZULES --- */
+  .flower-container {
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    perspective: 1000px;
+  }
+  
+  .flower {
+    position: relative;
     width: 60px;
     height: 60px;
-    background: radial-gradient(circle, #ffd700, #b8860b);
-    border-radius: 50%;
-    box-shadow: 0 0 20px #ffcc00;
-    animation: balanceo 4s infinite ease-in-out, brillar 2s infinite alternate;
-    z-index: 2;
+    animation: bloom 2s ease-out forwards;
   }
 
-  .tallo {
-    width: 5px;
-    height: 0;
-    background: linear-gradient(to top, #1a3311, #4e9445);
-    transition: height 2.5s ease-out;
-    border-radius: 3px;
-  }
-
-  /* Animaciones */
-  @keyframes balanceo {
-    0%, 100% { transform: rotate(-6deg) translateX(-5px); }
-    50% { transform: rotate(6deg) translateX(5px); }
-  }
-
-  @keyframes brillar {
-    from { filter: brightness(1) drop-shadow(0 0 5px #ffd700); }
-    to { filter: brightness(1.5) drop-shadow(0 0 30px #ffd700); }
-  }
-
-  /* Posiciones del Ramo */
-  #ramo { display: none; width: 100%; height: 100%; position: relative; }
-  .f1 { left: 80px; transform: rotate(-15deg); }
-  .f2 { left: 260px; transform: rotate(15deg); }
-  .f3 { left: 170px; bottom: 130px; }
-
-  /* Letra de la canción */
-  #letra {
-    color: #ffd700;
-    font-size: 1.4rem;
-    text-align: center;
+  .petal {
     position: absolute;
-    bottom: 40px;
-    width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    background: #4e77ff;
+    width: 30px;
+    height: 50px;
+    border-radius: 50% 50% 10% 10%;
+    left: 50%;
+    transform-origin: bottom center;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 0 10px #4e77ff;
   }
 
-  .escribiendo {
-    animation: maquina 5s steps(50) forwards;
-    border-right: 2px solid #ffd700;
+  /* Posicionamiento de pétalos */
+  .p1 { transform: translateX(-50%) rotate(0deg); }
+  .p2 { transform: translateX(-50%) rotate(72deg); }
+  .p3 { transform: translateX(-50%) rotate(144deg); }
+  .p4 { transform: translateX(-50%) rotate(216deg); }
+  .p5 { transform: translateX(-50%) rotate(288deg); }
+
+  .center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #001a4d;
+    border-radius: 50%;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    box-shadow: 0 0 5px black;
   }
 
-  @keyframes maquina {
-    from { width: 0; }
-    to { width: 100%; }
+  .stem {
+    position: absolute;
+    width: 4px;
+    height: 100px;
+    background: #1a4d1a;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
   }
 
-  .visible { opacity: 1 !important; }
-  .crecer-tallo { height: 200px !important; }
+  @keyframes bloom {
+    0% { transform: scale(0) translateY(50px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Música integrada -->
-<audio id="musica" src="lana.mp3" preload="auto"></audio>
+<div class="estrellas" id="estrellas"></div>
 
-<div class="contenedor">
-  <!-- Flor 1 -->
-  <div class="flor" id="florSolitaria">
-    <div class="petalos"></div>
-    <div class="tallo" id="talloS"></div>
+<!-- Pantalla de Bloqueo -->
+<div id="bloqueo">
+  <h2>🔐 Ingresa la contraseña ✨</h2>
+  <input type="password" id="clave" placeholder="Tu apodo favorito...">
+  <button id="btnEntrar">Entrar</button>
+  <p id="error" style="color: #ff4e4e; margin-top: 10px;"></p>
+</div>
+
+<!-- Contenido del Regalo -->
+<div id="contenido">
+  <h1>✨ Feliz primer San Valentín, Gael ✨</h1>
+  
+  <div class="corazon" id="btnCorazon">💙</div>
+
+  <!-- Contenedor de Flores que aparece al hacer click -->
+  <div class="flower-container" id="jardin">
+    <div class="flower">
+      <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div>
+      <div class="center"></div><div class="stem"></div>
+    </div>
+    <div class="flower" style="animation-delay: 0.5s;">
+      <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div>
+      <div class="center"></div><div class="stem"></div>
+    </div>
+    <div class="flower" style="animation-delay: 1s;">
+      <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div>
+      <div class="center"></div><div class="stem"></div>
+    </div>
   </div>
 
-  <!-- Ramo -->
-  <div id="ramo">
-    <div class="flor f1"><div class="petalos"></div><div class="tallo ts"></div></div>
-    <div class="flor f2"><div class="petalos"></div><div class="tallo ts"></div></div>
-    <div class="flor f3"><div class="petalos"></div><div class="tallo ts"></div></div>
+  <div id="poema"></div>
+
+  <div id="mensajeFinal">
+    Gael… gracias por ser tú.<br>
+    Te quiero con todo mi corazón. 💌
   </div>
 
-  <div id="letra">Will you still love me when I'm no longer young and beautiful?</div>
+  <br>
+  <audio id="musica" loop>
+    <source src="lana.mp3" type="audio/mpeg">
+  </audio>
+  <button class="botonMusica" onclick="reproducirMusica()" style="margin-top: 120px;">🎵 Nuestra canción</button>
 </div>
 
 <script>
-  const musica = document.getElementById('musica');
-  const florS = document.getElementById('florSolitaria');
-  const talloS = document.getElementById('talloS');
-  const ramo = document.getElementById('ramo');
-  const texto = document.getElementById('letra');
+// Generar Estrellas de fondo
+const estrellasCont = document.getElementById("estrellas");
+for(let i=0; i<80; i++){
+  let estrella = document.createElement("div");
+  estrella.className = "estrella";
+  estrella.style.left = Math.random()*100 + "vw";
+  estrella.style.top = Math.random()*100 + "vh";
+  estrella.style.animationDuration = (Math.random()*3+2) + "s";
+  estrellasCont.appendChild(estrella);
+}
 
-  // Función para iniciar todo al hacer clic (necesario por políticas de navegadores)
-  document.body.addEventListener('click', () => {
-    musica.play();
-    
-    // 1. Sale la primera flor
-    setTimeout(() => {
-      florS.classList.add('visible');
-      talloS.classList.add('crecer-tallo');
-    }, 500);
+// Lógica de Contraseña
+document.getElementById("btnEntrar").addEventListener("click", function(){
+  let clave = document.getElementById("clave").value.trim().toLowerCase();
+  if(clave === "lanita"){
+    document.getElementById("bloqueo").style.display = "none";
+    document.getElementById("contenido").style.display = "block";
+  } else {
+    document.getElementById("error").innerHTML = "❌ Pista: El nombre de nuestra canción o mi apodo 💕";
+  }
+});
 
-    // 2. Aparece el ramo
-    setTimeout(() => {
-      florS.style.display = 'none';
-      ramo.style.display = 'block';
-      document.querySelectorAll('#ramo .flor').forEach(f => f.classList.add('visible'));
-      document.querySelectorAll('.ts').forEach(t => t.classList.add('crecer-tallo'));
-    }, 4500);
+// Texto del Poema
+const texto = [
+  "Gael… 🌌\n\n",
+  "Hoy celebramos nuestro primer San Valentín juntos,\n",
+  "y no puedo evitar pensar en lo afortunada que soy.\n",
+  "Cada charla, cada risa y cada momento contigo\n",
+  "se ha vuelto mi parte favorita del día.\n\n",
+  "Me encanta tu forma de ser y cómo me haces sentir,\n",
+  "tienes esa chispa que ilumina todo a mi alrededor.\n",
+  "Incluso en la distancia, te siento aquí conmigo.\n\n",
+  "Gracias por ser mi compañero, mi apoyo y mi alegría.\n",
+  "Eres ese pensamiento que siempre me hace sonreír.\n\n",
+  "Este es solo nuestro primer capítulo juntos,\n",
+  "y me emociona todo lo que nos falta por vivir.\n\n",
+  "Siempre tú… mi niño guapo. 💙"
+];
 
-    // 3. Aparece la letra
-    setTimeout(() => {
-      texto.classList.add('escribiendo');
-    }, 7000);
-  }, { once: true });
+// Iniciar sorpresa al pulsar el corazón
+document.getElementById("btnCorazon").addEventListener("click", function(){
+  document.getElementById("jardin").style.display = "flex";
+  empezarPoema();
+  crearCerezos();
+});
+
+function empezarPoema(){
+  let poema = document.getElementById("poema");
+  poema.innerHTML = "";
+  poema.style.opacity = 1;
+  let i = 0;
+  function escribirOracion(){
+    if(i >= texto.length){
+      document.getElementById("mensajeFinal").style.display = "block";
+      return;
+    }
+    poema.innerHTML += texto[i];
+    i++;
+    setTimeout(escribirOracion, 2200);
+  }
+  escribirOracion();
+}
+
+function reproducirMusica(){
+  let audio = document.getElementById("musica");
+  audio.play().catch(() => alert("Toca de nuevo para activar la música 🎵"));
+}
+
+function crearCerezos(){
+  const simbolos = ["🌸", "✨", "💙", "❄️"];
+  for(let i=0; i<30; i++){
+    let flor = document.createElement("div");
+    flor.className = "cerezo";
+    flor.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
+    flor.style.left = Math.random()*100 + "vw";
+    flor.style.fontSize = (15 + Math.random()*25) + "px";
+    flor.style.animationDuration = (5 + Math.random()*7) + "s";
+    flor.style.animationDelay = (Math.random()*3) + "s";
+    document.body.appendChild(flor);
+  }
+}
 </script>
-
-<p style="color: gray; position: absolute; bottom: 10px; font-size: 0.8rem;">Haz clic en cualquier parte para iniciar</p>
-
 </body>
 </html>
