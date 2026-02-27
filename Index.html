@@ -2,154 +2,259 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Meli 💖</title>
+<title>Inicio</title>
 
 <style>
-body{
+*{
 margin:0;
 padding:0;
-height:100vh;
-overflow:hidden;
-font-family: Arial, sans-serif;
-background:linear-gradient(to bottom,#ff758c,#ff7eb3);
-color:white;
-text-align:center;
+box-sizing:border-box;
 }
 
-#bloqueo{
+body{
+height:100vh;
+background:radial-gradient(circle at top,#1c1f3a,#0a0d20 80%);
+overflow:hidden;
+font-family:Georgia, serif;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+/* Pantalla contraseña */
+
+#login{
 position:absolute;
 width:100%;
 height:100%;
+background:#0a0d20;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
+flex-direction:column;
+z-index:10;
 }
 
 input{
-padding:10px;
-border-radius:20px;
+padding:12px;
 border:none;
-text-align:center;
+border-radius:20px;
+outline:none;
 font-size:16px;
 }
 
 button{
-padding:10px 20px;
+margin-top:10px;
+padding:8px 20px;
 border:none;
 border-radius:20px;
-background:white;
-color:#ff4e50;
-font-weight:bold;
-margin-top:15px;
 cursor:pointer;
 }
 
-#contenido{
-display:none;
-padding-top:50px;
+/* Cerezos */
+
+.petalo{
+position:absolute;
+width:12px;
+height:12px;
+background:pink;
+border-radius:50%;
+opacity:0.7;
+animation:caer linear infinite;
 }
 
-.corazon{
-font-size:80px;
-animation:latido 1s infinite;
-cursor:pointer;
+@keyframes caer{
+0%{transform:translateY(-10px);}
+100%{transform:translateY(100vh);}
 }
 
-@keyframes latido{
-0%{transform:scale(1);}
-50%{transform:scale(1.2);}
-100%{transform:scale(1);}
-}
+/* Texto */
 
-#poema{
-margin-top:20px;
-font-size:18px;
-white-space:pre-line;
-}
-
-#mensajeFinal{
-display:none;
-margin-top:20px;
+.texto{
+position:absolute;
+top:15%;
+text-align:center;
 font-size:22px;
-font-weight:bold;
+line-height:1.8;
+opacity:0;
 }
+
+/* Ramo */
+
+#ramo{
+position:absolute;
+bottom:0;
+display:flex;
+gap:20px;
+align-items:flex-end;
+}
+
+/* Tallo */
+
+.tallo{
+width:4px;
+height:0;
+background:#3fa34d;
+animation:crecerTallo 2s forwards;
+}
+
+@keyframes crecerTallo{
+to{height:120px;}
+}
+
+/* Flor azul brillante */
+
+.flor{
+position:relative;
+width:60px;
+height:60px;
+animation:flotar 4s infinite ease-in-out;
+}
+
+.petaloFlor{
+position:absolute;
+width:25px;
+height:25px;
+background:radial-gradient(circle,#8fd3ff,#2f6fff);
+border-radius:50%;
+}
+
+.centro{
+position:absolute;
+width:18px;
+height:18px;
+background:black;
+border-radius:50%;
+top:21px;
+left:21px;
+}
+
+@keyframes flotar{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="bloqueo">
-<h2>🔐 Ingresa la contraseña 💖</h2>
-<input type="text" id="clave" placeholder="Escribe aquí...">
-<button onclick="verificar()">Entrar</button>
-<p id="error"></p>
+<div id="login">
+<h2 style="margin-bottom:15px;">Ingresa la contraseña</h2>
+<input type="password" id="pass">
+<button onclick="entrar()">Entrar</button>
 </div>
 
-<div id="contenido">
-<h1>✨ Feliz primer San Valentín, Meli ✨</h1>
-<div class="corazon" onclick="activar()">❤️</div>
+<div class="texto" id="mensaje"></div>
+<div id="ramo"></div>
 
-<div id="poema"></div>
-
-<div id="mensajeFinal">
-💌 Meli, feliz San Valentín. Te amo, mi reina. 💌
-<br><br>
-💖💖💖💖   💖💖💖💖  
-💖💖💖💖💖 💖💖💖💖💖  
-💖💖💖💖💖💖💖💖💖💖  
- 💖💖💖💖💖💖💖💖💖  
-   💖💖💖💖💖💖💖  
-     💖💖💖💖💖  
-       💖💖💖  
-         💖
-</div>
-
-<br>
-<audio id="musica" controls>
-<source src="meli.mp3" type="audio/mpeg">
+<audio id="musica" loop>
+<source src="lana.mp3" type="audio/mpeg">
 </audio>
-
-</div>
 
 <script>
 
-function verificar(){
-var clave = document.getElementById("clave").value.toLowerCase();
-
-if(clave === "te amo"){
-document.getElementById("bloqueo").style.display="none";
-document.getElementById("contenido").style.display="block";
-}else{
-document.getElementById("error").innerHTML="❌ Pista: son dos palabras del corazón 💕";
-}
-}
-
-var texto = "Amor mío...\n\nHoy quiero prometerte algo eterno.\nPrometo cuidarte, respetarte y elegirte todos los días.\nNo es un sentimiento pasajero,\nes un voto sincero.\n\nTe elijo hoy,\nte elegiré mañana,\ny en cada vida si existieran más.\n\nEres mi hogar. 💖";
-
-function activar(){
+function entrar(){
+let clave=document.getElementById("pass").value;
+if(clave.toLowerCase()=="lana del rey"){
+document.getElementById("login").style.display="none";
 document.getElementById("musica").play();
-escribir();
+iniciar();
+}
 }
 
-function escribir(){
-var i=0;
-var poema=document.getElementById("poema");
-poema.innerHTML="";
+function iniciar(){
+cerezos();
+textoAnimado();
+crearFlor();
+crearFlor();
+}
 
-var intervalo=setInterval(function(){
-poema.innerHTML+=texto.charAt(i);
+function cerezos(){
+for(let i=0;i<25;i++){
+let p=document.createElement("div");
+p.className="petalo";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(p);
+}
+}
+
+function textoAnimado(){
+let lineas=[
+"Quizás esto sea el comienzo...",
+"de una amistad tranquila y sincera,",
+"como flores que crecen bajo canciones suaves.",
+"Sin prisa, pero con intención."
+];
+
+let contenedor=document.getElementById("mensaje");
+let i=0;
+
+function mostrarLinea(){
+if(i<lineas.length){
+let p=document.createElement("div");
+p.innerText=lineas[i];
+p.style.opacity=0;
+p.style.transition="opacity 2s";
+contenedor.appendChild(p);
+setTimeout(()=>{p.style.opacity=1;},100);
 i++;
-if(i>=texto.length){
-clearInterval(intervalo);
-document.getElementById("mensajeFinal").style.display="block";
+setTimeout(mostrarLinea,2500);
 }
-},40);
 }
+contenedor.style.opacity=1;
+mostrarLinea();
+}
+
+function crearFlor(){
+let ramo=document.getElementById("ramo");
+
+let contenedor=document.createElement("div");
+contenedor.style.display="flex";
+contenedor.style.flexDirection="column";
+contenedor.style.alignItems="center";
+
+let tallo=document.createElement("div");
+tallo.className="tallo";
+
+let flor=document.createElement("div");
+flor.className="flor";
+flor.style.opacity=0;
+
+setTimeout(()=>{
+flor.style.opacity=1;
+},2000);
+
+for(let i=0;i<6;i++){
+let petalo=document.createElement("div");
+petalo.className="petaloFlor";
+petalo.style.top=20+Math.sin(i*60*Math.PI/180)*20+"px";
+petalo.style.left=20+Math.cos(i*60*Math.PI/180)*20+"px";
+flor.appendChild(petalo);
+}
+
+let centro=document.createElement("div");
+centro.className="centro";
+flor.appendChild(centro);
+
+contenedor.appendChild(flor);
+contenedor.appendChild(tallo);
+ramo.appendChild(contenedor);
+}
+
+/* Cada toque crea una flor */
+
+document.body.addEventListener("click",function(e){
+if(document.getElementById("login").style.display=="none"){
+crearFlor();
+}
+});
 
 </script>
 
 </body>
 </html>
-
