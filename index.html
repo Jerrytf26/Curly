@@ -2,250 +2,155 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"  content="width=device-width, initial-scale=1.0">
-<title>Para Gael 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  padding:0;
-  height:100vh;
-  overflow:hidden;
-  font-family: 'Dancing Script', cursive;
-  color:white;
-  text-align:center;
-  background: linear-gradient(180deg, #0a001a, #1a0033, #000000);
-}
+  body {
+    background-color: #050a14;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Georgia', serif;
+  }
 
-/* Estrellas */
-.estrellas{
-  position:fixed;
-  width:100%;
-  height:100%;
-  z-index:0;
-}
-.estrella{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  animation:brillar 2s infinite alternate;
-}
-@keyframes brillar{
-  from{opacity:0.2;}
-  to{opacity:1;}
-}
+  /* Contenedor de flores */
+  .contenedor {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+  }
 
-/* Inicio */
-#bloqueo{
-  position:absolute;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:2;
-}
-input{
-  padding:12px;
-  border-radius:20px;
-  border:none;
-  text-align:center;
-  font-size:16px;
-  outline:none;
-}
-button{
-  padding:10px 25px;
-  border:none;
-  border-radius:20px;
-  background:#4e77ff;
-  color:white;
-  font-weight:bold;
-  margin-top:15px;
-  cursor:pointer;
-  box-shadow:0 0 15px #4e77ff;
-  font-family: 'Dancing Script', cursive;
-  transition: transform 0.2s;
-}
-button:hover{transform:scale(1.05);}
+  .flor {
+    position: absolute;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
 
-/* Contenido */
-#contenido{
-  display:none;
-  padding-top:40px;
-  z-index:2;
-  position:relative;
-}
-h1{
-  font-size:2.5em;
-  margin-bottom:20px;
-}
-.corazon{
-  font-size:90px;
-  animation:latido 1s infinite;
-  cursor:pointer;
-  transition: transform 0.3s;
-}
-.corazon:hover{
-  transform:scale(1.2);
-}
-@keyframes latido{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.2);}
-  100%{transform:scale(1);}
-}
+  .petalos {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #ffd700, #b8860b);
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ffcc00;
+    animation: balanceo 4s infinite ease-in-out, brillar 2s infinite alternate;
+    z-index: 2;
+  }
 
-/* Poema */
-#poema{
-  margin-top:20px;
-  font-size:22px;
-  font-style:italic;
-  white-space:pre-line;
-  padding:0 25px;
-  line-height:1.6;
-  opacity:0;
-  transition:opacity 1s ease;
-}
+  .tallo {
+    width: 5px;
+    height: 0;
+    background: linear-gradient(to top, #1a3311, #4e9445);
+    transition: height 2.5s ease-out;
+    border-radius: 3px;
+  }
 
-/* Mensaje final */
-#mensajeFinal{
-  display:none;
-  margin-top:25px;
-  font-size:26px;
-  font-weight:bold;
-}
+  /* Animaciones */
+  @keyframes balanceo {
+    0%, 100% { transform: rotate(-6deg) translateX(-5px); }
+    50% { transform: rotate(6deg) translateX(5px); }
+  }
 
-/* Cerezos/Pétalos */
-.cerezo{
-  position:fixed;
-  top:-20px;
-  font-size:20px;
-  opacity:0.8;
-  animation-name:caer;
-  animation-timing-function:linear;
-  animation-iteration-count:infinite;
-}
-@keyframes caer{
-  0%{transform:translateY(0) rotate(0deg);}
-  100%{transform:translateY(110vh) rotate(360deg);}
-}
+  @keyframes brillar {
+    from { filter: brightness(1) drop-shadow(0 0 5px #ffd700); }
+    to { filter: brightness(1.5) drop-shadow(0 0 30px #ffd700); }
+  }
 
-.botonMusica{
-  margin-top:20px;
-  background:#4e77ff;
-  box-shadow:0 0 15px #4e77ff;
-  font-size:18px;
-}
+  /* Posiciones del Ramo */
+  #ramo { display: none; width: 100%; height: 100%; position: relative; }
+  .f1 { left: 80px; transform: rotate(-15deg); }
+  .f2 { left: 260px; transform: rotate(15deg); }
+  .f3 { left: 170px; bottom: 130px; }
+
+  /* Letra de la canción */
+  #letra {
+    color: #ffd700;
+    font-size: 1.4rem;
+    text-align: center;
+    position: absolute;
+    bottom: 40px;
+    width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  }
+
+  .escribiendo {
+    animation: maquina 5s steps(50) forwards;
+    border-right: 2px solid #ffd700;
+  }
+
+  @keyframes maquina {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  .visible { opacity: 1 !important; }
+  .crecer-tallo { height: 200px !important; }
 </style>
 </head>
 <body>
 
-<div class="estrellas" id="estrellas"></div>
+<!-- Música integrada -->
+<audio id="musica" src="lana.mp3" preload="auto"></audio>
 
-<div id="bloqueo">
-<h2>🔐 Ingresa la contraseña ✨</h2>
-<input type="password" id="clave" placeholder="Tu apodo favorito...">
-<button id="btnEntrar">Entrar</button>
-<p id="error"></p>
-</div>
+<div class="contenedor">
+  <!-- Flor 1 -->
+  <div class="flor" id="florSolitaria">
+    <div class="petalos"></div>
+    <div class="tallo" id="talloS"></div>
+  </div>
 
-<div id="contenido">
-<h1>✨ Feliz primer San Valentín, Gael ✨</h1>
-<div class="corazon" id="btnCorazon">💙</div>
-<div id="poema"></div>
-<div id="mensajeFinal">
-Gael… gracias por ser tú.<br>
-Te quiero con todo mi corazón. 💌
-</div>
-<br>
-<audio id="musica" preload="auto">
-<source src="lana.mp3" type="audio/mpeg">
-</audio>
-<button class="botonMusica" onclick="reproducirMusica()">🎵 Nuestra canción</button>
+  <!-- Ramo -->
+  <div id="ramo">
+    <div class="flor f1"><div class="petalos"></div><div class="tallo ts"></div></div>
+    <div class="flor f2"><div class="petalos"></div><div class="tallo ts"></div></div>
+    <div class="flor f3"><div class="petalos"></div><div class="tallo ts"></div></div>
+  </div>
+
+  <div id="letra">Will you still love me when I'm no longer young and beautiful?</div>
 </div>
 
 <script>
-// estrellas
-for(let i=0;i<60;i++){
-  let estrella=document.createElement("div");
-  estrella.className="estrella";
-  estrella.style.left=Math.random()*100+"vw";
-  estrella.style.top=Math.random()*100+"vh";
-  estrella.style.animationDuration=(Math.random()*3+2)+"s";
-  document.getElementById("estrellas").appendChild(estrella);
-}
+  const musica = document.getElementById('musica');
+  const florS = document.getElementById('florSolitaria');
+  const talloS = document.getElementById('talloS');
+  const ramo = document.getElementById('ramo');
+  const texto = document.getElementById('letra');
 
-// contraseña cambiada a "lanita"
-document.getElementById("btnEntrar").addEventListener("click", function(){
-  let clave=document.getElementById("clave").value.trim().toLowerCase();
-  if(clave === "lanita"){
-    document.getElementById("bloqueo").style.display="none";
-    document.getElementById("contenido").style.display="block";
-  }else{
-    document.getElementById("error").innerHTML="❌ Pista: El nombre de nuestra canción o mi apodo 💕";
-  }
-});
+  // Función para iniciar todo al hacer clic (necesario por políticas de navegadores)
+  document.body.addEventListener('click', () => {
+    musica.play();
+    
+    // 1. Sale la primera flor
+    setTimeout(() => {
+      florS.classList.add('visible');
+      talloS.classList.add('crecer-tallo');
+    }, 500);
 
-// poema adaptado para Gael
-let texto = [
-  "Gael… 🌌\n\n",
-  "Hoy celebramos nuestro primer San Valentín juntos,\n",
-  "y no puedo evitar pensar en lo afortunada que soy.\n",
-  "Cada charla, cada risa y cada momento contigo\n",
-  "se ha vuelto mi parte favorita del día.\n\n",
-  "Me encanta tu forma de ser y cómo me haces sentir,\n",
-  "tienes esa chispa que ilumina todo a mi alrededor.\n",
-  "Incluso en la distancia, te siento aquí conmigo.\n\n",
-  "Gracias por ser mi compañero, mi apoyo y mi alegría.\n",
-  "Eres ese pensamiento que siempre me hace sonreír.\n\n",
-  "Este es solo nuestro primer capítulo juntos,\n",
-  "y me emociona todo lo que nos falta por vivir.\n\n",
-  "Siempre tú… mi niño guapo. 💙"
-];
+    // 2. Aparece el ramo
+    setTimeout(() => {
+      florS.style.display = 'none';
+      ramo.style.display = 'block';
+      document.querySelectorAll('#ramo .flor').forEach(f => f.classList.add('visible'));
+      document.querySelectorAll('.ts').forEach(t => t.classList.add('crecer-tallo'));
+    }, 4500);
 
-document.getElementById("btnCorazon").addEventListener("click",function(){
-  empezarPoema();
-});
-
-function empezarPoema(){
-  crearCerezos();
-  let poema=document.getElementById("poema");
-  poema.innerHTML="";
-  poema.style.opacity=1;
-  let i=0;
-  function escribirOracion(){
-    if(i>=texto.length){finalRomantico(); return;}
-    poema.innerHTML+=texto[i];
-    i++;
-    setTimeout(escribirOracion,2200);
-  }
-  escribirOracion();
-}
-
-function reproducirMusica(){
-  let audio=document.getElementById("musica");
-  audio.play().catch(function(error){alert("Toca nuevamente para activar la música 🎵");});
-}
-
-function crearCerezos(){
-  const petalos = ["🌸", "✨", "💙"];
-  for(let i=0;i<25;i++){
-    let flor=document.createElement("div");
-    flor.className="cerezo";
-    flor.innerHTML=petalos[Math.floor(Math.random()*petalos.length)];
-    flor.style.left=Math.random()*100+"vw";
-    flor.style.fontSize=(15 + Math.random()*25)+"px";
-    flor.style.animationDuration=(6 + Math.random()*6)+"s";
-    flor.style.animationDelay=(Math.random()*2)+"s";
-    document.body.appendChild(flor);
-  }
-}
-
-function finalRomantico(){
-  document.getElementById("mensajeFinal").style.display="block";
-}
+    // 3. Aparece la letra
+    setTimeout(() => {
+      texto.classList.add('escribiendo');
+    }, 7000);
+  }, { once: true });
 </script>
+
+<p style="color: gray; position: absolute; bottom: 10px; font-size: 0.8rem;">Haz clic en cualquier parte para iniciar</p>
+
 </body>
 </html>
