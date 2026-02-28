@@ -1,107 +1,229 @@
-‎<!DOCTYPE html>
-‎<html lang="en">
-‎<head>
-‎    <meta charset="UTF-8">
-‎    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-‎    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-‎    <link rel="stylesheet" href="css/main.css">
-‎    <link rel="icon" href="img/flowers.png" type="image/x-icon">
-‎    <title>flowers</title>
-‎</head>
-‎<body class="container">
-‎  <!-- Pembuat code: https://codepen.io/mdusmanansari/pen/BamepLe -->
-‎    <div class="night"></div>
-‎    <div class="flowers">
-‎      <div class="flower flower--1">
-‎        <div class="flower__leafs flower__leafs--1">
-‎          <div class="flower__leaf flower__leaf--1"></div>
-‎          <div class="flower__leaf flower__leaf--2"></div>
-‎          <div class="flower__leaf flower__leaf--3"></div>
-‎          <div class="flower__leaf flower__leaf--4"></div>
-‎          <div class="flower__white-circle"></div>
-‎  
-‎          <div class="flower__light flower__light--1"></div>
-‎          <div class="flower__light flower__light--2"></div>
-‎          <div class="flower__light flower__light--3"></div>
-‎          <div class="flower__light flower__light--4"></div>
-‎          <div class="flower__light flower__light--5"></div>
-‎          <div class="flower__light flower__light--6"></div>
-‎          <div class="flower__light flower__light--7"></div>
-‎          <div class="flower__light flower__light--8"></div>
-‎  
-‎        </div>
-‎        <div class="flower__line">
-‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--5"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--6"></div>
-‎        </div>
-‎      </div>
-‎  
-‎      <div class="flower flower--2">
-‎        <div class="flower__leafs flower__leafs--2">
-‎          <div class="flower__leaf flower__leaf--1"></div>
-‎          <div class="flower__leaf flower__leaf--2"></div>
-‎          <div class="flower__leaf flower__leaf--3"></div>
-‎          <div class="flower__leaf flower__leaf--4"></div>
-‎          <div class="flower__white-circle"></div>
-‎  
-‎          <div class="flower__light flower__light--1"></div>
-‎          <div class="flower__light flower__light--2"></div>
-‎          <div class="flower__light flower__light--3"></div>
-‎          <div class="flower__light flower__light--4"></div>
-‎          <div class="flower__light flower__light--5"></div>
-‎          <div class="flower__light flower__light--6"></div>
-‎          <div class="flower__light flower__light--7"></div>
-‎          <div class="flower__light flower__light--8"></div>
-‎  
-‎        </div>
-‎        <div class="flower__line">
-‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
-‎        </div>
-‎      </div>
-‎  
-‎      <div class="flower flower--3">
-‎        <div class="flower__leafs flower__leafs--3">
-‎          <div class="flower__leaf flower__leaf--1"></div>
-‎          <div class="flower__leaf flower__leaf--2"></div>
-‎          <div class="flower__leaf flower__leaf--3"></div>
-‎          <div class="flower__leaf flower__leaf--4"></div>
-‎          <div class="flower__white-circle"></div>
-‎  
-‎          <div class="flower__light flower__light--1"></div>
-‎          <div class="flower__light flower__light--2"></div>
-‎          <div class="flower__light flower__light--3"></div>
-‎          <div class="flower__light flower__light--4"></div>
-‎          <div class="flower__light flower__light--5"></div>
-‎          <div class="flower__light flower__light--6"></div>
-‎          <div class="flower__light flower__light--7"></div>
-‎          <div class="flower__light flower__light--8"></div>
-‎  
-‎        </div>
-‎        <div class="flower__line">
-‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
-‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
-‎        </div>
-‎      </div>
-‎  
-‎      <div class="grow-ans" style="--d:1.2s">
-‎        <div class="flower__g-long">
-‎          <div class="flower__g-long__top"></div>
-‎          <div class="flower__g-long__bottom"></div>
-‎        </div>
-‎      </div>
-‎  
-‎      <div class="growing-grass">
-‎        <div class="flower__grass flower__grass--1">
-‎          <div class="flower__grass--top"></div>
-‎          <div class="flower__grass--bottom"></div>
-‎          <div class="flower__grass__leaf flower__grass__leaf--1"></div>
-‎          <div class="flower__grass__leaf flower__grass__leaf--2">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un pequeño detalle</title>
+
+<!-- Fuente elegante -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+/* Fondo blanco vintage */
+body{
+    margin:0;
+    background:linear-gradient(to bottom,#ffffff,#f5efe6);
+    font-family:'Cormorant Garamond',serif;
+    overflow-x:hidden;
+    color:#5a4633;
+}
+
+/* Pantalla contraseña */
+#pantalla{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(to bottom,#fdfaf6,#efe6d8);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:100;
+}
+
+.contenedor-password{
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(10px);
+    border:1px solid #d4c2a8;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(120,90,50,0.15);
+    text-align:center;
+}
+
+input{
+    padding:12px;
+    border:none;
+    border-bottom:1px solid #b89c74;
+    background:transparent;
+    outline:none;
+    font-size:18px;
+    text-align:center;
+    font-family:'Playfair Display',serif;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 25px;
+    border:1px solid #b89c74;
+    background:transparent;
+    cursor:pointer;
+    font-family:'Playfair Display',serif;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#e8dcc8;
+}
+
+/* Contenido */
+#contenido{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+}
+
+/* Poema */
+#poema{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:22px;
+    max-width:600px;
+    margin:auto;
+    line-height:1.8;
+    min-height:200px;
+}
+
+/* Botón música elegante */
+#btnMusica{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:rgba(255,255,255,0.6);
+    border:1px solid #c9b38f;
+    padding:10px 15px;
+    border-radius:30px;
+    cursor:pointer;
+    backdrop-filter:blur(6px);
+    transition:0.3s;
+}
+
+#btnMusica:hover{
+    background:#f0e6d8;
+}
+
+/* Corazones transparentes */
+.corazon{
+    position:fixed;
+    bottom:-40px;
+    font-size:20px;
+    opacity:0.4;
+    animation:subir 8s linear forwards;
+    pointer-events:none;
+}
+
+@keyframes subir{
+    0%{transform:translateY(0) scale(1);}
+    100%{transform:translateY(-100vh) scale(1.3); opacity:0;}
+}
+
+/* Notas musicales */
+.nota{
+    position:fixed;
+    bottom:60px;
+    right:50px;
+    font-size:18px;
+    animation:notaSube 3s linear forwards;
+}
+
+@keyframes notaSube{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100px); opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="pantalla">
+    <div class="contenedor-password">
+        <h2>Un pequeño detalle 🤎</h2>
+        <p>Ingresa la contraseña</p>
+        <input type="password" id="password">
+        <br>
+        <button onclick="verificar()">Entrar</button>
+    </div>
+</div>
+
+<div id="contenido">
+    <div id="poema"></div>
+</div>
+
+<button id="btnMusica" onclick="toggleMusica()">🎵 Música</button>
+
+<audio id="musica" src="lana.mp3"></audio>
+
+<script>
+
+function verificar(){
+    let pass=document.getElementById("password").value;
+    if(pass==="lana del rey"){
+        document.getElementById("pantalla").style.display="none";
+        document.getElementById("contenido").style.display="block";
+        escribirPoema();
+    }else{
+        alert("Contraseña incorrecta 🤎");
+    }
+}
+
+/* Poema más sutil */
+let texto=`Apenas estamos empezando a hablar,
+pero hay algo tranquilo en tu forma de escribir.
+
+No sé cómo suena tu voz,
+ni cómo se escucha tu risa,
+pero sé que me gusta leerte.
+
+Y por ahora,
+eso es más que suficiente.`;
+
+let i=0;
+function escribirPoema(){
+    if(i<texto.length){
+        document.getElementById("poema").innerHTML+=texto.charAt(i);
+        i++;
+        setTimeout(escribirPoema,60); /* MÁS LENTO */
+    }
+}
+
+/* Corazones constantes */
+setInterval(()=>{
+    let corazon=document.createElement("div");
+    corazon.className="corazon";
+    corazon.innerHTML="🤍";
+    corazon.style.left=Math.random()*100+"vw";
+    document.body.appendChild(corazon);
+    setTimeout(()=>{corazon.remove();},8000);
+},2000);
+
+/* Música */
+let audio=document.getElementById("musica");
+function toggleMusica(){
+    if(audio.paused){
+        audio.play();
+        crearNotas();
+    }else{
+        audio.pause();
+    }
+}
+
+function crearNotas(){
+    let intervalo=setInterval(()=>{
+        if(audio.paused){
+            clearInterval(intervalo);
+            return;
+        }
+        let nota=document.createElement("div");
+        nota.className="nota";
+        nota.innerHTML="♪";
+        nota.style.right=Math.random()*100+"px";
+        document.body.appendChild(nota);
+        setTimeout(()=>{nota.remove();},3000);
+    },800);
+}
+
+</script>
+
+</body>
+</html>
