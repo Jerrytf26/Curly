@@ -1,220 +1,107 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Flores Azules</title>
-<link rel="stylesheet" href="css/main.css">
-<link rel="icon" href="img/flowers.png" type="image/x-icon">
-
-<style>
-
-/* 🌌 FONDO NOCHE */
-body{
-  margin:0;
-  background: radial-gradient(circle at top, #0a0f1f, #060a16 70%);
-  overflow-x:hidden;
-}
-
-/* 🔐 LOGIN */
-.login-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(10,15,30,0.96);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  font-family:Georgia, serif;
-}
-
-.login-box{
-  background:#0f1c33;
-  padding:35px 30px;
-  border-radius:18px;
-  box-shadow:0 0 35px #1e90ff55;
-  text-align:center;
-  color:#9ed8ff;
-}
-
-.login-box input{
-  padding:8px 12px;
-  border-radius:8px;
-  border:1px solid #3fa9f5;
-  background:#091427;
-  color:#9ed8ff;
-  margin-bottom:10px;
-}
-
-.login-box button{
-  padding:8px 18px;
-  border:none;
-  border-radius:8px;
-  background:#1e90ff;
-  color:white;
-  cursor:pointer;
-}
-
-.error{
-  color:#ff6b81;
-  margin-top:10px;
-}
-
-/* 💙 POEMA */
-.poema-contenedor{
-  position:fixed;
-  top:30px;
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  z-index:10;
-  font-family:Georgia, serif;
-}
-
-.poema-parte{
-  opacity:0;
-  background:rgba(30,144,255,0.15);
-  backdrop-filter:blur(6px);
-  color:#bfe9ff;
-  padding:10px 28px;
-  border-radius:20px;
-  margin:6px 0;
-  font-style:italic;
-  font-weight:bold;
-  transition:opacity 1s, transform 1s;
-  transform:translateY(-20px);
-  box-shadow:0 0 20px #1e90ff55;
-}
-
-.poema-parte.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* 💙 FLORES AZULES (NO TOCA ANIMACIÓN) */
-
-.flower__leaf,
-.flower__leafs,
-.flower__white-circle{
-  background:none!important;
-}
-
-.flower__leaf--1,
-.flower__leaf--2,
-.flower__leaf--3,
-.flower__leaf--4,
-.flower__leafs--1 .flower__leaf,
-.flower__leafs--2 .flower__leaf,
-.flower__leafs--3 .flower__leaf{
-  background:#3FA9F5!important;
-  box-shadow:0 0 20px #4fc3ff,0 0 50px #1e90ff88;
-  border:2px solid #8ed6ff;
-}
-
-.flower__white-circle{
-  background:#a8e6ff!important;
-  box-shadow:0 0 35px #60caff;
-  border:2px solid #7dd3ff;
-}
-
-.flower__light{
-  background:#d4f1ff!important;
-  box-shadow:0 0 15px #b8ecff;
-}
-
-/* Tallos */
-.flower__line,
-.flower__line__leaf,
-.flower__g-long__top,
-.flower__g-long__bottom,
-.flower__g-right,
-.flower__g-front__line,
-.flower__g-fr__leaf,
-.flower__grass--top,
-.flower__grass--bottom,
-.flower__grass__leaf{
-  background:#1e8449!important;
-}
-
-/* Aura azul */
-.flowers{
-  filter:drop-shadow(0 0 35px #3fa9f5aa);
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="login-overlay" id="loginOverlay">
-  <form class="login-box" onsubmit="return checkPass(event)">
-    <h2>🌌 Bienvenida 🌌</h2>
-    <input type="password" id="passInput" placeholder="Contraseña..." autofocus>
-    <br>
-    <button type="submit">Entrar</button>
-    <div class="error" id="loginError"></div>
-  </form>
-</div>
-
-<audio id="musicaFondo" src="lana.mp3" preload="auto" loop></audio>
-
-<div class="poema-contenedor" id="poemaCont"></div>
-
-<!-- IMPORTANTE: NO BORRES ESTO -->
-<div class="night"></div>
-
-<div class="flowers">
-  <!-- PEGA AQUÍ TODO TU CÓDIGO ORIGINAL DE FLORES COMPLETO -->
-</div>
-
-<script src="main.js"></script>
-
-<script>
-
-const partesPoema = [
-  "No todas las flores nacen para el día...",
-  "algunas esperan la noche para brillar.",
-  "Azules. Silenciosas. Firmes.",
-  "No buscan atención, pero cuando florecen...",
-  "es imposible no mirarlas.",
-  "Eres de esas.",
-  "Y aunque el mundo no lo note siempre...",
-  "yo sí. 💙"
-];
-
-function mostrarPoema(){
-  const cont = document.getElementById("poemaCont");
-  let i=0;
-  function mostrar(){
-    if(i>=partesPoema.length) return;
-    const div=document.createElement("div");
-    div.className="poema-parte";
-    div.textContent=partesPoema[i];
-    cont.appendChild(div);
-    setTimeout(()=>div.classList.add("visible"),100);
-    i++;
-    setTimeout(mostrar,2000);
-  }
-  mostrar();
-}
-
-function checkPass(e){
-  e.preventDefault();
-  const pass=document.getElementById("passInput").value;
-  const error=document.getElementById("loginError");
-  if(pass==="amiga"){
-    document.getElementById("loginOverlay").style.display="none";
-    mostrarPoema();
-    const musica=document.getElementById("musicaFondo");
-    musica.volume=0.4;
-    musica.play();
-  }else{
-    error.textContent="Contraseña incorrecta.";
-  }
-  return false;
-}
-
-</script>
-
-</body>
-</html>
+‎<!DOCTYPE html>
+‎<html lang="en">
+‎<head>
+‎    <meta charset="UTF-8">
+‎    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+‎    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+‎    <link rel="stylesheet" href="css/main.css">
+‎    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+‎    <title>flowers</title>
+‎</head>
+‎<body class="container">
+‎  <!-- Pembuat code: https://codepen.io/mdusmanansari/pen/BamepLe -->
+‎    <div class="night"></div>
+‎    <div class="flowers">
+‎      <div class="flower flower--1">
+‎        <div class="flower__leafs flower__leafs--1">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--5"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--6"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="flower flower--2">
+‎        <div class="flower__leafs flower__leafs--2">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="flower flower--3">
+‎        <div class="flower__leafs flower__leafs--3">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="grow-ans" style="--d:1.2s">
+‎        <div class="flower__g-long">
+‎          <div class="flower__g-long__top"></div>
+‎          <div class="flower__g-long__bottom"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="growing-grass">
+‎        <div class="flower__grass flower__grass--1">
+‎          <div class="flower__grass--top"></div>
+‎          <div class="flower__grass--bottom"></div>
+‎          <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+‎          <div class="flower__grass__leaf flower__grass__leaf--2">
