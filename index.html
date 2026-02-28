@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Annhaïi</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="stylesheet">
 
 <style>
 body{
@@ -16,7 +16,7 @@ body{
   overflow-x:hidden;
 }
 
-/* Luz dorada más visible pero elegante */
+/* Luz dorada de fondo */
 body::before{
   content:"";
   position:fixed;
@@ -65,15 +65,23 @@ input{
   outline:none;
 }
 
-/* Contenido */
+button.entrarBtn {
+  padding: 10px 25px;
+  border-radius: 15px;
+  border: none;
+  background: #d4af37;
+  color: white;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Contenido Principal */
 #contenido{
   display:none;
   padding:100px 20px 140px;
-  display:flex;
   justify-content:center;
 }
 
-/* Caja vidrio dorada */
 .poemaBox{
   background:rgba(255,255,255,0.65);
   backdrop-filter: blur(22px);
@@ -84,7 +92,6 @@ input{
   border:1px solid rgba(212,175,55,0.5);
 }
 
-/* Texto */
 #poema{
   font-family:'Cormorant Garamond', serif;
   font-style:italic;
@@ -94,7 +101,6 @@ input{
   white-space:pre-line;
 }
 
-/* Cursor */
 .cursor{
   display:inline-block;
   width:8px;
@@ -108,20 +114,21 @@ input{
   25%,75%{opacity:0;}
 }
 
-/* Corazones */
+/* MEJORA: Corazones más visibles */
 .corazon{
   position:fixed;
   bottom:-20px;
-  font-size:1.1em;
+  font-size:1.4em;
   animation:subir 6s linear forwards;
-  opacity:0.45;
+  opacity:0.7; /* Más sólido */
   pointer-events:none;
   color:#d4af37;
+  text-shadow: 0 0 5px rgba(212,175,55,0.3);
 }
 
 @keyframes subir{
-  0%{transform:translateY(0);}
-  100%{transform:translateY(-100vh);}
+  0%{transform:translateY(0) scale(1);}
+  100%{transform:translateY(-110vh) scale(1.2);}
 }
 
 /* Notas musicales */
@@ -141,7 +148,7 @@ input{
   100%{transform:translateY(-150px) rotate(20deg); opacity:0;}
 }
 
-/* Botón música */
+/* MEJORA: Botón música mucho más visible */
 .musicBtn{
   position:fixed;
   bottom:35px;
@@ -149,18 +156,22 @@ input{
   width:75px;
   height:75px;
   border-radius:50%;
-  border:1px solid rgba(212,175,55,0.6);
-  background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(18px);
-  box-shadow:0 12px 35px rgba(180,150,90,0.25);
-  font-size:1.6em;
-  cursor:pointer;
-  transition:0.3s;
-  color:#9c7b2f;
+  border: 2px solid #9c7b2f;
+  background: #ffffff; /* Fondo blanco sólido */
+  box-shadow: 0 10px 30px rgba(180,150,90,0.4);
+  font-size: 1.8em;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #9c7b2f;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .musicBtn:hover{
-  transform:scale(1.08);
+  transform:scale(1.1);
+  background: #fdfaf4;
 }
 </style>
 </head>
@@ -172,7 +183,7 @@ input{
     <h2>Ingresa la contraseña ✨</h2>
     <input type="password" id="password">
     <br><br>
-    <button onclick="checkPassword()">Entrar</button>
+    <button class="entrarBtn" onclick="checkPassword()">Entrar</button>
   </div>
 </div>
 
@@ -183,10 +194,10 @@ input{
 </div>
 
 <button class="musicBtn" onclick="toggleMusic()">♪</button>
-<audio id="musica" src="lana.mp3"></audio>
+<!-- Asegúrate de tener el archivo lana.mp3 en la misma carpeta -->
+<audio id="musica" src="lana.mp3" loop></audio>
 
 <script>
-
 const texto = `Annhaïi,
 
 No llevamos mucho tiempo hablando,
@@ -216,7 +227,7 @@ function escribir(){
 
   if(i < texto.length){
     i++;
-    setTimeout(escribir, 110); /* MÁS LENTO */
+    setTimeout(escribir, 110);
   }else{
     poema.innerHTML = texto;
     mostrarFinal();
@@ -238,7 +249,7 @@ function mostrarFinal(){
 
 function checkPassword(){
   const pass = document.getElementById("password").value;
-  if(pass === "lana del rey"){
+  if(pass.toLowerCase() === "lana del rey"){
     document.getElementById("lockScreen").style.display="none";
     document.getElementById("contenido").style.display="flex";
     escribir();
@@ -250,7 +261,6 @@ function checkPassword(){
 
 function toggleMusic(){
   const audio = document.getElementById("musica");
-
   if(audio.paused){
     audio.play();
     intervaloNotas = setInterval(crearNota, 800);
@@ -270,17 +280,20 @@ function crearNota(){
   setTimeout(()=>nota.remove(),3500);
 }
 
+// MEJORA: Corazones más frecuentes (cada 700ms)
 function lanzarCorazones(){
   setInterval(()=>{
     const heart=document.createElement("div");
     heart.classList.add("corazon");
     heart.innerHTML="♡";
     heart.style.left=Math.random()*100+"vw";
+    // Variación sutil de tamaño
+    const size = Math.random() * (1.8 - 1) + 1;
+    heart.style.transform = `scale(${size})`;
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),6000);
-  },2000);
+  }, 700); 
 }
-
 </script>
 
 </body>
