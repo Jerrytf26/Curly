@@ -4,191 +4,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Annhaïi</title>
-
 <link href="https://fonts.googleapis.com" rel="stylesheet">
-
 <style>
-body{
-  margin:0;
-  min-height:100vh;
-  /* Fondo oscuro elegante para que resalte el dorado */
-  background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
-  font-family: 'Playfair Display', serif;
-  overflow-x:hidden;
-  color: #e0c068;
-}
+  body {
+    margin: 0; min-height: 100vh;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+    font-family: 'Playfair Display', serif; overflow-x: hidden; color: #e0c068;
+  }
+  #lockScreen {
+    position: fixed; inset: 0; background: #0f0f1a;
+    display: flex; justify-content: center; align-items: center; z-index: 2000;
+  }
+  .lockBox {
+    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+    padding: 40px; border-radius: 20px; text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  input { padding: 12px; border-radius: 10px; border: 1px solid #d4af37; background: rgba(0,0,0,0.3); color: white; margin-bottom: 20px; outline: none; }
+  .entrarBtn { background: #d4af37; color: #0f0f1a; border: none; padding: 10px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+  
+  #contenido { display: none; padding: 60px 20px; flex-direction: column; align-items: center; min-height: 100vh; }
+  .poemaBox { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border-radius: 25px; padding: 40px; max-width: 500px; border: 1px solid rgba(212, 175, 55, 0.15); margin-bottom: 40px; }
+  #poema { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.4em; line-height: 1.8em; white-space: pre-line; }
+  .cursor { display: inline-block; width: 3px; height: 1.2em; background: #d4af37; animation: blink 1s infinite; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-/* Resplandor ambiental */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1), transparent 70%);
-  pointer-events:none;
-}
+  /* FLORES ANIMADAS */
+  .flower-container { position: relative; width: 200px; height: 200px; display: none; margin-top: 20px; }
+  .flower { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .petal { 
+    position: absolute; background: #d4af37; width: 40px; height: 70px; 
+    border-radius: 50% 50% 10% 10%; opacity: 0; transform-origin: bottom center;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  }
+  .center { 
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 25px; height: 25px; background: #ffcc33; border-radius: 50%; z-index: 10;
+    box-shadow: 0 0 20px #ffcc33; opacity: 0;
+  }
+  @keyframes bloom { to { opacity: 0.8; transform: rotate(var(--r)) translateY(-35px) scale(1); } }
 
-/* Pantalla de bloqueo */
-#lockScreen{
-  position:fixed;
-  inset:0;
-  background:#0f0f1a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
+  /* CORAZONES */
+  .corazon { position: fixed; bottom: -50px; font-size: 1.5em; animation: float 7s linear forwards; color: #ffcc33; text-shadow: 0 0 10px #ffcc33; pointer-events: none; }
+  @keyframes float { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 10% { opacity: 0.8; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
 
-.lockBox{
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
-}
-
-.lockBox h2 { color: #d4af37; margin-bottom: 20px; font-weight: normal; }
-
-input{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #d4af37;
-  background: rgba(0,0,0,0.3);
-  color: white;
-  text-align: center;
-  outline: none;
-  margin-bottom: 20px;
-}
-
-.entrarBtn {
-  background: #d4af37;
-  color: #0f0f1a;
-  border: none;
-  padding: 10px 30px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-/* Contenedor del Poema */
-#contenido{
-  display:none;
-  padding: 60px 20px;
-  justify-content:center;
-  min-height: 100vh;
-  align-items: center;
-}
-
-.poemaBox{
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 40px;
-  max-width: 500px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-#poema{
-  font-family:'Cormorant Garamond', serif;
-  font-style:italic;
-  font-size:1.4em;
-  color:#e0c068;
-  line-height:1.8em;
-  white-space:pre-line;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-}
-
-/* Cursor de escritura */
-.cursor{
-  display:inline-block;
-  width:3px;
-  height: 1.2em;
-  background:#d4af37;
-  margin-left:4px;
-  vertical-align: middle;
-  animation:parpadear 1s infinite;
-}
-
-@keyframes parpadear{ 50%{opacity:0;} }
-
-/* CORAZONES: Brillantes para fondo oscuro */
-.corazon{
-  position:fixed;
-  bottom:-50px;
-  font-size:1.5em;
-  animation:subir 7s linear forwards;
-  opacity:0;
-  pointer-events:none;
-  color:#ffcc33; /* Dorado brillante */
-  text-shadow: 0 0 15px #ffcc33, 0 0 5px white; /* Efecto neón/brillo */
-}
-
-@keyframes subir{
-  0%{ transform: translateY(0) scale(0.5); opacity: 0; }
-  10%{ opacity: 0.8; }
-  90%{ opacity: 0.8; }
-  100%{ transform: translateY(-110vh) scale(1.2); opacity: 0; }
-}
-
-/* BOTÓN MÚSICA: Muy visible */
-.musicBtn{
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  border: 2px solid #d4af37;
-  background: #d4af37; /* Fondo dorado sólido */
-  color: #1a1a2e; /* Icono oscuro para contraste */
-  font-size: 1.5em;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-  z-index: 2000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s;
-}
-
-.musicBtn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
-
-/* Notas musicales */
-.nota{
-  position:fixed;
-  bottom:100px;
-  right:45px;
-  font-size:1.2em;
-  color:#d4af37;
-  animation:subirNota 3s ease-out forwards;
-  pointer-events:none;
-}
-
-@keyframes subirNota{
-  0%{transform:translateY(0); opacity:0;}
-  20%{opacity:1;}
-  100%{transform:translateY(-100px) translateX(-20px); opacity:0;}
-}
+  .musicBtn { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: #d4af37; color: #1a1a2e; border: none; font-size: 1.5em; cursor: pointer; z-index: 3000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
 </style>
 </head>
-
 <body>
 
 <div id="lockScreen">
   <div class="lockBox">
     <h2>Para Annhaïi ✨</h2>
     <input type="password" id="password" placeholder="Contraseña...">
-    <br>
-    <button class="entrarBtn" onclick="checkPassword()">Entrar</button>
+    <br><button class="entrarBtn" onclick="checkPassword()">Entrar</button>
   </div>
 </div>
 
 <div id="contenido">
-  <div class="poemaBox">
-    <div id="poema"></div>
+  <div class="poemaBox"><div id="poema"></div></div>
+  <div class="flower-container" id="flowerContainer">
+    <div class="flower" id="flower"></div>
+    <div class="center" id="flowerCenter"></div>
   </div>
 </div>
 
@@ -196,103 +73,56 @@ input{
 <audio id="musica" src="lana.mp3" loop></audio>
 
 <script>
-const texto = `Annhaïi,
-
-No llevamos mucho tiempo hablando,
-pero hay algo en nuestras conversaciones
-que se siente ligero y bonito.
-
-Me gusta cómo empieza el día
-cuando veo un mensaje tuyo,
-como si el momento
-se volviera un poco más interesante.
-
-No es algo exagerado,
-solo una sensación tranquila
-que me agrada.
-
-Y por ahora,
-eso es suficiente.
-
-Me gusta coincidir contigo.`;
-
+const texto = `Annhaïi, \n\nNo llevamos mucho tiempo hablando, \npero hay algo en nuestras conversaciones \nque se siente ligero y bonito... \n\nMe gusta coincidir contigo.`;
 let i = 0;
-let intervaloNotas;
 
-function escribir(){
-  const poema = document.getElementById("poema");
-  if(i < texto.length){
-    poema.innerHTML = texto.substring(0, i) + '<span class="cursor"></span>';
-    i++;
-    setTimeout(escribir, 80); 
+function escribir() {
+  if (i < texto.length) {
+    document.getElementById("poema").innerHTML = texto.substring(0, i) + '<span class="cursor"></span>';
+    i++; setTimeout(escribir, 80);
   } else {
-    poema.innerHTML = texto;
-    mostrarFinal();
+    document.getElementById("poema").innerHTML = texto;
+    crearFlores();
   }
 }
 
-function mostrarFinal(){
-  setTimeout(()=>{
-    const final = document.createElement("div");
-    final.style.marginTop="30px";
-    final.style.opacity="0";
-    final.style.transition="2s";
-    final.style.color="#ffcc33";
-    final.style.fontSize="1.1em";
-    final.innerText="Gracias por coincidir conmigo ✨";
-    document.getElementById("poema").appendChild(final);
-    setTimeout(()=>final.style.opacity="1",100);
-  },1000);
+function crearFlores() {
+  const container = document.getElementById("flowerContainer");
+  const flower = document.getElementById("flower");
+  container.style.display = "block";
+  
+  for (let j = 0; j < 8; j++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.setProperty('--r', `${j * 45}deg`);
+    petal.style.animation = `bloom 2s ease-out forwards ${j * 0.2}s`;
+    flower.appendChild(petal);
+  }
+  setTimeout(() => document.getElementById("flowerCenter").style.opacity = "1", 1500);
 }
 
-function checkPassword(){
-  const pass = document.getElementById("password").value;
-  // Acepta "lana del rey" sin importar mayúsculas
-  if(pass.toLowerCase() === "lana del rey"){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("contenido").style.display="flex";
-    escribir();
-    lanzarCorazones();
-  } else {
-    alert("Pista: Es tu artista favorita ✨");
+function checkPassword() {
+  if (document.getElementById("password").value.toLowerCase() === "lana del rey") {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("contenido").style.display = "flex";
+    escribir(); lanzarCorazones();
   }
 }
 
-function toggleMusic(){
-  const audio = document.getElementById("musica");
-  if(audio.paused){
-    audio.play();
-    intervaloNotas = setInterval(crearNota, 600);
-  }else{
-    audio.pause();
-    clearInterval(intervaloNotas);
-  }
+function lanzarCorazones() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "corazon"; h.innerHTML = "❤";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+  }, 600);
 }
 
-function crearNota(){
-  const nota = document.createElement("div");
-  nota.classList.add("nota");
-  const simbolos = ["♪","♫","♩"];
-  nota.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
-  document.body.appendChild(nota);
-  setTimeout(()=>nota.remove(),3000);
-}
-
-function lanzarCorazones(){
-  setInterval(()=>{
-    const heart = document.createElement("div");
-    heart.classList.add("corazon");
-    // Alternar entre corazón relleno y contorno
-    heart.innerHTML = Math.random() > 0.5 ? "❤" : "♡";
-    heart.style.left = Math.random() * 100 + "vw";
-    // Tamaños variados
-    const size = Math.random() * (1.5 - 0.8) + 0.8;
-    heart.style.transform = `scale(${size})`;
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 7000);
-  }, 500); // Salen muy seguido
+function toggleMusic() {
+  const a = document.getElementById("musica");
+  a.paused ? a.play() : a.pause();
 }
 </script>
-
 </body>
 </html>
