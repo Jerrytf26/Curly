@@ -1,1 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at bottom, #0a0f2c, #000);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
 
+.login {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #1e90ff;
+    color: white;
+    cursor: pointer;
+}
+
+.contenido {
+    display: none;
+    position: relative;
+    top: 30%;
+}
+
+/* 🌸 FLORES AZULES */
+.flor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #1e90ff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: caer 10s linear infinite;
+}
+
+@keyframes caer {
+    0% {
+        transform: translateY(-100px);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
