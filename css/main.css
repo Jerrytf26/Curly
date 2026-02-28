@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Annhaïi</title>
+
+<link href="https://fonts.googleapis.com" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background: linear-gradient(135deg, #ffffff, #f7f1e8, #f0e6d8);
+  font-family: 'Playfair Display', serif;
+  overflow-x:hidden;
+}
+
+/* Luz dorada de fondo */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at 30% 40%, rgba(255,215,130,0.35), transparent 60%);
+  animation:moverLuz 16s infinite alternate ease-in-out;
+  pointer-events:none;
+}
+
+@keyframes moverLuz{
+  from{transform:translateX(-60px);}
+  to{transform:translateX(60px);}
+}
+
+/* Pantalla contraseña */
+#lockScreen{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ffffff,#f6efe6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
+}
+
+.lockBox{
+  background:rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  padding:45px;
+  border-radius:25px;
+  box-shadow:0 15px 50px rgba(180,150,90,0.2);
+  text-align:center;
+  border:1px solid rgba(212,175,55,0.45);
+}
+
+.lockBox h2{
+  color:#9c7b2f;
+  font-weight:normal;
+}
+
+input{
+  padding:12px;
+  border-radius:15px;
+  border:1px solid rgba(212,175,55,0.5);
+  background:rgba(255,255,255,0.9);
+  outline:none;
+}
+
+button.entrarBtn {
+  padding: 10px 25px;
+  border-radius: 15px;
+  border: none;
+  background: #d4af37;
+  color: white;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Contenido Principal */
+#contenido{
+  display:none;
+  padding:100px 20px 140px;
+  justify-content:center;
+}
+
+.poemaBox{
+  background:rgba(255,255,255,0.65);
+  backdrop-filter: blur(22px);
+  border-radius:35px;
+  padding:60px;
+  max-width:580px;
+  box-shadow:0 25px 70px rgba(180,150,90,0.2);
+  border:1px solid rgba(212,175,55,0.5);
+}
+
+#poema{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.3em;
+  color:#7a5c1f;
+  line-height:2.1em;
+  white-space:pre-line;
+}
+
+.cursor{
+  display:inline-block;
+  width:8px;
+  background:#c9a227;
+  margin-left:4px;
+  animation:parpadear 1s infinite;
+}
+
+@keyframes parpadear{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
+}
+
+/* MEJORA: Corazones más visibles */
+.corazon{
+  position:fixed;
+  bottom:-20px;
+  font-size:1.4em;
+  animation:subir 6s linear forwards;
+  opacity:0.7; /* Más sólido */
+  pointer-events:none;
+  color:#d4af37;
+  text-shadow: 0 0 5px rgba(212,175,55,0.3);
+}
+
+@keyframes subir{
+  0%{transform:translateY(0) scale(1);}
+  100%{transform:translateY(-110vh) scale(1.2);}
+}
+
+/* Notas musicales */
+.nota{
+  position:fixed;
+  bottom:95px;
+  font-size:1.2em;
+  animation:subirNota 3.5s linear forwards;
+  opacity:0.9;
+  pointer-events:none;
+  color:#caa133;
+}
+
+@keyframes subirNota{
+  0%{transform:translateY(0) rotate(0deg); opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-150px) rotate(20deg); opacity:0;}
+}
+
+/* MEJORA: Botón música mucho más visible */
+.musicBtn{
+  position:fixed;
+  bottom:35px;
+  right:35px;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border: 2px solid #9c7b2f;
+  background: #ffffff; /* Fondo blanco sólido */
+  box-shadow: 0 10px 30px rgba(180,150,90,0.4);
+  font-size: 1.8em;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #9c7b2f;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.musicBtn:hover{
+  transform:scale(1.1);
+  background: #fdfaf4;
+}
+</style>
+</head>
+
+<body>
+
+<div id="lockScreen">
+  <div class="lockBox">
+    <h2>Ingresa la contraseña ✨</h2>
+    <input type="password" id="password">
+    <br><br>
+    <button class="entrarBtn" onclick="checkPassword()">Entrar</button>
+  </div>
+</div>
+
+<div id="contenido">
+  <div class="poemaBox">
+    <div id="poema"></div>
+  </div>
+</div>
+
+<button class="musicBtn" onclick="toggleMusic()">♪</button>
+<!-- Asegúrate de tener el archivo lana.mp3 en la misma carpeta -->
+<audio id="musica" src="lana.mp3" loop></audio>
+
+<script>
+const texto = `Annhaïi,
+
+No llevamos mucho tiempo hablando,
+pero hay algo en nuestras conversaciones
+que se siente ligero y bonito.
+
+Me gusta cómo empieza el día
+cuando veo un mensaje tuyo,
+como si el momento
+se volviera un poco más interesante.
+
+No es algo exagerado,
+solo una sensación tranquila
+que me agrada.
+
+Y por ahora,
+eso es suficiente.
+
+Me gusta coincidir contigo.`;
+
+let i = 0;
+let intervaloNotas;
+
+function escribir(){
+  const poema = document.getElementById("poema");
+  poema.innerHTML = texto.substring(0, i) + '<span class="cursor"></span>';
+
+  if(i < texto.length){
+    i++;
+    setTimeout(escribir, 110);
+  }else{
+    poema.innerHTML = texto;
+    mostrarFinal();
+  }
+}
+
+function mostrarFinal(){
+  setTimeout(()=>{
+    const final = document.createElement("div");
+    final.style.marginTop="35px";
+    final.style.opacity="0";
+    final.style.transition="1.5s";
+    final.style.color="#b8902c";
+    final.innerText="Gracias por coincidir conmigo ✨";
+    document.getElementById("poema").appendChild(final);
+    setTimeout(()=>final.style.opacity="1",100);
+  },1000);
+}
+
+function checkPassword(){
+  const pass = document.getElementById("password").value;
+  if(pass.toLowerCase() === "lana del rey"){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("contenido").style.display="flex";
+    escribir();
+    lanzarCorazones();
+  } else {
+    alert("Contraseña incorrecta");
+  }
+}
+
+function toggleMusic(){
+  const audio = document.getElementById("musica");
+  if(audio.paused){
+    audio.play();
+    intervaloNotas = setInterval(crearNota, 800);
+  }else{
+    audio.pause();
+    clearInterval(intervaloNotas);
+  }
+}
+
+function crearNota(){
+  const nota = document.createElement("div");
+  nota.classList.add("nota");
+  const simbolos = ["♪","♫","♩"];
+  nota.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
+  nota.style.right = "45px";
+  document.body.appendChild(nota);
+  setTimeout(()=>nota.remove(),3500);
+}
+
+// MEJORA: Corazones más frecuentes (cada 700ms)
+function lanzarCorazones(){
+  setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.classList.add("corazon");
+    heart.innerHTML="♡";
+    heart.style.left=Math.random()*100+"vw";
+    // Variación sutil de tamaño
+    const size = Math.random() * (1.8 - 1) + 1;
+    heart.style.transform = `scale(${size})`;
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  }, 700); 
+}
+</script>
+
+</body>
+</html>
+                               
