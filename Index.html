@@ -3,224 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Un pequeño detalle</title>
+<title>Para Annhaïi</title>
 
-<!-- Fuente elegante -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
-
-/* Fondo blanco vintage */
 body{
-    margin:0;
-    background:linear-gradient(to bottom,#ffffff,#f5efe6);
-    font-family:'Cormorant Garamond',serif;
-    overflow-x:hidden;
-    color:#5a4633;
+  margin:0;
+  min-height:100vh;
+  background: linear-gradient(135deg, #ffffff, #f7f1e8, #f0e6d8);
+  font-family: 'Playfair Display', serif;
+  overflow-x:hidden;
+}
+
+/* Luz dorada más visible pero elegante */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at 30% 40%, rgba(255,215,130,0.35), transparent 60%);
+  animation:moverLuz 16s infinite alternate ease-in-out;
+  pointer-events:none;
+}
+
+@keyframes moverLuz{
+  from{transform:translateX(-60px);}
+  to{transform:translateX(60px);}
 }
 
 /* Pantalla contraseña */
-#pantalla{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:linear-gradient(to bottom,#fdfaf6,#efe6d8);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:100;
+#lockScreen{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ffffff,#f6efe6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
 }
 
-.contenedor-password{
-    background:rgba(255,255,255,0.6);
-    backdrop-filter:blur(10px);
-    border:1px solid #d4c2a8;
-    padding:40px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(120,90,50,0.15);
-    text-align:center;
+.lockBox{
+  background:rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  padding:45px;
+  border-radius:25px;
+  box-shadow:0 15px 50px rgba(180,150,90,0.2);
+  text-align:center;
+  border:1px solid rgba(212,175,55,0.45);
+}
+
+.lockBox h2{
+  color:#9c7b2f;
+  font-weight:normal;
 }
 
 input{
-    padding:12px;
-    border:none;
-    border-bottom:1px solid #b89c74;
-    background:transparent;
-    outline:none;
-    font-size:18px;
-    text-align:center;
-    font-family:'Playfair Display',serif;
-}
-
-button{
-    margin-top:20px;
-    padding:10px 25px;
-    border:1px solid #b89c74;
-    background:transparent;
-    cursor:pointer;
-    font-family:'Playfair Display',serif;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#e8dcc8;
+  padding:12px;
+  border-radius:15px;
+  border:1px solid rgba(212,175,55,0.5);
+  background:rgba(255,255,255,0.9);
+  outline:none;
 }
 
 /* Contenido */
 #contenido{
-    display:none;
-    text-align:center;
-    padding:60px 20px;
+  display:none;
+  padding:100px 20px 140px;
+  display:flex;
+  justify-content:center;
 }
 
-/* Poema */
+/* Caja vidrio dorada */
+.poemaBox{
+  background:rgba(255,255,255,0.65);
+  backdrop-filter: blur(22px);
+  border-radius:35px;
+  padding:60px;
+  max-width:580px;
+  box-shadow:0 25px 70px rgba(180,150,90,0.2);
+  border:1px solid rgba(212,175,55,0.5);
+}
+
+/* Texto */
 #poema{
-    font-family:'Playfair Display',serif;
-    font-style:italic;
-    font-size:22px;
-    max-width:600px;
-    margin:auto;
-    line-height:1.8;
-    min-height:200px;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.3em;
+  color:#7a5c1f;
+  line-height:2.1em;
+  white-space:pre-line;
 }
 
-/* Botón música elegante */
-#btnMusica{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:rgba(255,255,255,0.6);
-    border:1px solid #c9b38f;
-    padding:10px 15px;
-    border-radius:30px;
-    cursor:pointer;
-    backdrop-filter:blur(6px);
-    transition:0.3s;
+/* Cursor */
+.cursor{
+  display:inline-block;
+  width:8px;
+  background:#c9a227;
+  margin-left:4px;
+  animation:parpadear 1s infinite;
 }
 
-#btnMusica:hover{
-    background:#f0e6d8;
+@keyframes parpadear{
+  0%,50%,100%{opacity:1;}
+  25%,75%{opacity:0;}
 }
 
-/* Corazones transparentes */
+/* Corazones */
 .corazon{
-    position:fixed;
-    bottom:-40px;
-    font-size:20px;
-    opacity:0.4;
-    animation:subir 8s linear forwards;
-    pointer-events:none;
+  position:fixed;
+  bottom:-20px;
+  font-size:1.1em;
+  animation:subir 6s linear forwards;
+  opacity:0.45;
+  pointer-events:none;
+  color:#d4af37;
 }
 
 @keyframes subir{
-    0%{transform:translateY(0) scale(1);}
-    100%{transform:translateY(-100vh) scale(1.3); opacity:0;}
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
 }
 
 /* Notas musicales */
 .nota{
-    position:fixed;
-    bottom:60px;
-    right:50px;
-    font-size:18px;
-    animation:notaSube 3s linear forwards;
+  position:fixed;
+  bottom:95px;
+  font-size:1.2em;
+  animation:subirNota 3.5s linear forwards;
+  opacity:0.9;
+  pointer-events:none;
+  color:#caa133;
 }
 
-@keyframes notaSube{
-    0%{transform:translateY(0); opacity:1;}
-    100%{transform:translateY(-100px); opacity:0;}
+@keyframes subirNota{
+  0%{transform:translateY(0) rotate(0deg); opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-150px) rotate(20deg); opacity:0;}
 }
 
+/* Botón música */
+.musicBtn{
+  position:fixed;
+  bottom:35px;
+  right:35px;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border:1px solid rgba(212,175,55,0.6);
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(18px);
+  box-shadow:0 12px 35px rgba(180,150,90,0.25);
+  font-size:1.6em;
+  cursor:pointer;
+  transition:0.3s;
+  color:#9c7b2f;
+}
+
+.musicBtn:hover{
+  transform:scale(1.08);
+}
 </style>
 </head>
+
 <body>
 
-<div id="pantalla">
-    <div class="contenedor-password">
-        <h2>Un pequeño detalle 🤎</h2>
-        <p>Ingresa la contraseña</p>
-        <input type="password" id="password">
-        <br>
-        <button onclick="verificar()">Entrar</button>
-    </div>
+<div id="lockScreen">
+  <div class="lockBox">
+    <h2>Ingresa la contraseña ✨</h2>
+    <input type="password" id="password">
+    <br><br>
+    <button onclick="checkPassword()">Entrar</button>
+  </div>
 </div>
 
 <div id="contenido">
+  <div class="poemaBox">
     <div id="poema"></div>
+  </div>
 </div>
 
-<button id="btnMusica" onclick="toggleMusica()">🎵 Música</button>
-
+<button class="musicBtn" onclick="toggleMusic()">♪</button>
 <audio id="musica" src="lana.mp3"></audio>
 
 <script>
 
-function verificar(){
-    let pass=document.getElementById("password").value;
-    if(pass==="lana del rey"){
-        document.getElementById("pantalla").style.display="none";
-        document.getElementById("contenido").style.display="block";
-        escribirPoema();
-    }else{
-        alert("Contraseña incorrecta 🤎");
-    }
-}
+const texto = `Annhaïi,
 
-/* Poema más sutil */
-let texto=`Apenas estamos empezando a hablar,
-pero hay algo tranquilo en tu forma de escribir.
+No llevamos mucho tiempo hablando,
+pero hay algo en nuestras conversaciones
+que se siente ligero y bonito.
 
-No sé cómo suena tu voz,
-ni cómo se escucha tu risa,
-pero sé que me gusta leerte.
+Me gusta cómo empieza el día
+cuando veo un mensaje tuyo,
+como si el momento
+se volviera un poco más interesante.
+
+No es algo exagerado,
+solo una sensación tranquila
+que me agrada.
 
 Y por ahora,
-eso es más que suficiente.`;
+eso es suficiente.
 
-let i=0;
-function escribirPoema(){
-    if(i<texto.length){
-        document.getElementById("poema").innerHTML+=texto.charAt(i);
-        i++;
-        setTimeout(escribirPoema,60); /* MÁS LENTO */
-    }
+Me gusta coincidir contigo.`;
+
+let i = 0;
+let intervaloNotas;
+
+function escribir(){
+  const poema = document.getElementById("poema");
+  poema.innerHTML = texto.substring(0, i) + '<span class="cursor"></span>';
+
+  if(i < texto.length){
+    i++;
+    setTimeout(escribir, 110); /* MÁS LENTO */
+  }else{
+    poema.innerHTML = texto;
+    mostrarFinal();
+  }
 }
 
-/* Corazones constantes */
-setInterval(()=>{
-    let corazon=document.createElement("div");
-    corazon.className="corazon";
-    corazon.innerHTML="🤍";
-    corazon.style.left=Math.random()*100+"vw";
-    document.body.appendChild(corazon);
-    setTimeout(()=>{corazon.remove();},8000);
-},2000);
-
-/* Música */
-let audio=document.getElementById("musica");
-function toggleMusica(){
-    if(audio.paused){
-        audio.play();
-        crearNotas();
-    }else{
-        audio.pause();
-    }
+function mostrarFinal(){
+  setTimeout(()=>{
+    const final = document.createElement("div");
+    final.style.marginTop="35px";
+    final.style.opacity="0";
+    final.style.transition="1.5s";
+    final.style.color="#b8902c";
+    final.innerText="Gracias por coincidir conmigo ✨";
+    document.getElementById("poema").appendChild(final);
+    setTimeout(()=>final.style.opacity="1",100);
+  },1000);
 }
 
-function crearNotas(){
-    let intervalo=setInterval(()=>{
-        if(audio.paused){
-            clearInterval(intervalo);
-            return;
-        }
-        let nota=document.createElement("div");
-        nota.className="nota";
-        nota.innerHTML="♪";
-        nota.style.right=Math.random()*100+"px";
-        document.body.appendChild(nota);
-        setTimeout(()=>{nota.remove();},3000);
-    },800);
+function checkPassword(){
+  const pass = document.getElementById("password").value;
+  if(pass === "lana del rey"){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("contenido").style.display="flex";
+    escribir();
+    lanzarCorazones();
+  } else {
+    alert("Contraseña incorrecta");
+  }
+}
+
+function toggleMusic(){
+  const audio = document.getElementById("musica");
+
+  if(audio.paused){
+    audio.play();
+    intervaloNotas = setInterval(crearNota, 800);
+  }else{
+    audio.pause();
+    clearInterval(intervaloNotas);
+  }
+}
+
+function crearNota(){
+  const nota = document.createElement("div");
+  nota.classList.add("nota");
+  const simbolos = ["♪","♫","♩"];
+  nota.innerHTML = simbolos[Math.floor(Math.random()*simbolos.length)];
+  nota.style.right = "45px";
+  document.body.appendChild(nota);
+  setTimeout(()=>nota.remove(),3500);
+}
+
+function lanzarCorazones(){
+  setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.classList.add("corazon");
+    heart.innerHTML="♡";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  },2000);
 }
 
 </script>
