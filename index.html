@@ -1,383 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="img/flowers.png" type="image/x-icon">
-  <title>flowers</title>
-  <style>
-    body {
-      background: linear-gradient(to bottom, #181d29 70%, #25323d 100%);
-      margin: 0;
-      min-height: 100vh;
-      color: #fff;
-      font-family: 'Segoe Script', cursive, Arial, sans-serif;
-      overflow-x: hidden;
-      position: relative;
-    }
-    .estrella {
-      position: fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:1;
-      background:radial-gradient(circle at 27% 35%, #fff6 1px, transparent 1.2px),
-        radial-gradient(circle at 61% 14%, #fff7 0.8px, transparent 1.1px),
-        radial-gradient(circle at 77% 86%, #fffc 1.4px, transparent 2px),
-        radial-gradient(circle at 31% 78%, #fff4 1.2px, transparent 1.5px),
-        radial-gradient(circle at 87% 60%, #fff, 1px, transparent 1.2px),
-        radial-gradient(circle at 95% 14%, #fff, 1px, transparent 1.3px),
-        radial-gradient(circle at 51% 12%, #fff8, 1px, transparent 1.2px),
-        radial-gradient(circle at 67% 19%, #fff4, 0.8px, transparent 1.4px),
-        radial-gradient(circle at 73% 36%, #fff6, 1px, transparent 1.3px);
-    }
-    /* Cerezos/Sakura */
-    .sakura {
-      pointer-events: none;
-      position: fixed;
-      left: 0; top: 0;
-      width: 100vw; height: 100vh;
-      z-index: 21;
-    }
-    .petal {
-      position: absolute;
-      width: 20px; height: 24px;
-      background: radial-gradient(ellipse at 60% 30%, #fff4f8 60%, #fbcbe7 100%);
-      border-radius: 70% 90% 60% 100% / 75% 60% 100% 100%;
-      opacity: 0.75;
-      animation: fall 9s linear forwards;
-      transform: scaleX(1.1) rotate(0deg);
-      will-change: transform, opacity;
-      box-shadow: 0 5px 14px #fde7f94d;
-    }
-    .petal.p2 { width:15px; height:18px; opacity:0.87;}
-    .petal.p3 { width:13px; height:15px; opacity:0.83;}
-    .petal.p4 { width:19px; height:21px;}
-    .petal.p5 { width:10px; height:11px; opacity:0.68;}
-    @keyframes fall {
-      to {
-        transform: translateY(93vh) translateX(-20vw) rotate(144deg) scaleX(0.8);
-        opacity: 0;
-      }
-    }
-    .monte {
-      width: 100vw;
-      position: absolute; left:0; bottom: 0; z-index: 11;
-      pointer-events: none;
-    }
-    .monte-svg {
-      width: 100vw; height: 155px;
-      display: block;
-    }
-    .poema-contenedor {
-      position: fixed;
-      top: 22px;
-      left:0;
-      width:100vw;
-      z-index: 22;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .poema-animada {
-      text-align:center;
-      margin:0.1em auto;
-      font-size:1.19em;
-      max-width:540px;
-      color: #fff;
-      font-family:'Segoe Script',cursive, Arial,sans-serif;
-      font-weight: bold;
-      background: rgba(41,19,29,0.76);
-      border-radius: 18px;
-      opacity:0;
-      padding: 1.0em 1.3em 0.6em 1.3em;
-      pointer-events:none;
-      transition: opacity 1s;
-      border: 1.5px solid #ffb6d3;
-      box-shadow: 0 3px 17px #a9639140;
-      letter-spacing: 0.3px;
-    }
-    .poema-animada.visible{opacity:1;}
-    .ella-fx {
-      color: #ffd5ed;
-      font-size: 1.36em;
-      letter-spacing: 0.6px;
-      text-shadow: 0 2px 20px #ffbde7, 0 0px 3px #ffedf7;
-      font-family:'Segoe Script',cursive,Arial,sans-serif;
-      margin-top: 10px;
-    }
-    #login-overlay {
-      position: fixed; top: 0; left: 0; z-index:2000;
-      width: 100vw; height: 100vh; background:rgba(20,16,32,0.98);
-      display: flex; align-items: center; justify-content:center; flex-direction:column;
-    }
-    #login-box {
-      background:rgba(255,255,255,0.10); border-radius:22px; padding:2.2em 2em 1.3em;
-      min-width:270px; box-shadow: 0 6px 25px #0007;
-      display:flex; flex-direction:column; align-items:center;
-      border:2.5px solid #ffb4d9;
-    }
-    #login-box label { font-family:'Segoe Script',cursive; font-size:1.18em; color:#fff; margin-bottom:0.8em;}
-    #login-box input[type="password"]{
-      padding: 0.4em 1em; border-radius:8px; border:none; font-size:1.21em; margin-bottom:1em; outline:none; box-shadow:0 1px 4px #ffceed; color:#ae277e;
-    }
-    #login-box button{
-      background: linear-gradient(90deg,#ffd6fa,#ff9eff,#ffc8a0,#fff8d3);
-      border:none;padding:0.45em 1.4em; border-radius:8px; font-family:'Segoe Script',cursive;
-      font-size:1.1em; font-weight:bold; color:#af2772; cursor:pointer; box-shadow:0 2px 8px #ffd6fd;
-    }
-    #login-box button:hover{ background:#fff6 }
-    #login-error{ color:#ffb9cf; margin:0.8em 0 0; font-family:'Segoe Script',cursive; font-size:1.08em;}
-    #music-btn {
-      position: fixed; bottom: 32px; right: 30px; z-index:99;
-      background: linear-gradient(85deg,#fff2fa,#ffe1d7,#fbd1ff);
-      border-radius:17px; border:1.5px solid #eaacde;
-      font-size:1.11em; color:#b03779; font-family:'Segoe Script',cursive;
-      padding:0.38em 1.29em; outline:none; cursor:pointer; font-weight:bold;
-      transition: background 0.3s; display:none; box-shadow:0 2px 8px #b682c5c4;
-    }
-    #music-btn.playing {background:#fff8}
-    #music-btn:hover {background:#ffff}
-    /* FLORES CSS (simplificado, suficiente para que se vean y animen) */
-    .flowers { position:relative; z-index:12; }
-    .flower {
-      position: absolute;
-    }
-    .flower__leafs {
-      position: relative;
-      width: 52px;
-      height: 52px;
-      left: 0; top: 0;
-    }
-    .flower__leaf {
-      position: absolute;
-      width: 28px;
-      height: 36px;
-      background: #ffd8eb;
-      border-radius: 50% 50% 54% 48%/60% 70% 62% 56%;
-      opacity: 0.89;
-      box-shadow: 0 2px 13px #ffadee85;
-    }
-    .flower__leaf--1 { left:12px; top:3px; transform:rotate(-16deg);}
-    .flower__leaf--2 { left:4px; top:16px; transform:rotate(-36deg);}
-    .flower__leaf--3 { left:24px; top:12px; transform:rotate(29deg);}
-    .flower__leaf--4 { left:12px; top:24px; transform:rotate(15deg);}
-    .flower__white-circle {
-      width:22px; height:22px; border-radius: 50%;
-      background: #fffafc;
-      box-shadow: 0 1px 6px #fff7ff70;
-      position:absolute; left:14px; top:16px; z-index:2;
-    }
-    .flower__light {
-      position:absolute;
-      width:8px; height:8px; border-radius: 50%;
-      background: #ffe9f6;
-      filter: blur(2.7px); opacity: 0.5;
-    }
-    .flower__light--1 { left:24px; top:-2px;}
-    .flower__light--2 { left:2px; top:12px;}
-    .flower__light--3 { left:34px; top:12px;}
-    .flower__light--4 { left:12px; top:40px;}
-    .flower__light--5 { left:-2px; top:24px;}
-    .flower__light--6 { left:40px; top:24px;}
-    .flower__light--7 { left:13px; top:-2px;}
-    .flower__light--8 { left:35px; top:35px;}
-    .flower__line {
-      position:absolute; left:24px; top:44px; height:58px; width:5px;
-      z-index:-1;
-    }
-    .flower__line__leaf {
-      width: 5px; height:22px;
-      background: #aac98d;
-      border-radius:13px;
-      margin-top: 2px;
-      margin-bottom: 2px;
-    }
-    /* Grass (simplificado) */
-    .flower__grass {
-      position: absolute;
-      left: 0; top: 80px;
-      width: 100px;
-      height: 40px;
-    }
-    .flower__grass--top {
-      background: linear-gradient(to bottom, #92c99d 60%, #7fa37f 100%);
-      width: 100px; height: 17px; border-radius: 14px 14px 10px 10px/20px 25px 7px 9px;
-      position: absolute; top: -13px; left:0;
-      box-shadow: 0 1px 15px #4b745e44;
-    }
-    .flower__grass--bottom {
-      background: #497a5f;
-      width: 95px; height: 15px; border-radius: 20px 30px 15px 13px/22px 14px 13px 16px;
-      position: absolute; top: 7px; left:2px;
-      box-shadow: 0 1px 7px #506a5444;
-    }
-    .flower__grass__leaf {
-      width: 7px; height: 18px;
-      background: #79b17b;
-      position: absolute;
-      border-radius:9px 12px 6px 7px/16px 12px 8px 6px;
-      opacity: 0.83;
-    }
-    .flower__grass__leaf--1 { left:12px; top:1px;}
-    .flower__grass__leaf--2 { left:21px; top:3px;}
-    .flower__grass__leaf--3 { left:28px; top:5px;}
-    .flower__grass__leaf--4 { left:36px; top:2px;}
-    .flower__grass__leaf--5 { left:58px; top:6px;}
-    .flower__grass__leaf--6 { left:68px; top:2px;}
-    .flower__grass__leaf--7 { left:75px; top:4px;}
-    .flower__grass__leaf--8 { left:82px; top:0px;}
-    .flower__grass__overlay {
-      background: #cee9d4c9;
-      position:absolute;
-      left:10px; top:9px;
-      width:80px; height:7px;
-      border-radius:6px;
-      opacity:0.38;
-    }
-    .flower__grass--1,.flower__grass--2 {
-      left: 40px;
-    }
-    /* Coloca más reglas, posiciones y combinaciones según quieras para tu campo de flores */
-  </style>
-</head>
-<body class="container">
-  <div class="estrella"></div>
-  <!-- Cerezos animados -->
-  <div class="sakura" id="sakura"></div>
-  <!-- LOGIN overlay -->
-  <div id="login-overlay">
-    <form id="login-box" onsubmit="return loginOK(event)">
-      <label for="password">Bienvenida amiga 🌸<br>Escribe la clave mágica:</label>
-      <input type="password" id="password" name="password" placeholder="es tu apodo o secreto"/>
-      <button type="submit">Ver sorpresa</button>
-      <div id="login-error" style="display:none"></div>
-    </form>
-  </div>
-  <!-- POEMA ARRIBA -->
-  <div class="poema-contenedor" style="display:none">
-    <div id="poema"></div>
-    <span class="ella-fx" style="display:none" id="ella">Ella: auuwww 👀🍒</span>
-  </div>
-  <!-- Música -->
-  <button id="music-btn" onclick="toggleMusic()">♡ Música</button>
-  <audio id="player" src="lana.mp3" loop style="display:none"></audio>
-  <!-- MONTE/COLINA -->
-  <div class="monte">
-    <svg class="monte-svg" viewBox="0 0 1440 155" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path fill="#466b48" d="M0 110 Q 125 20 280 130 Q 450 65 680 120 Q870 70 1070 130 Q1220 100 1440 155 V155H0Z"/>
-      <path fill="#96c59d" fill-opacity="0.76" d="M0 150 Q 350 120 700 150 Q 1080 190 1440 138 V155H0Z"/>
-    </svg>
-  </div>
-  <!-- FLORES Y GRASS MUESTRA: añade más div.flower o grass para un jardín! -->
-  <div class="night"></div>
-  <div class="flowers" style="visibility:hidden;">
-    <!-- Puedes duplicar y cambiar left/top para más flores -->
-    <div class="flower flower--1" style="left:120px;top:210px;"></div>
-    <div class="flower flower--1" style="left:200px;top:195px;"></div>
-    <div class="flower flower--1" style="left:350px;top:230px;"></div>
-    <div class="flower flower--1" style="left:460px;top:220px;"></div>
-    <div class="flower flower--1" style="left:560px;top:240px;"></div>
-    <!-- grass ejemplo -->
-    <div class="growing-grass">
-      <div class="flower__grass flower__grass--1">
-        <div class="flower__grass--top"></div>
-        <div class="flower__grass--bottom"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
-        <div class="flower__grass__overlay"></div>
-      </div>
-    </div>
-    <!-- Puedes repetir bloques para llenar el campo -->
-  </div>
-  <script>
-    // Contraseña: annhaii
-    const PASS_AMIGA = "annhaii";
-    function loginOK(e){
-      e.preventDefault();
-      const pw = document.getElementById('password').value.trim().toLowerCase();
-      if(pw === PASS_AMIGA){
-        document.getElementById('login-overlay').style.display = "none";
-        document.querySelector('.flowers').style.visibility = "visible";
-        document.querySelector('.poema-contenedor').style.display = "flex";
-        document.getElementById('music-btn').style.display = 'block';
-        mostrarVerso();
-        startSakura();
-      }else{
-        document.getElementById('login-error').style.display = "";
-        document.getElementById('login-error').innerText = "¡No es esa la clave! 🌸";
-      }
-      return false;
-    }
-    // Poema que aparece
-    const versos = [
-      "Hola 🌼 Es bonito encontrarte por aquí...",
-      "Ojalá podamos llevarnos chido y reír mucho.",
-      "¿Te late que florezca esta amistad?",
-      "",
-      "Aquí va mi primer mensaje:",
-      "Espero que te guste todo esto, porque lo hice con ganas de ver sonreír a una nueva amiga 🤍"
-    ];
-    const poemaDiv = document.getElementById('poema');
-    let idx = 0;
-    function mostrarVerso() {
-      if (idx < versos.length) {
-        let linea = document.createElement('div');
-        linea.className = "poema-animada";
-        setTimeout(() => {linea.classList.add('visible')}, 30);
-        if (versos[idx].trim() === "") linea.innerHTML = "<br>";
-        else linea.innerHTML = `<span>${versos[idx]}</span>`;
-        poemaDiv.appendChild(linea);
-        idx++;
-        if(idx === versos.length){
-          setTimeout(()=>{ document.getElementById('ella').style.display='block'; }, 1400);
-        }
-        setTimeout(mostrarVerso, (versos[idx-1].trim() === "" ? 540 : 1400));
-      }
-    }
-    // Música Lana del Rey
-    let musicStarted = false;
-    function toggleMusic() {
-      const player = document.getElementById('player');
-      const btn = document.getElementById('music-btn');
-      if(player.paused){
-        player.play();
-        btn.classList.add('playing');
-        btn.innerHTML = "❥ Pausar música";
-      }else{
-        player.pause();
-        btn.classList.remove('playing');
-        btn.innerHTML = "♡ Música";
-      }
-    }
-    document.addEventListener('click', function autoMusicStart(){
-      if(!musicStarted && document.querySelector('.flowers').style.visibility==="visible"){
-        document.getElementById('player').play().catch(()=>{});
-        musicStarted=true;
-        document.getElementById('music-btn').classList.add('playing');
-        document.getElementById('music-btn').innerText = "❥ Pausar música";
-      }
-      document.removeEventListener('click',autoMusicStart);
-    });
-    // Sakura petals
-    function startSakura() {
-      const sakura = document.getElementById('sakura');
-      let petalTypes = [ '', 'p2', 'p3', 'p4', 'p5' ];
-      function crearPetalo() {
-        const petal = document.createElement('div');
-        petal.className = 'petal '+petalTypes[Math.floor(Math.random()*petalTypes.length)];
-        petal.style.left = Math.random()*100 + "vw";
-        petal.style.top = -30 - Math.random()*50 + "px";
-        sakura.appendChild(petal);
-        setTimeout(()=>petal.remove(), 9000);
-      }
-      for(let i=0;i<12;i++) setTimeout(crearPetalo, i*350);
-      setInterval(crearPetalo, 900);
-    }
-  </script>
-</body>
-</html>
+DOCTYPE html>
+‎<html lang="en">
+‎<head>
+‎    <meta charset="UTF-8">
+‎    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+‎    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+‎    <link rel="stylesheet" href="css/main.css">
+‎    <link rel="icon" href="img/flowers.png" type="image/x-icon">
+‎    <title>flowers</title>
+‎</head>
+‎<body class="container">
+‎  <!-- Pembuat code: https://codepen.io/mdusmanansari/pen/BamepLe -->
+‎    <div class="night"></div>
+‎    <div class="flowers">
+‎      <div class="flower flower--1">
+‎        <div class="flower__leafs flower__leafs--1">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--5"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--6"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="flower flower--2">
+‎        <div class="flower__leafs flower__leafs--2">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="flower flower--3">
+‎        <div class="flower__leafs flower__leafs--3">
+‎          <div class="flower__leaf flower__leaf--1"></div>
+‎          <div class="flower__leaf flower__leaf--2"></div>
+‎          <div class="flower__leaf flower__leaf--3"></div>
+‎          <div class="flower__leaf flower__leaf--4"></div>
+‎          <div class="flower__white-circle"></div>
+‎  
+‎          <div class="flower__light flower__light--1"></div>
+‎          <div class="flower__light flower__light--2"></div>
+‎          <div class="flower__light flower__light--3"></div>
+‎          <div class="flower__light flower__light--4"></div>
+‎          <div class="flower__light flower__light--5"></div>
+‎          <div class="flower__light flower__light--6"></div>
+‎          <div class="flower__light flower__light--7"></div>
+‎          <div class="flower__light flower__light--8"></div>
+‎  
+‎        </div>
+‎        <div class="flower__line">
+‎          <div class="flower__line__leaf flower__line__leaf--1"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--2"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--3"></div>
+‎          <div class="flower__line__leaf flower__line__leaf--4"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="grow-ans" style="--d:1.2s">
+‎        <div class="flower__g-long">
+‎          <div class="flower__g-long__top"></div>
+‎          <div class="flower__g-long__bottom"></div>
+‎        </div>
+‎      </div>
+‎  
+‎      <div class="growing-grass">
+‎        <div class="flower__grass flower__grass--1">
+‎          <div class="flower__grass--top"></div>
+‎          <div class="flower__grass--bottom"></div>
+‎          <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+‎          <div class="flower__grass__leaf flower__grass__leaf--2">
