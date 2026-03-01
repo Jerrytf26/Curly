@@ -3,403 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Annhai | La Esencia de la Mañana</title>
+    <title>Annhai | El Prisma de la Coincidencia v26.0</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@100;200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Great+Vibes&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@100;300;400;600&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* ANNHAI: THE IMPERIAL EXPERIENCE 2026 
-           VERSION: 6.0 - TOTAL DENSITY (NO SIMPLIFICATION)
-           SISTEMA DE ADAPTACIÓN CROMÁTICA INTEGRADO
+        /* ANNHAI: SISTEMA DE INTERFAZ DE ALTA DENSIDAD v26.0
+           COLORES: AZUL GALAXIA / PLATA / CARBÓN MÍSTICO
+           VIBRA: AMISTAD, ADMIRACIÓN, BUENA ENERGÍA
+           DISEÑO: FRAME MINIMALISTA Y FÍSICA DE PRISMA PRO
         */
 
         :root {
-            /* TEMA PREDETERMINADO: ORO ALBA */
-            --oro-base: #c5a059;
-            --oro-brillo: #f3e5ab;
-            --fondo-page: #fdfcf9;
-            --texto-page: #2a2a2a;
-            --fondo-pergamino: #ffffff;
-            --texto-pergamino: #1a1a1a;
-            --borde-tarjeta: rgba(197, 160, 89, 0.2);
-            --curva-prestige: cubic-bezier(0.23, 1, 0.32, 1);
+            /* PALETA PRINCIPAL */
+            --plata-puro: #e2e8f0;
+            --plata-brillo: #ffffff;
+            --azul-medianoche: #020617;
+            --azul-profundo: #0f172a;
+            --carbon: #050505;
+            
+            /* LÍNEAS Y CRISTALES */
+            --borde-luxe: rgba(226, 232, 240, 0.15);
+            --borde-solido: rgba(226, 232, 240, 0.4);
+            --resplandor-plata: rgba(255, 255, 255, 0.2);
+            
+            /* MOTOR DE MOVIMIENTO */
+            --curva-luxe: cubic-bezier(0.25, 1, 0.33, 1);
+            --transicion-lenta: 2.5s var(--curva-luxe);
+            --transicion-rapida: 0.8s var(--curva-luxe);
         }
 
-        /* CONFIGURACIÓN DE TEMAS EXTENDIDA */
-        body.tema-rosado {
-            --oro-base: #d4a5a5;
-            --oro-brillo: #ffe4e4;
-            --fondo-page: #fff9f9;
-            --texto-page: #4a3b3b;
-            --fondo-pergamino: #fff0f0;
-            --texto-pergamino: #4a3b3b;
-        }
+        /* CONFIGURACIÓN DE ESCENA */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-        body.tema-noche {
-            --oro-base: #d4af37;
-            --oro-brillo: #ffffff;
-            --fondo-page: #0a0a0a;
-            --texto-page: #f1f1f1;
-            --fondo-pergamino: #1a1a1a; /* CORRECCIÓN: Fondo oscuro en el modal */
-            --texto-pergamino: #fdfcf9; /* CORRECCIÓN: Texto claro en el modal */
-            --borde-tarjeta: rgba(212, 175, 55, 0.3);
-        }
-
-        body.tema-medianoche {
-            --oro-base: #a0a0a0;
-            --oro-brillo: #e0e0e0;
-            --fondo-page: #050b14;
-            --texto-page: #d1d9e6;
-            --fondo-pergamino: #0d1420;
-            --texto-pergamino: #ffffff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body, html { 
             width: 100%; height: 100%; 
-            background-color: var(--fondo-page); 
-            color: var(--texto-page); 
+            background-color: var(--azul-medianoche);
+            color: var(--plata-puro); 
             font-family: 'Cormorant Garamond', serif;
             overflow: hidden; 
-            transition: background-color 1.2s ease, color 1.2s ease;
+            -webkit-font-smoothing: antialiased;
+            transition: background 2s ease;
+        }
+
+        /* MODOS DE COLOR DINÁMICOS (CORREGIDOS) */
+        body.tema-default { background-image: radial-gradient(circle at center, var(--azul-profundo) 0%, var(--carbon) 100%); }
+        body.tema-noche { background-image: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%); }
+        body.tema-aura { background-image: radial-gradient(circle at center, #1e293b 0%, var(--carbon) 100%); }
+
+        /* CAPA DE ESTRELLAS SUTILES */
+        #stars-ambient {
+            position: fixed; inset: 0; z-index: 5;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.1; pointer-events: none;
+            animation: drift 200s linear infinite;
+        }
+        @keyframes drift { from {background-position: 0 0;} to {background-position: 1000px 1000px;} }
+
+        /* ------------------------------------------------------------
+           PORTADA: EL MARCO DE BIENVENIDA (Z-INDEX 300,000)
+           ------------------------------------------------------------ */
+        #capa-acceso {
+            position: fixed; inset: 0; z-index: 300000;
+            background: var(--carbon);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 2.5s var(--curva-luxe), visibility 2.5s;
+        }
+
+        .frame-principal {
+            position: relative; width: 85%; max-width: 450px;
+            padding: 90px 40px; border: 1px solid var(--borde-luxe);
+            text-align: center; backdrop-filter: blur(15px);
+            background: rgba(2, 6, 23, 0.4);
+        }
+
+        /* ADORNOS DE ESQUINA TIPO IMAGEN */
+        .frame-principal::before, .frame-principal::after,
+        .corner-br, .corner-bl {
+            content: ''; position: absolute; width: 35px; height: 35px; border: 1.5px solid var(--plata-puro);
+        }
+        .frame-principal::before { top: -12px; left: -12px; border-right: none; border-bottom: none; }
+        .frame-principal::after { top: -12px; right: -12px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: -12px; left: -12px; border-right: none; border-top: none; position: absolute; }
+        .corner-br { bottom: -12px; right: -12px; border-left: none; border-top: none; position: absolute; }
+
+        .frame-principal h1 {
+            font-family: 'Great Vibes', cursive; font-size: 5rem;
+            color: var(--plata-brillo); margin-bottom: 8px;
+            text-shadow: 0 0 30px var(--resplandor-plata);
+            font-weight: 100;
+        }
+
+        .frame-principal p {
+            font-family: 'Cinzel Decorative'; font-size: 0.6rem;
+            letter-spacing: 14px; color: var(--plata-puro); opacity: 0.6;
+            margin-bottom: 60px; text-transform: uppercase;
+        }
+
+        /* INPUT DE ALTA ESTÉTICA */
+        .input-group { position: relative; width: 100%; margin-bottom: 50px; }
+        
+        #pass-field {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid var(--borde-luxe);
+            padding: 18px 0; color: #fff; font-size: 1.4rem;
+            letter-spacing: 18px; text-align: center; 
+            transition: 0.8s var(--curva-luxe); 
+            -webkit-text-security: disc; outline: none;
+        }
+
+        #pass-field:focus {
+            border-bottom: 1px solid var(--plata-brillo);
+            letter-spacing: 24px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-luxe {
+            background: transparent; border: 1px solid var(--plata-puro);
+            color: var(--plata-puro); padding: 16px 50px;
+            font-family: 'Montserrat'; font-size: 0.75rem;
+            letter-spacing: 8px; text-transform: uppercase;
+            cursor: pointer; transition: 0.8s var(--curva-luxe);
+            border-radius: 2px;
+        }
+        .btn-luxe:hover {
+            background: var(--plata-puro); color: #000;
+            box-shadow: 0 0 40px var(--resplandor-plata);
+            letter-spacing: 10px;
         }
 
         /* ------------------------------------------------------------
-           SELECTOR DE EXPERIENCIA (UI SUPERIOR)
+           PUERTAS DE CATEDRAL (Z-INDEX 200,000)
            ------------------------------------------------------------ */
-        .panel-experiencia {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 55000;
-            display: none;
-            gap: 15px;
-            padding: 12px 20px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 40px;
-            border: 1px solid var(--borde-tarjeta);
+        #gate-system {
+            position: fixed; inset: 0; z-index: 200000;
+            display: flex; pointer-events: none;
         }
-
-        .opcion-tema {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid white;
-            transition: 0.5s var(--curva-prestige);
+        .gate-half {
+            flex: 1; height: 100%; background: #000;
+            transition: 3s var(--curva-luxe);
+            display: flex; align-items: center; justify-content: center;
         }
+        .left-gate { border-right: 1px solid var(--borde-luxe); }
+        .right-gate { border-left: 1px solid var(--borde-luxe); }
 
-        .opcion-tema:hover { transform: scale(1.4) rotate(15deg); box-shadow: 0 0 15px var(--oro-base); }
+        #gate-system.open .left-gate { transform: translateX(-100%); }
+        #gate-system.open .right-gate { transform: translateX(100%); }
 
         /* ------------------------------------------------------------
-           PARTÍCULAS SUTILES
+           PRISMA COMPACTO PRO (OPTIMIZADO)
            ------------------------------------------------------------ */
-        .pixel-aura {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            background: var(--oro-base);
-            border-radius: 50%;
-            opacity: 0;
-            animation: fluidez 14s linear forwards;
+        .prism-wrap {
+            width: 190px; height: 190px; perspective: 1500px;
+            margin: 50px auto; touch-action: none;
+        }
+        .prism-body { 
+            width: 100%; height: 100%; position: relative; 
+            transform-style: preserve-3d; transition: transform 0.1s linear;
+        }
+        .prism-face {
+            position: absolute; width: 190px; height: 190px;
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid var(--borde-luxe);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--plata-puro); font-family: 'Cinzel Decorative'; font-size: 0.65rem;
+            cursor: pointer; box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+        }
+        .prism-face span { 
+            font-family: 'Great Vibes'; font-size: 2.2rem; 
+            margin-top: 10px; color: #fff; text-shadow: 0 0 15px var(--resplandor-plata);
         }
 
-        @keyframes fluidez {
-            0% { transform: translateY(110vh) scale(0); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        .face-f { transform: rotateY(0deg) translateZ(95px); }
+        .face-b { transform: rotateY(180deg) translateZ(95px); }
+        .face-r { transform: rotateY(90deg) translateZ(95px); }
+        .face-l { transform: rotateY(-90deg) translateZ(95px); }
+        .face-t { transform: rotateX(90deg) translateZ(95px); }
+        .face-bot { transform: rotateX(-90deg) translateZ(95px); }
+
+        /* CONTENIDO PRINCIPAL */
+        #main-scroller {
+            display: none; opacity: 0; width: 100%; height: 100vh;
+            overflow-y: auto; position: relative; z-index: 100;
+            scroll-behavior: smooth;
         }
 
-        /* ------------------------------------------------------------
-           PORTAL DE ANNHAI (TÍTULO MEJORADO)
-           ------------------------------------------------------------ */
-        #portal-inicio {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--fondo-page);
-            transition: opacity 1.8s var(--curva-prestige);
+        .story-section {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 100px 35px; text-align: center;
+        }
+        
+        .love-card-luxe {
+            max-width: 700px; width: 100%; opacity: 0; transform: translateY(60px);
+            transition: 2.5s var(--curva-luxe);
+        }
+        .love-card-luxe.reveal { opacity: 1; transform: translateY(0); }
+
+        .title-aura {
+            font-family: 'Great Vibes', cursive; font-size: 4.5rem;
+            color: var(--plata-brillo); margin-bottom: 30px;
+        }
+        .text-aura {
+            font-family: 'Cormorant Garamond'; font-size: 1.7rem;
+            line-height: 2; color: var(--plata-puro); font-style: italic;
+            font-weight: 300; margin-bottom: 40px;
         }
 
-        .puertas-imperiales {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            pointer-events: none;
+        /* DOCK DE CONTROL DE LUJO (Z-INDEX 400,000) */
+        .dock-pro {
+            position: fixed; bottom: 35px; left: 50%; 
+            transform: translateX(-50%) translateY(180px);
+            display: flex; align-items: center; gap: 20px; z-index: 400000;
+            padding: 15px 35px; background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(25px); border: 1px solid var(--borde-luxe);
+            border-radius: 50px; transition: 1.5s var(--curva-luxe);
         }
-
-        .puerta-hoja {
-            flex: 1;
-            height: 100%;
-            background: var(--fondo-page);
-            border: 0.5px solid rgba(197, 160, 89, 0.08);
-            transition: 3s var(--curva-prestige);
-            z-index: 10001;
+        .dock-pro.active { transform: translateX(-50%) translateY(0); }
+        
+        .tool-btn {
+            width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--borde-luxe);
+            background: transparent; color: var(--plata-puro); font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.5s;
         }
-
-        .p-izq { transform-origin: left; border-right: 1.5px solid var(--oro-base); }
-        .p-der { transform-origin: right; border-left: 1.5px solid var(--oro-base); }
-
-        /* EL NOMBRE DE ANNHAI CON RELIEVE Y MEJOR LETRA */
-        .branding-annhai {
-            position: relative;
-            z-index: 10010;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .nombre-annhai-art {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(5rem, 22vw, 9.5rem);
-            color: var(--texto-page);
-            line-height: 0.9;
-            background: linear-gradient(135deg, var(--texto-page) 0%, var(--oro-base) 50%, var(--texto-page) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: brilloMetal 6s linear infinite;
-        }
-
-        @keyframes brilloMetal {
-            to { background-position: 200% center; }
-        }
-
-        .tagline-annhai {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 0.75rem;
-            letter-spacing: 14px;
-            text-transform: uppercase;
-            color: var(--oro-base);
-            margin-top: 20px;
-            font-weight: 700;
-        }
-
-        /* INPUT DE SEGURIDAD */
-        #caja-password {
-            position: relative;
-            z-index: 10020;
-            width: 300px;
-            text-align: center;
-        }
-
-        #input-password {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--oro-base);
-            color: var(--texto-page);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            text-align: center;
-            letter-spacing: 18px;
-            outline: none;
-            width: 100%;
-            padding: 15px 0;
-            transition: 0.8s;
-            -webkit-text-security: disc;
-        }
-
-        /* CONTINUARÁ EN PARTE 2... */
+        .tool-btn:hover { background: var(--plata-puro); color: #000; transform: scale(1.1); }
     </style>
-</head><body>
-    <audio id="main-audio" loop><source src="morning-luxe.mp3" type="audio/mpeg"></audio>
+</head><body class="tema-default">
+    <div id="stars-ambient"></div>
 
-    <div class="panel-experiencia" id="ui-panel">
-        <div class="opcion-tema" style="background:#c5a059;" onclick="updateTheme('default')"></div>
-        <div class="opcion-tema" style="background:#d4a5a5;" onclick="updateTheme('rosado')"></div>
-        <div class="opcion-tema" style="background:#333;" onclick="updateTheme('noche')"></div>
-        <div class="opcion-tema" style="background:#050b14;" onclick="updateTheme('medianoche')"></div>
-    </div>
-
-    <div id="portal-inicio">
-        <div class="puertas-imperiales">
-            <div class="puerta-hoja p-izq"></div>
-            <div class="puerta-hoja p-der"></div>
-        </div>
-        
-        <div class="branding-annhai">
-            <h1 class="nombre-annhai-art">Annhai</h1>
-            <p class="tagline-annhai">La Esencia del Presente</p>
-        </div>
-
-        <div id="caja-password">
-            <span style="font-family:'Montserrat'; font-size:0.6rem; letter-spacing:8px; color:var(--oro-base); display:block; margin-bottom:40px;">ENTRAR AL DÍA</span>
-            <input type="password" id="input-password" placeholder="ANNHAI" autocomplete="off">
+    <div id="capa-acceso">
+        <div class="frame-principal">
+            <div class="corner-bl"></div><div class="corner-br"></div>
+            <h1>Annhai</h1>
+            <p>Destellos de una coincidencia</p>
+            <div class="input-group">
+                <input type="password" id="pass-field" placeholder="CLAVE" autocomplete="off">
+            </div>
+            <button class="btn-luxe" onclick="startExperience()">Entrar</button>
         </div>
     </div>
 
-    <main id="scroller-principal" style="display:none; opacity:0; width:100%; height:100vh; overflow-y:auto; background:var(--fondo-page);">
+    <div id="gate-system">
+        <div class="gate-half left-gate"></div>
+        <div class="gate-half right-gate"></div>
+    </div>
+
+    <audio id="main-audio" loop preload="auto">
+        <source src="lana.mp3" type="audio/mpeg">
+    </audio>
+    <div style="position:fixed; top:0; left:0; width:100%; height:3px; z-index:1000000;">
+        <div id="audio-fill" style="height:100%; background:var(--plata-brillo); width:0%; transition:0.3s; box-shadow:0 0 10px #fff;"></div>
+    </div>
+
+    <div class="dock-pro" id="pro-dock">
+        <button class="tool-btn" onclick="updateAtmosphere('default')">✧</button>
+        <button class="tool-btn" onclick="updateAtmosphere('noche')">☾</button>
+        <button class="tool-btn" onclick="updateAtmosphere('aura')">❂</button>
+        <div style="width:1px; height:25px; background:var(--borde-luxe); margin:0 5px;"></div>
+        <button class="tool-btn" id="audio-trigger" onclick="handleAudio()">♫</button>
+    </div>
+
+    <main id="main-scroller">
         
-        <section class="vista-seccion">
-            <div class="revelacion-box">
-                <h2 class="titulo-caligrafico">Buenos días, Annhai.</h2>
-                <div class="divisor-imperial-v2">⚜</div>
-                <p class="texto-profundo">Espero que este amanecer te reciba de la mejor manera. No hay nada como empezar el día sabiendo que personas como tú hacen que todo a su alrededor sea un poco más agradable y fluido.</p>
-                <p class="texto-profundo">Me detuve un momento a pensar en lo mucho que valoro haber coincidido contigo. Me caes increíblemente bien; valoro tu autenticidad, esa tranquilidad que transmites al hablar y lo genuina que eres en cada detalle de tu forma de ser.</p>
-                <button class="btn-extra" onclick="expandir(this, 'Valoro cada una de nuestras charlas...')">Saber más</button>
+        <section class="story-section">
+            <div class="love-card-luxe">
+                <h2 class="title-aura">Hola, Annhai...</h2>
+                <div style="color:var(--plata-puro); letter-spacing:15px; margin-bottom:35px; opacity:0.3;">———— ✧ ————</div>
+                <p class="text-aura">Hay encuentros que no necesitan años para sentirse valiosos. A veces, apenas tres días bastan para notar que alguien trae una energía que vale la pena conocer.</p>
+                <p class="text-aura" style="font-size: 1.4rem; opacity: 0.8;">Me pareces alguien genial, con una vibra muy auténtica, y quería dedicarte este pequeño espacio solo porque sí.</p>
             </div>
         </section>
 
-        <section class="vista-seccion" style="background: rgba(197, 160, 89, 0.04);">
-            <div class="revelacion-box">
-                <h2 class="titulo-caligrafico" style="font-size: 4.5rem;">Tu Esencia</h2>
-                <div class="grid-imperial">
-                    <div class="card-imperial">
-                        <span class="card-icon">⚜</span>
-                        <h3>Sinceridad</h3>
-                        <p>Admiro que eres una persona real. Es refrescante conocer a alguien tan honesta consigo misma y con los demás, sin filtros innecesarios.</p>
-                    </div>
-                    <div class="card-imperial">
-                        <span class="card-icon">⚜</span>
-                        <h3>Calma</h3>
-                        <p>Tienes una forma de ser que transmite mucha paz. Cada charla contigo se siente genuina y es un gusto escucharte siempre.</p>
-                    </div>
-                    <div class="card-imperial">
-                        <span class="card-icon">⚜</span>
-                        <h3>Confianza</h3>
-                        <p>Valoro mucho la transparencia de nuestra amistad. Eres de esas personas que siempre logran sumar algo positivo al día de alguien más.</p>
+        <section class="story-section" style="background: rgba(255,255,255,0.01);">
+            <div class="love-card-luxe">
+                <h2 class="title-aura" style="font-size: 3.5rem;">Seis Fragmentos</h2>
+                <p style="font-family:'Montserrat'; letter-spacing:10px; font-size:0.6rem; color:var(--plata-puro); margin-bottom:60px; opacity:0.5;">GIRA Y DESCUBRE MI OPINIÓN</p>
+                
+                <div class="prism-wrap" id="touch-nexus">
+                    <div class="prism-body" id="cube-obj">
+                        <div class="prism-face face-f" onclick="showFragment(0)">Vibra<span>01</span></div>
+                        <div class="prism-face face-b" onclick="showFragment(1)">Luz<span>02</span></div>
+                        <div class="prism-face face-r" onclick="showFragment(2)">Charla<span>03</span></div>
+                        <div class="prism-face face-l" onclick="showFragment(3)">Misterio<span>04</span></div>
+                        <div class="prism-face face-t" onclick="showFragment(4)">Vuelo<span>05</span></div>
+                        <div class="prism-face face-bot" onclick="showFragment(5)">Suerte<span>06</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="vista-seccion" style="background: #111; color: white;">
-            <div class="revelacion-box">
-                <h2 class="titulo-caligrafico" style="color: var(--oro-base);">Una última palabra</h2>
-                <div class="sobre-imperial-v3" onclick="abrirManuscrito()">
-                    <div class="sobre-tapa">
-                        <div class="sello-lacre-v3">⚜</div>
-                    </div>
+        <section class="story-section">
+            <div class="love-card-luxe">
+                <h2 class="title-aura">Un Gusto</h2>
+                <p class="text-aura">Gracias por estos tres días de buena charla y por dejarme asomarme un poco a tu mundo. No cambies esa esencia.</p>
+                
+                <div style="margin:80px auto; width:110px; height:110px; border:1px solid var(--plata-puro); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="revealFinalLetter()">
+                    <span style="font-family:'Great Vibes'; font-size:3rem; color:#fff;">A</span>
                 </div>
-                <p style="margin-top:40px; font-family:'Montserrat'; letter-spacing:6px; opacity:0.5; font-size:0.7rem;">ABRIR PARA ANNHAI</p>
+                <p style="font-family:'Montserrat'; letter-spacing:8px; font-size:0.6rem; opacity:0.4;">TOCA PARA LEER EL FINAL</p>
             </div>
         </section>
 
-        <footer style="padding:150px 0; text-align:center;">
-            <p style="letter-spacing:12px; font-family:'Montserrat'; opacity:0.4; font-size:0.7rem;">ANNHAI • 2026 • DESIGNED FOR HER</p>
+        <footer style="padding:100px 0; text-align:center; opacity:0.1;">
+            <p style="letter-spacing:15px; font-size:0.65rem;">ANNHAI • 2026</p>
         </footer>
     </main>
 
-    <div id="modal-imperial-final">
-        <div class="modal-blur"></div>
-        <div class="pergamino-wrapper">
-            <div class="pergamino-cuerpo">
-                <h3 class="titulo-caligrafico" style="font-size: 5.5rem;">Annhai...</h3>
-                <div class="texto-poema">
-                    Annhai, quería decirte al empezar este día lo mucho que valoro nuestra amistad. No es fácil encontrar a alguien con quien se pueda hablar tan a gusto y que tenga esa calidad humana que tú demuestras.<br><br>
-                    Me caes tan bien que este pequeño detalle es solo mi forma de agradecerte por ser como eres. Gracias por tu tiempo, por tu buena onda y por ser esa persona increíble que siempre logra que una charla sea especial.<br><br>
-                    Espero que hoy despiertes con mucha energía y que el mundo sea tan amable contigo como tú lo eres con los demás.<br><br>
-                    Eres de mis personas favoritas.
-                </div>
-                <p class="firma-caligrafica">Con cariño, siempre.</p>
-                <button class="btn-cerrar-v3" onclick="location.reload()">Cerrar</button>
-            </div>
+    <div id="fragment-modal" style="position:fixed; inset:0; z-index:500000; display:none; opacity:0; transition:1.5s; padding:40px 20px; align-items:center; justify-content:center;">
+        <div style="position:absolute; inset:0; background:var(--carbon); opacity:0.99; backdrop-filter:blur(40px);"></div>
+        <div id="modal-scroller" style="position:relative; width:100%; max-width:850px; height:80vh; background:rgba(255,255,255,0.03); border:1px solid var(--borde-luxe); padding:100px 50px; overflow-y:auto; text-align:center;">
+            <h3 id="frag-tit" class="title-aura" style="font-size:3.5rem;"></h3>
+            <div id="frag-txt" class="text-aura" style="font-size:1.8rem; margin:40px 0; white-space:pre-line;"></div>
+            <button class="btn-luxe" onclick="closeFragment()">Volver</button>
         </div>
     </div>
 
-    <style>
-        /* CSS DE ALTA DENSIDAD */
-        .vista-seccion { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 25px; text-align: center; }
-        .revelacion-box { opacity: 0; transform: translateY(40px); transition: 2s var(--curva-prestige); max-width: 850px; }
-        .revelacion-box.visible { opacity: 1; transform: translateY(0); }
-        
-        .titulo-caligrafico { font-family: 'Great Vibes', cursive; font-size: 5rem; color: var(--oro-base); margin-bottom: 30px; }
-        .divisor-imperial-v2 { font-size: 1.5rem; color: var(--oro-base); margin-bottom: 40px; }
-        
-        .texto-profundo { font-family: 'Cormorant Garamond'; font-size: clamp(1.4rem, 5vw, 2.1rem); line-height: 1.8; color: var(--texto-page); font-style: italic; margin-bottom: 30px; }
-        .firma-caligrafica { font-family: 'Great Vibes'; font-size: 4rem; color: var(--oro-base); margin-top: 50px; }
-
-        .grid-imperial { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px; }
-        .card-imperial { background: var(--fondo-pergamino); padding: 70px 30px; border: 1px solid var(--borde-tarjeta); transition: 0.8s; color: var(--texto-pergamino); }
-        .card-imperial:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-        .card-icon { font-size: 1.5rem; color: var(--oro-base); display: block; margin-bottom: 25px; }
-
-        .btn-extra { background: none; border: 1px solid var(--oro-base); padding: 15px 35px; font-family: 'Montserrat'; font-size: 0.7rem; letter-spacing: 5px; cursor: pointer; color: var(--oro-base); text-transform: uppercase; }
-
-        .sobre-imperial-v3 { width: 220px; height: 140px; margin: 50px auto; cursor: pointer; perspective: 1000px; }
-        .sobre-tapa { width: 100%; height: 100%; border: 1.5px solid var(--oro-base); background: #1a1a1a; display: flex; align-items: center; justify-content: center; transition: 0.8s; }
-        .sello-lacre-v3 { width: 60px; height: 60px; background: #8e2a2a; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 1.5px solid var(--oro-base); }
-
-        /* MODAL CON ADAPTACIÓN DE TEXTO */
-        #modal-imperial-final { position: fixed; inset: 0; z-index: 60000; display: none; opacity: 0; transition: 1.5s; align-items: center; justify-content: center; padding: 25px; }
-        .modal-blur { position: absolute; inset: 0; background: var(--fondo-page); opacity: 0.98; }
-        .pergamino-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .pergamino-cuerpo { 
-            width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; 
-            background: var(--fondo-pergamino); /* DINÁMICO */
-            color: var(--texto-pergamino); /* DINÁMICO */
-            padding: 60px 30px; text-align: center; border: 1px solid var(--borde-tarjeta);
-        }
-        .texto-poema { font-family: 'Playfair Display'; font-size: clamp(1.4rem, 4.5vw, 1.9rem); line-height: 1.9; font-style: italic; margin: 40px 0; }
-        .btn-cerrar-v3 { background: none; border: 1px solid var(--oro-base); padding: 15px 40px; font-family: 'Montserrat'; letter-spacing: 6px; cursor: pointer; color: var(--oro-base); margin-top: 40px; }
-
-        @media (max-width: 768px) { .titulo-caligrafico { font-size: 3.5rem; } .texto-profundo { font-size: 1.5rem; } }
-    </style>
+    <div id="final-modal" style="position:fixed; inset:0; z-index:600000; display:none; opacity:0; background:var(--carbon); transition:2.5s; padding:60px 25px; align-items:center; justify-content:center; overflow-y:auto;">
+        <div class="love-card-luxe" style="opacity:1; transform:none;">
+            <h2 class="title-aura" style="font-size:5rem;">Annhai...</h2>
+            <div class="text-aura" style="font-size:1.8rem; line-height:2.2;">
+                Quería hacerte algo diferente porque, honestamente, me has caído súper bien en este poquito tiempo. Tienes una personalidad que atrapa y una energía muy linda.<br><br>
+                Espero que estos tres días sean solo el inicio de una gran amistad y que este pequeño detalle te saque una sonrisa hoy.<br><br>
+                Disfruta mucho tu día, ¡te lo mereces!<br><br>
+                ¡Nos vemos pronto!
+            </div>
+            <p style="font-family:'Great Vibes'; font-size:4rem; color:var(--plata-brillo); margin-top:60px;">¡Un gusto conocerte!</p>
+            <button class="btn-luxe" style="margin-top:50px;" onclick="location.reload()">Cerrar Todo</button>
+        </div>
+    </div>
 
     <script>
-        const MASTER = { key: "ANNHAI" };
+        const CORE = {
+            key: "ANNHAI",
+            data: [
+                { t: "Vibra", c: "Hay personas que en un par de días\nte cambian el ritmo y la canción.\nGracias por tu buena sintonía\ny por esa natural conexión." },
+                { t: "Luz", c: "No hace falta un año para ver\nque tienes un brillo especial.\nEs un gusto haberte podido conocer\ny descubrir tu esencia natural." },
+                { t: "Charla", c: "Tres días bastan para intuir\nque hay mucho bueno por descubrir.\nQué suerte el haberme cruzado contigo\ny tenerte ahora como un nuevo amigo." },
+                { t: "Misterio", c: "Te mueves con calma y con soltura,\ntienes un estilo que es solo tuyo.\nConocerte ha sido una linda aventura\nque me llena de calma y de orgullo." },
+                { t: "Vuelo", c: "Apenas estamos en el comienzo,\ny ya me parece todo genial.\nTu buena vibra es como un lienzo\ndonde todo se siente real." },
+                { t: "Suerte", c: "El azar nos puso en el mismo lugar,\ny yo no podría estar más contento.\nAnnhai, gracias por dejarme entrar\ny compartir contigo este momento." }
+            ]
+        };
 
-        document.getElementById('input-password').addEventListener('input', (e) => {
-            if(e.target.value.toUpperCase() === MASTER.key) {
-                document.getElementById('main-audio').volume = 0.3;
-                document.getElementById('main-audio').play().catch(()=>{});
-                
-                document.getElementById('caja-password').style.opacity = '0';
-                setTimeout(() => {
-                    document.querySelector('.p-izq').style.transform = 'rotateY(-105deg)';
-                    document.querySelector('.p-der').style.transform = 'rotateY(105deg)';
-                    document.getElementById('portal-inicio').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('portal-inicio').style.display = 'none';
-                        document.getElementById('ui-panel').style.display = 'flex';
-                        const m = document.getElementById('scroller-principal');
-                        m.style.display = 'block';
-                        setTimeout(() => { m.style.opacity = '1'; startLife(); }, 100);
-                    }, 2800);
-                }, 600);
-            }
+        const cube = document.getElementById('cube-obj');
+        const touchArea = document.getElementById('touch-nexus');
+        let isMoving = false, startX, startY, rx = 0, ry = 0, vx = 0, vy = 0;
+
+        // FÍSICA PRO
+        touchArea.addEventListener('touchstart', (e) => { isMoving = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; });
+        window.addEventListener('touchmove', (e) => {
+            if (!isMoving) return;
+            vx = (e.touches[0].clientX - startX) * 0.5; vy = (e.touches[0].clientY - startY) * 0.5;
+            startX = e.touches[0].clientX; startY = e.touches[0].clientY;
         });
+        window.addEventListener('touchend', () => isMoving = false);
 
-        function startLife() {
-            setInterval(() => {
-                const d = document.createElement('div');
-                d.className = 'pixel-aura';
-                const s = Math.random() * 4 + 2;
-                d.style.width = s + 'px'; d.style.height = s + 'px';
-                d.style.left = Math.random() * 100 + 'vw';
-                d.style.bottom = '-5vh';
-                document.body.appendChild(d);
-                setTimeout(() => d.remove(), 14000);
-            }, 600);
-
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
-            }, { threshold: 0.15 });
-            document.querySelectorAll('.revelacion-box').forEach(r => obs.observe(r));
+        function animate() {
+            if (!isMoving) { vx *= 0.95; vy *= 0.95; }
+            ry += vx; rx -= vy;
+            cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+            requestAnimationFrame(animate);
         }
+        animate();
 
-        function updateTheme(t) {
-            document.body.className = '';
-            if(t !== 'default') document.body.classList.add('tema-' + t);
-        }
-
-        function expandir(btn, msg) {
-            btn.innerHTML = `<span style="text-transform:none; font-family:'Cormorant Garamond'; font-size:1.3rem;">${msg}</span>`;
-            btn.style.borderColor = 'transparent';
-        }
-
-        function abrirManuscrito() {
-            const mod = document.getElementById('modal-imperial-final');
-            mod.style.display = 'flex';
-            setTimeout(() => mod.style.opacity = '1', 100);
-        }
-    </script>
-</body>
-</html>
+        function startExperience() {
+            if(document.getElementById('pass-field').value.toUpperCase() === CORE.key) {
+                const a = document.getElementById('main-audio'); a.volume = 0.5; a.play();
+                document.getElementById('capa-acceso').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('capa-acceso').style.display = 'none';
+                    document.getElementById('gate-system').classList.add('open');
+                    setTimeout(() => {
+                        document.getElementById('pro-dock').classList.add('active');
+                        document.getElementById('main-scroller').style.display = 'block';
+                        setTimeout(() => { document.getElementById('main-scroller').style.opacity = '1'; initObserver(); }, 100);
+                    }, 1800);
+                }, 
