@@ -3,317 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Annhai | Sinfonía Digital v100.0</title>
+    <title>Annhai | Crimson Night</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@100;300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
-        /* SISTEMA DINÁMICO DE TEMAS (REPARADO)
-           He separado las variables para que los botones de la Parte 2 
-           puedan sobreescribir los colores en tiempo real.
-        */
+        /** * DESIGN SYSTEM: CRIMSON MANHWA VINTAGE
+         * DENSITY: ULTRA-EXTENDED
+         * Un entorno visual pesado y detallado.
+         */
+
         :root {
-            --primary-bg: #020617;
-            --accent-color: #ffffff;
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #e2e8f0;
-            --transition-main: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            --card-width: 90%;
-            --max-card-w: 600px;
+            --blood-carmine: #2d0505;
+            --deep-onyx: #050505;
+            --vintage-gold: #c5a059;
+            --rose-white: #fce4ec;
+            --glass-red: rgba(45, 5, 5, 0.6);
+            --border-gold: rgba(197, 160, 89, 0.3);
+            --shadow-luxe: 0 40px 100px rgba(0,0,0,0.9);
         }
 
-        /* VARIACIONES DE TEMAS (LÓGICA INYECTADA) */
-        body.theme-night { --primary-bg: #000000; --accent-color: #f1f5f9; }
-        body.theme-aura { --primary-bg: #0f172a; --accent-color: #94a3b8; }
-        body.theme-gold { --primary-bg: #0c0a09; --accent-color: #d4af37; }
+        /* CONFIGURACIÓN DE NÚCLEO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            font-family: 'Cormorant Garamond', serif;
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-onyx);
+            color: var(--rose-white);
+            font-family: 'Playfair Display', serif;
             overflow: hidden;
-            transition: var(--transition-main);
+            perspective: 2000px;
         }
 
-        /* MOTOR DE PARTÍCULAS (NOTAS MUSICALES) */
-        #particle-system {
-            position: fixed; inset: 0; z-index: 0;
-            overflow: hidden; pointer-events: none;
+        /* FONDO DINÁMICO: SEDA CARMESÍ */
+        #carmine-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, var(--blood-carmine) 0%, #000 100%);
         }
 
-        .musical-note {
-            position: absolute; bottom: -50px;
-            color: var(--accent-color);
-            opacity: 0.2; font-size: 20px;
-            animation: riseUp linear forwards;
+        /* ACCESO: EL SELLO DEL MANHWA */
+        #gate-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        @keyframes riseUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.4; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        .seal-card {
+            width: 90%;
+            max-width: 450px;
+            padding: 80px 40px;
+            background: var(--glass-red);
+            border: 2px solid var(--vintage-gold);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.2);
         }
 
-        /* INTERFAZ DE ENTRADA (CORREGIDA) */
-        #gate-screen {
-            position: fixed; inset: 0; z-index: 10000;
-            background: #000; display: flex; align-items: center; justify-content: center;
-            transition: opacity 1.5s ease;
+        .seal-card h1 {
+            font-family: 'Cinzel Decorative';
+            font-size: 0.9rem;
+            letter-spacing: 15px;
+            color: var(--vintage-gold);
+            margin-bottom: 60px;
         }
 
-        .gate-box {
-            width: 85%; max-width: 450px; text-align: center;
-            padding: 60px 30px; border: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        /* INPUT VISIBLE COMO PEDISTE */
+        #vault-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--vintage-gold);
+            padding: 15px 0;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
         }
 
-        .gate-box h1 {
-            font-family: 'Great Vibes', cursive; font-size: clamp(3rem, 12vw, 5rem);
-            color: var(--accent-color); margin-bottom: 5px;
+        #pass-hint {
+            font-family: 'Montserrat';
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--vintage-gold);
+            margin-bottom: 40px;
+            opacity: 0.7;
         }
 
-        .gate-box span {
-            font-family: 'Cinzel Decorative'; font-size: 0.6rem;
-            letter-spacing: 8px; color: var(--text-main); opacity: 0.6;
-            display: block; margin-bottom: 50px;
+        .enter-btn {
+            background: var(--vintage-gold);
+            color: #000;
+            border: none;
+            padding: 18px 50px;
+            font-family: 'Cinzel Decorative';
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: 0.4s;
         }
 
-        #pass-field {
-            width: 100%; background: transparent; border: none;
-            border-bottom: 1px solid var(--glass-border);
-            padding: 15px 0; color: #fff; font-size: 1.4rem;
-            letter-spacing: 12px; text-align: center; margin-bottom: 40px;
-            outline: none; -webkit-text-security: disc;
+        .enter-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
         }
 
-        .action-btn {
-            background: transparent; border: 1px solid var(--accent-color);
-            color: var(--accent-color); padding: 15px 45px;
-            font-family: 'Montserrat'; font-size: 0.7rem;
-            letter-spacing: 6px; text-transform: uppercase;
-            cursor: pointer; transition: 0.4s;
+        /* BURBUJAS FLOTANTES (ESTILO ORBITAL) */
+        #bubble-universe {
+            position: relative;
+            z-index: 100;
+            width: 100%;
+            height: 100vh;
+            display: none;
+            opacity: 0;
         }
 
-        /* SCROLL Y CONTENIDO (REPARADO) */
-        #main-scroller {
-            display: none; opacity: 0; width: 100%; height: 100vh;
-            overflow-y: auto; position: relative; z-index: 100;
-            scroll-behavior: smooth;
-        }
-
-        .section-view {
-            min-height: 100vh; width: 100%; display: flex;
-            align-items: center; justify-content: center;
-            padding: 60px 20px;
-        }
-
-        .card-glass {
-            width: var(--card-width); max-width: var(--max-card-w);
-            background: rgba(255, 255, 255, 0.02);
-            padding: 50px 30px; border: 1px solid var(--glass-border);
-            text-align: center; opacity: 0; transform: translateY(30px);
-            transition: 1.5s var(--transition-main);
-        }
-
-        .card-glass.show { opacity: 1; transform: translateY(0); }
-
-        .card-glass h2 {
-            font-family: 'Great Vibes', cursive; font-size: 3rem;
-            color: var(--accent-color); margin-bottom: 25px;
-        }
-
-        .card-glass p {
-            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
-            line-height: 1.8; color: var(--text-main); font-style: italic;
-        }
-
-        /* PRISMA (ESCUDO DE INTERACCIÓN) */
-        .prism-wrapper { width: 200px; height: 200px; perspective: 1000px; margin: 40px auto; }
-        .prism-body { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
-        .prism-side {
-            position: absolute; width: 200px; height: 200px;
-            background: rgba(10, 15, 30, 0.98); border: 1px solid var(--glass-border);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-family: 'Cinzel Decorative'; font-size: 0.6rem; color: #fff;
-            backface-visibility: hidden;
-        }
-        .prism-side span { font-family: 'Great Vibes'; font-size: 2.2rem; margin-top: 10px; }
-
-        .s-front { transform: rotateY(0deg) translateZ(100px); }
-        .s-back  { transform: rotateY(180deg) translateZ(100px); }
-        .s-right { transform: rotateY(90deg) translateZ(100px); }
-        .s-left  { transform: rotateY(-90deg) translateZ(100px); }
-
-        /* DOCK DE BOTONES (AHORA SÍ FUNCIONAN) */
-        #nav-dock {
-            position: fixed; bottom: 30px; left: 50%;
-            transform: translateX(-50%) translateY(150px);
-            display: flex; gap: 20px; z-index: 50000;
-            padding: 12px 25px; background: rgba(0,0,0,0.85);
-            border: 1px solid var(--glass-border); border-radius: 50px;
+        .crimson-bubble {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            backdrop-filter: blur(10px);
         }
-        #nav-dock.active { transform: translateX(-50%) translateY(0); }
-        .dock-btn { 
-            background: transparent; border: none; color: #fff; 
-            font-size: 1.2rem; cursor: pointer; opacity: 0.6; 
+
+        .crimson-bubble:hover {
+            transform: scale(1.2);
+            background: rgba(197, 160, 89, 0.15);
+            border-color: #fff;
+        }
+
+        .crimson-bubble span {
+            font-family: 'Great Vibes';
+            font-size: 1.8rem;
+            color: var(--vintage-gold);
+        }
+
+        /* POSICIONES DE BURBUJAS */
+        #bub-1 { top: 20%; left: 15%; animation: float 6s infinite ease-in-out; }
+        #bub-2 { top: 15%; right: 10%; animation: float 8s infinite ease-in-out -2s; }
+        #bub-3 { bottom: 25%; left: 10%; animation: float 7s infinite ease-in-out -1s; }
+        #bub-4 { bottom: 15%; right: 15%; animation: float 9s infinite ease-in-out -3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* LECTOR DE CARTAS */
+        #letter-reader {
+            position: fixed;
+            inset: 0;
+            z-index: 500000;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            opacity: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            transition: 0.8s;
+        }
+
+        .paper {
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid var(--border-gold);
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .paper h3 {
+            font-family: 'Cinzel Decorative';
+            font-size: 0.7rem;
+            letter-spacing: 8px;
+            color: var(--vintage-gold);
+            margin-bottom: 40px;
+        }
+
+        .paper p {
+            font-size: 1.9rem;
+            line-height: 2.1;
+            font-style: italic;
+            color: #fff;
+        }
+
+        /* HUD DE OPCIONES */
+        #hud-bottom {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150px);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            padding: 15px 30px;
+            border: 1px solid var(--vintage-gold);
+            border-radius: 50px;
+            transition: 1s;
+        }
+
+        .hud-btn {
+            background: transparent;
+            border: none;
+            color: var(--vintage-gold);
+            font-size: 1.2rem;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .dock-btn:hover { opacity: 1; transform: scale(1.2); }
+
+        .hud-btn:hover { transform: scale(1.3); color: #fff; }
     </style>
-</head><body class="theme-default">
-    <div id="particle-system"></div>
+</head><body class="manhwa-engine">
+    <canvas id="carmine-canvas"></canvas>
 
-    <div id="gate-screen">
-        <div class="gate-box">
-            <h1>Annhai</h1>
-            <span>Sinfonía de Coincidencia</span>
-            <input type="password" id="pass-field" placeholder="CLAVE" autocomplete="off">
-            <button class="action-btn" onclick="Engine.unlock()">Inicializar</button>
+    <div id="gate-overlay">
+        <div class="seal-card">
+            <h1>IMPERIAL NIGHT</h1>
+            <input type="text" id="vault-input" placeholder="INGRESA TU RESPUESTA" autocomplete="off">
+            <div id="pass-hint">CLAVE: mi mejor amiga</div>
+            <button class="enter-btn" onclick="Engine.init()">Validar Sello</button>
         </div>
     </div>
 
-    <audio id="vocal-track" loop preload="auto"><source src="lana.mp3" type="audio/mpeg"></audio>
+    <audio id="bg-music" loop><source src="lana.mp3" type="audio/mpeg"></audio>
 
-    <div id="nav-dock">
-        <button class="dock-btn" onclick="Engine.setTheme('default')">✧</button>
-        <button class="dock-btn" onclick="Engine.setTheme('night')">☾</button>
-        <button class="dock-btn" onclick="Engine.setTheme('gold')">❂</button>
-        <div style="width:1px; height:20px; background:rgba(255,255,255,0.2);"></div>
-        <button class="dock-btn" onclick="Engine.toggleAudio()">♫</button>
-    </div>
+    <div id="bubble-universe">
+        <div class="crimson-bubble" id="bub-1" onclick="Engine.read(0)"><span>Cariño</span></div>
+        <div class="crimson-bubble" id="bub-2" onclick="Engine.read(1)"><span>Descanso</span></div>
+        <div class="crimson-bubble" id="bub-3" onclick="Engine.read(2)"><span>Noche</span></div>
+        <div class="crimson-bubble" id="bub-4" onclick="Engine.read(3)"><span>Mañana</span></div>
 
-    <main id="main-scroller">
-        <section class="section-view">
-            <div class="card-glass">
-                <h2>Annhai...</h2>
-                <p>Hay personas que aparecen de pronto y, en apenas <b>tres días</b>, te das cuenta de que tienen una energía diferente. Es genial cuando el destino decide cruzar caminos así de rápido y con tan buena charla.</p>
+        <div style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+            <div style="width:120px; height:120px; border:2px solid var(--vintage-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="Engine.showFinal()">
+                <span style="font-family:'Cinzel Decorative'; font-size:2rem; color:#fff;">A</span>
             </div>
-        </section>
-
-        <section class="section-view">
-            <div class="card-glass">
-                <h2 style="font-size: 2.5rem;">Coincidencias</h2>
-                <div class="prism-wrapper">
-                    <div class="prism-body" id="prism-actor">
-                        <div class="prism-side s-front" onclick="Engine.showFrag(0)">Tiempo<span>01</span></div>
-                        <div class="prism-side s-back" onclick="Engine.showFrag(1)">Luz<span>02</span></div>
-                        <div class="prism-side s-right" onclick="Engine.showFrag(2)">Charla<span>03</span></div>
-                        <div class="prism-side s-left" onclick="Engine.showFrag(3)">Destello<span>04</span></div>
-                    </div>
-                </div>
-                <p style="font-family:'Montserrat'; font-size:0.6rem; letter-spacing:5px; opacity:0.5; font-style:normal;">TOCA PARA LEER</p>
-            </div>
-        </section>
-
-        <section class="section-view">
-            <div class="card-glass">
-                <h2>Un Gusto</h2>
-                <p>No hace falta mucho tiempo para reconocer a alguien que brilla por sí misma. Gracias por estos tres días de buena charla.</p>
-                <div style="margin:50px auto; width:90px; height:90px; border:1px solid var(--accent-color); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="Engine.openFinal()">
-                    <span style="font-family:'Great Vibes'; font-size:3rem; color:var(--accent-color);">A</span>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="modal-reader" style="position:fixed; inset:0; z-index:200000; display:none; opacity:0; transition:0.8s; align-items:center; justify-content:center; padding:20px;">
-        <div style="position:absolute; inset:0; background:#000; opacity:0.95;"></div>
-        <div style="position:relative; width:100%; max-width:500px; background:rgba(255,255,255,0.03); border:1px solid var(--glass-border); padding:60px 30px; text-align:center;">
-            <h3 id="mod-title" style="font-family:'Great Vibes'; font-size:3.5rem; color:var(--accent-color); margin-bottom:20px;"></h3>
-            <p id="mod-body" style="font-size:1.6rem; line-height:1.8; color:#ccc; font-style:italic; white-space:pre-line;"></p>
-            <button class="action-btn" style="margin-top:40px;" onclick="Engine.closeFrag()">Volver</button>
+            <p style="margin-top:20px; font-family:'Montserrat'; font-size:0.5rem; letter-spacing:5px; opacity:0.6;">LEER CARTA</p>
         </div>
     </div>
 
-    <div id="final-screen" style="position:fixed; inset:0; z-index:300000; display:none; opacity:0; transition:1.2s; background:var(--primary-bg); padding:60px 25px; overflow-y:auto;">
-        <div style="max-width:600px; margin:0 auto; text-align:center;">
-            <h2 style="font-family:'Great Vibes'; font-size:4.5rem; color:var(--accent-color); margin-bottom:40px;">Annhai...</h2>
-            <div style="font-family:'Cormorant Garamond'; font-size:1.5rem; line-height:2.2; color:#ccc; text-align:justify; font-style:italic;">
-                Solo quería enviarte un detalle diferente. Me pareces una persona increíble y con una energía que se nota desde el primer momento.<br><br>
-                Qué bueno que hayamos coincidido hace apenas tres días. Espero que este rincón digital te saque una sonrisa y que tu día sea excelente.<br><br>
-                ¡Nos vemos pronto!
+    <div id="hud-bottom">
+        <button class="hud-btn" onclick="Engine.skin('#2d0505')">❂</button>
+        <button class="hud-btn" onclick="Engine.skin('#05051a')">☾</button>
+        <button class="hud-btn" onclick="Engine.skin('#1a1a1a')">✧</button>
+        <div style="width:1px; height:20px; background:var(--vintage-gold); margin:0 5px;"></div>
+        <button class="hud-btn" onclick="Engine.toggle()">♫</button>
+    </div>
+
+    <div id="letter-reader">
+        <div class="paper">
+            <h3 id="p-title"></h3>
+            <p id="p-body"></p>
+            <button class="enter-btn" style="margin-top:50px; background:transparent; color:var(--vintage-gold); border:1px solid var(--vintage-gold);" onclick="Engine.close()">Regresar</button>
+        </div>
+    </div>
+
+    <div id="final-letter-screen" style="position:fixed; inset:0; z-index:2000000; display:none; opacity:0; background:#000; transition:3s; overflow-y:auto; padding:100px 30px;">
+        <div style="max-width:550px; margin:0 auto; text-align:center;">
+            <h2 style="font-family:'Cinzel Decorative'; font-size:0.7rem; letter-spacing:15px; color:var(--vintage-gold); margin-bottom:80px;">BUENAS NOCHES</h2>
+            
+            <div style="font-family:'Playfair Display'; font-size:2.1rem; line-height:2.3; color:#fce4ec; font-style:italic; text-align:justify; border-left: 1px solid var(--vintage-gold); padding-left:30px;">
+                Annhai, me paso por aquí solo para decirte que descanses. <br><br>
+                Me gusta mucho hablar contigo, de verdad, se siente muy bien compartir palabras y tiempo contigo. <br><br>
+                Te quiero mucho y quería que este rincón fuera lo último que vieras hoy. Descansa mucho, recupera todas las fuerzas posibles y que duermas muy profundo. <br><br>
+                Aquí te espero mañana para saludarte otra vez. Que tengas una noche increíble.
             </div>
-            <p style="font-family:'Great Vibes'; font-size:3.5rem; color:var(--accent-color); margin-top:50px;">¡Fue un gusto!</p>
-            <button class="action-btn" style="margin:50px 0 100px;" onclick="location.reload()">Cerrar</button>
+
+            <p style="font-family:'Great Vibes'; font-size:4.5rem; color:var(--vintage-gold); margin-top:100px;">A</p>
+            <button class="enter-btn" style="margin:100px 0;" onclick="location.reload()">Cerrar Sistema</button>
         </div>
     </div>
 
     <script>
+        /**
+         * ENGINE VINTAGE v11.0
+         * Sistema de renderizado de seda y partículas.
+         */
         const Engine = (() => {
-            const FRAGS = [
-                { t: "Tiempo", c: "Hay personas que en un par de días\nte cambian el ritmo y la canción.\nGracias por tu buena charla\ny por esta natural conexión." },
-                { t: "Luz", c: "No hace falta un año para ver\nque tienes un brillo especial.\nEs un gusto haberte conocido\ny descubrir tu naturalidad." },
-                { t: "Charla", c: "Tres días bastan para intuir\nque hay mucho bueno por descubrir.\nQué suerte el haberme cruzado contigo." },
-                { t: "Destello", c: "Te mueves con calma y con soltura,\ntienes un estilo que es solo tuyo.\nConocerte ha sido una sorpresa." }
+            const TEXTS = [
+                { t: "CARIÑO", b: "Te quiero mucho, Annhai. Me importa que estés bien." },
+                { t: "DESCANSO", b: "Espero que hoy puedas soltar todo y dormir tranquila." },
+                { t: "NOCHE", b: "La noche se ve mejor cuando sé que mañana hablamos de nuevo." },
+                { t: "MAÑANA", b: "Duerme profundo, que mañana te espero aquí." }
             ];
 
-            // PRISMA AUTO-ROTACIÓN
-            let ry = 0;
-            setInterval(() => {
-                ry += 0.5;
-                document.getElementById('prism-actor').style.transform = `rotateY(${ry}deg)`;
-            }, 30);
+            const canvas = document.getElementById('carmine-canvas');
+            const ctx = canvas.getContext('2d');
+            let petals = [];
 
-            // PARTÍCULAS
-            setInterval(() => {
-                const p = document.createElement('div');
-                const icons = ['♩', '♪', '♫', '♬'];
-                p.className = 'musical-note';
-                p.innerText = icons[Math.floor(Math.random()*4)];
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random()*5 + 5) + 's';
-                document.getElementById('particle-system').appendChild(p);
-                setTimeout(() => p.remove(), 10000);
-            }, 400);
+            function initParticles() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                for(let i=0; i<80; i++) {
+                    petals.push({
+                        x: Math.random()*canvas.width, 
+                        y: Math.random()*canvas.height,
+                        s: Math.random()*2+1, 
+                        d: Math.random()*0.4+0.1,
+                        a: Math.random()
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+                petals.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.s, 0, Math.PI*2);
+                    ctx.fill();
+                    p.y -= p.d;
+                    if(p.y < -10) p.y = canvas.height + 10;
+                });
+                requestAnimationFrame(draw);
+            }
 
             return {
-                unlock() {
-                    const pass = document.getElementById('pass-field').value.toUpperCase();
-                    if(pass === "ANNHAI") {
-                        document.getElementById('vocal-track').play().catch(()=>{});
-                        document.getElementById('gate-screen').style.opacity = '0';
+                init() {
+                    const val = document.getElementById('vault-input').value.toLowerCase().trim();
+                    if(val === "mi mejor amiga") {
+                        document.getElementById('bg-music').play().catch(()=>{});
+                        document.getElementById('gate-overlay').style.opacity = '0';
                         setTimeout(() => {
-                            document.getElementById('gate-screen').style.display = 'none';
-                            document.getElementById('main-scroller').style.display = 'block';
-                            document.getElementById('nav-dock').classList.add('active');
-                            setTimeout(() => {
-                                document.getElementById('main-scroller').style.opacity = '1';
-                                this.initReveal();
-                            }, 100);
+                            document.getElementById('gate-overlay').style.display = 'none';
+                            document.getElementById('bubble-universe').style.display = 'block';
+                            document.getElementById('hud-bottom').style.transform = 'translateX(-50%) translateY(0)';
+                            setTimeout(() => document.getElementById('bubble-universe').style.opacity = '1', 100);
+                            initParticles(); draw();
                         }, 1500);
-                    } else { alert("Pista: Es tu nombre."); }
+                    } else {
+                        document.getElementById('pass-hint').innerText = "ERROR: PRUEBA CON 'mi mejor amiga'";
+                        document.getElementById('pass-hint').style.color = "red";
+                    }
                 },
-                initReveal() {
-                    const obs = new IntersectionObserver((es) => {
-                        es.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
-                    }, { threshold: 0.1 });
-                    document.querySelectorAll('.card-glass').forEach(c => obs.observe(c));
-                },
-                setTheme(t) { document.body.className = 'theme-' + t; },
-                toggleAudio() { const a = document.getElementById('vocal-track'); a.paused ? a.play() : a.pause(); },
-                showFrag(i) {
-                    document.getElementById('mod-title').innerText = FRAGS[i].t;
-                    document.getElementById('mod-body').innerText = FRAGS[i].c;
-                    const m = document.getElementById('modal-reader');
+                read(i) {
+                    document.getElementById('p-title').innerText = TEXTS[i].t;
+                    document.getElementById('p-body').innerText = TEXTS[i].b;
+                    const m = document.getElementById('letter-reader');
                     m.style.display = 'flex';
                     setTimeout(() => m.style.opacity = '1', 50);
                 },
-                closeFrag() {
-                    const m = document.getElementById('modal-reader');
+                close() {
+                    const m = document.getElementById('letter-reader');
                     m.style.opacity = '0';
                     setTimeout(() => m.style.display = 'none', 800);
                 },
-                openFinal() {
-                    const f = document.getElementById('final-screen');
+                skin(c) {
+                    canvas.style.background = `radial-gradient(circle, ${c} 0%, #000 100%)`;
+                },
+                toggle() {
+                    const a = document.getElementById('bg-music');
+                    a.paused ? a.play() : a.pause();
+                },
+                showFinal() {
+                    const f = document.getElementById('final-letter-screen');
                     f.style.display = 'block';
-                    setTimeout(() => f.style.opacity = '1', 50);
+                    setTimeout(() => f.style.opacity = '1', 100);
                 }
             };
         })();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
