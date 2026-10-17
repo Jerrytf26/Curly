@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi buen amor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#c9a45c;--cream:#f3e8d2;--ease:cubic-bezier(.23,1,.32,1);
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+  *{box-sizing:border-box}
+  html,body{height:100%;height:100dvh;margin:0;overflow:hidden}
+  body{background:#07110d;color:var(--cream);font-family:var(--serif);
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none;
+    -webkit-text-size-adjust:100%}
+
+  /* Fondo animado: verde botella, vino y oro, muy lento */
+  .bg{position:fixed;inset:-60px;background-size:cover;background-position:center;
+    filter:blur(70px) brightness(.5) saturate(1.2) sepia(.35);opacity:0;transition:opacity 2s;z-index:0}
+  .bg.on{opacity:.4}
+  .blob{position:fixed;z-index:0;border-radius:50%;filter:blur(90px);pointer-events:none}
+  .b1{width:85vmax;height:85vmax;background:#14543f;opacity:.5;top:-40vmax;left:-35vmax;animation:d1 24s ease-in-out infinite alternate}
+  .b2{width:80vmax;height:80vmax;background:#7a2434;opacity:.42;bottom:-42vmax;right:-38vmax;animation:d2 28s ease-in-out infinite alternate}
+  .b3{width:50vmax;height:50vmax;background:#b8893a;opacity:.16;top:30%;left:20%;animation:d3 32s ease-in-out infinite alternate}
+  @keyframes d1{to{transform:translate(20vmax,14vmax) scale(1.15)}}
+  @keyframes d2{to{transform:translate(-18vmax,-12vmax) scale(1.1)}}
+  @keyframes d3{to{transform:translate(14vmax,-10vmax) scale(1.3)}}
+  .vig{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 50% 38%,transparent 35%,rgba(4,8,6,.8))}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.13;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+  /* Motitas de oro flotando */
+  .dust{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .dust i{position:absolute;bottom:-10px;border-radius:50%;background:var(--gold);opacity:0;animation:subir linear infinite}
+  @keyframes subir{0%{transform:translateY(0);opacity:0}15%{opacity:.5}100%{transform:translateY(-105vh) translateX(20px);opacity:0}}
+
+  .card{position:relative;z-index:2;max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column;
+    align-items:center;padding:calc(env(safe-area-inset-top,0px) + 30px) 24px calc(env(safe-area-inset-bottom,0px) + 8px)}
+
+  /* Imagen con marco dorado */
+  .art{position:relative;flex:none;width:min(60vw,240px,31dvh);aspect-ratio:1;cursor:pointer;
+    opacity:0;transform:translateY(10px) scale(.9);
+    transition:transform .9s var(--ease),opacity 1.2s var(--ease)}
+  body.ready .art{opacity:1;transform:scale(.93)}
+  body.playing .art{transform:scale(1)}
+  .art::before{content:"";position:absolute;inset:12% -6% -9%;border-radius:10px;
+    background:var(--img,linear-gradient(135deg,#7a2434,#14543f));background-size:cover;background-position:center;
+    filter:blur(32px) saturate(1.3) sepia(.3);opacity:.7;z-index:0}
+  .frame{position:absolute;inset:0;z-index:1;padding:8px;border-radius:6px;
+    background:linear-gradient(145deg,rgba(243,232,210,.14),rgba(243,232,210,.04));
+    border:1px solid rgba(201,164,92,.65);
+    box-shadow:0 26px 50px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.05)}
+  .cv{position:relative;width:100%;height:100%;border-radius:2px;overflow:hidden;
+    background:radial-gradient(circle at 50% 40%,#17503c,#0a1d16);background-size:cover;background-position:center;
+    filter:sepia(.18) contrast(1.04) saturate(1.05)}
+  .cv .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:2.8rem;font-style:italic;color:var(--gold)}
+
+  /* Nombre discreto */
+  .meta{text-align:center;margin-top:20px;opacity:0;transition:opacity 1.6s .4s}
+  body.ready .meta{opacity:1}
+  .meta h1{margin:0;font-weight:600;font-style:italic;font-size:1.65rem;letter-spacing:.01em}
+  .meta p{margin:4px 0 0;font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-style:normal;font-weight:500}
+  .orn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;color:var(--gold);opacity:.7}
+  .orn::before,.orn::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .orn::after{transform:scaleX(-1)}
+  .orn b{width:5px;height:5px;transform:rotate(45deg);background:var(--gold)}
+
+  /* Letra */
+  .lyrics{position:relative;flex:1;min-height:0;width:100%;margin-top:6px;overflow-y:auto;padding:14% 0 42%;
+    text-align:center;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(transparent 0,#000 20%,#000 78%,transparent 100%);
+            mask-image:linear-gradient(transparent 0,#000 20%,#000 78%,transparent 100%)}
+  .lyrics::-webkit-scrollbar{display:none}
+  .line{margin:0 0 .55em;font-family:var(--serif);font-style:italic;font-weight:600;
+    font-size:clamp(1.55rem,6.4vw,2.1rem);line-height:1.22;color:rgba(243,232,210,.3);cursor:pointer;
+    transition:color .45s var(--ease),transform .45s var(--ease)}
+  .line.past{color:rgba(243,232,210,.15)}
+  .line.on{color:var(--cream);transform:scale(1.04);text-shadow:0 0 28px rgba(201,164,92,.55)}
+
+  /* Aviso suave si el navegador bloquea la música */
+  #hint{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:5;text-align:center;
+    font-style:italic;font-size:1rem;color:var(--gold);letter-spacing:.04em;opacity:0;pointer-events:none;
+    transition:opacity .8s}
+  #hint.on{opacity:1;animation:resp 2.4s ease-in-out infinite}
+  @keyframes resp{50%{opacity:.4}}
+
+  @media (prefers-reduced-motion:reduce){.blob,.dust,#hint.on{animation:none}.art,.line,.meta{transition:none}}
+</style>
+</head>
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="vig"></div><div class="dust" id="dust"></div><div class="grain"></div>
+
+  <main class="card">
+    <div class="art" id="art" aria-label="Pausar o reproducir">
+      <div class="frame"><div class="cv" id="cv"><span class="ph" id="ph">♥</span></div></div>
+    </div>
+    <div class="meta"><h1>Mi buen amor</h1><p>Mon Laferte</p><div class="orn"><b></b></div></div>
+    <section class="lyrics" id="letra"></section>
+  </main>
+
+  <div id="hint">toca la pantalla para comenzar</div>
+  <audio id="a" autoplay preload="auto" src="mon.mp3" style="display:none"></audio>
+
+<script>
+const a=document.getElementById("a"), box=document.getElementById("letra"), hint=document.getElementById("hint");
+let lines=[], cur=-1;
+
+/* Imagen: busca foto.jpg, foto.jpeg, foto.png o foto.webp en la misma carpeta */
+(function(){
+  const nombres=["foto.jpg","foto.jpeg","foto.png","foto.webp"];
+  (function probar(i){
+    if(i>=nombres.length){ document.body.classList.add("ready"); return; }
+    const im=new Image();
+    im.onload=()=>{
+      const u='url("'+nombres[i]+'")';
+      document.getElementById("cv").style.backgroundImage=u;
+      document.getElementById("art").style.setProperty("--img",u);
+      document.getElementById("ph").style.display="none";
+      const bg=document.getElementById("bg"); bg.style.backgroundImage=u; bg.classList.add("on");
+      document.body.classList.add("ready");
+    };
+    im.onerror=()=>probar(i+1);
+    im.src=nombres[i];
+  })(0);
+})();
+
+/* Motitas de oro */
+const dust=document.getElementById("dust");
+for(let i=0;i<22;i++){
+  const s=document.createElement("i"), t=1+Math.random()*2.4;
+  s.style.cssText="left:"+Math.random()*100+"%;width:"+t+"px;height:"+t+"px;animation-duration:"+(14+Math.random()*16)+"s;animation-delay:"+(-Math.random()*24)+"s";
+  dust.appendChild(s);
+}
+
+/* Letra */
+function toSec(m,s){return parseInt(m)*60+parseFloat(s)}
+function parse(txt){
+  const re=/^\s*\[?(\d+):(\d{1,2}(?:\.\d+)?)\]?\s*[|\-]?\s*(.*)$/;
+  return txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean).map(l=>{
+    const m=l.match(re);
+    return m?{t:toSec(m[1],m[2]),text:m[3]}:{t:null,text:l};
+  });
+}
+function fillTimes(){
+  const dur=a.duration; if(!dur||!isFinite(dur)) return;
+  let i=0;
+  while(i<lines.length){
+    if(lines[i].t!==null){i++;continue;}
+    let j=i; while(j<lines.length&&lines[j].t===null) j++;
+    const off=i>0?1:0,t0=i>0?lines[i-1].t:0,t1=j<lines.length?lines[j].t:dur,n=j-i;
+    for(let k=0;k<n;k++) lines[i+k].t=t0+(t1-t0)*(k+off)/(n+off);
+    i=j;
+  }
+  for(let k=1;k<lines.length;k++) if(lines[k].t<=lines[k-1].t) lines[k].t=lines[k-1].t+0.01;
+}
+function render(){
+  box.innerHTML="";
+  lines.forEach(l=>{
+    const p=document.createElement("p");
+    p.className="line"; p.textContent=l.text;
+    p.onclick=e=>{ e.stopPropagation(); if(l.t!==null){a.currentTime=l.t;a.play();} };
+    box.appendChild(p);
+  });
+}
+function update(){
+  let idx=-1;
+  for(let i=0;i<lines.length;i++){ if(lines[i].t!==null && a.currentTime>=lines[i].t) idx=i; }
+  if(idx===cur) return;
+  cur=idx;
+  [...box.children].forEach((p,i)=>{
+    p.classList.toggle("on",i===idx);
+    p.classList.toggle("past",i<idx);
+    const d=idx<0?0:Math.max(0,Math.abs(i-idx)-1);
+    p.style.filter=(i===idx||d<2)?"none":"blur("+Math.min(d-1,3)*.7+"px)";
+  });
+  if(idx>=0){
+    const p=box.children[idx];
+    box.scrollTo({top:p.offsetTop-box.clientHeight*.36,
+      behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});
+  }
+}
+function aviso(t){ box.innerHTML='<p class="line on">'+t+'</p>'; }
+
+fetch("letra.txt").then(r=>r.ok?r.text():Promise.reject()).then(t=>{
+  lines=parse(t); render();
+  if(lines.some(l=>l.t===null)){
+    if(a.readyState>=1) fillTimes(); else a.addEventListener("loadedmetadata",fillTimes,{once:true});
+  }
+}).catch(()=>aviso("No encontré letra.txt. Súbelo junto a index.html"));
+
+a.addEventListener("timeupdate",update);
+a.addEventListener("seeked",update);
+a.addEventListener("play",()=>{ document.body.classList.add("playing"); hint.classList.remove("on"); });
+a.addEventListener("pause",()=>document.body.classList.remove("playing"));
+a.addEventListener("error",()=>aviso("No encontré la música. Revisa que el archivo se llame mon.mp3 y esté junto a index.html"));
+if("mediaSession" in navigator) navigator.mediaSession.metadata=new MediaMetadata({title:"Mi buen amor",artist:"Mon Laferte"});
+
+/* Tocar la imagen pausa o reanuda */
+document.getElementById("art").addEventListener("click",e=>{ e.stopPropagation(); a.paused?a.play():a.pause(); });
+
+/* Inicio automático. Si el navegador lo bloquea, cualquier toque en la pantalla la inicia */
+let yaInicio=false;
+a.addEventListener("play",()=>yaInicio=true);
+function arrancar(){ if(!yaInicio) a.play().catch(()=>{}); }
+["click","touchend","keydown"].forEach(ev=>addEventListener(ev,arrancar));
+a.play().catch(()=>hint.classList.add("on"));
+setTimeout(()=>{ if(a.paused && !yaInicio && !a.error) hint.classList.add("on"); },900);
+</script>
+</body>
+</html>
