@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi buen amor</title>
+<style>
+  :root{--bg:#1d1530;--panel:#2a1f45;--text:#f3e9ff;--muted:#7d6aa3;--accent:#ffb48a}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:radial-gradient(circle at 50% 0%,#3a2a66 0%,var(--bg) 60%);color:var(--text);
+    font-family:Georgia,"Times New Roman",serif;display:flex;justify-content:center;padding:20px 16px}
+  .card{width:100%;max-width:480px;display:flex;flex-direction:column;height:100%}
+  h1{font-size:2rem;margin:0 0 14px;font-weight:normal;font-style:italic}
+  audio{width:100%;margin-bottom:16px}
+  .lyrics{flex:1;min-height:0;overflow-y:auto;background:var(--panel);border-radius:20px;
+    padding:40vh 22px;text-align:center;border:1px solid rgba(255,180,138,.25);
+    box-shadow:0 10px 40px rgba(0,0,0,.35);scrollbar-width:none}
+  .lyrics::-webkit-scrollbar{display:none}
+  .line{margin:0 0 1em;font-size:1.25rem;line-height:1.5;color:var(--muted);cursor:pointer;
+    transition:color .4s,transform .4s;transform:scale(.96)}
+  .line.on{color:var(--accent);transform:scale(1.04);font-style:italic}
+  .line.past{color:#a690cc}
+  #start{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;background:rgba(29,21,48,.96);z-index:9;cursor:pointer;text-align:center}
+  #start span{font-size:3rem}
+  #start p{margin:0;font-size:1.2rem;font-style:italic}
+</style>
+</head>
+<body>
+  <div id="start"><span>▶</span><p>Toca para empezar</p></div>
+  <main class="card">
+    <h1>Mi buen amor</h1>
+    <audio id="a" controls autoplay preload="auto" src="lana.mp3"></audio>
+    <section class="lyrics" id="letra"></section>
+  </main>
+<script>
+const a=document.getElementById("a"), box=document.getElementById("letra"), start=document.getElementById("start");
+let lines=[], cur=-1;
+
+function toSec(m,s){return parseInt(m)*60+parseFloat(s)}
+
+function parse(txt){
+  const re=/^\s*\[?(\d+):(\d{1,2}(?:\.\d+)?)\]?\s*[|\-]?\s*(.*)$/;
+  return txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean).map(l=>{
+    const m=l.match(re);
+    return m?{t:toSec(m[1],m[2]),text:m[3]}:{t:null,text:l};
+  });
+}
+
+function spreadEvenly(){
+  // Si no hay tiempos, reparte las líneas parejo a lo largo de la canción
+  if(!a.duration||!isFinite(a.duration)) return;
+  lines.forEach((l,i)=>{ if(l.t===null) l.t=(i/lines.length)*a.duration; });
+}
+
+function render(){
+  box.innerHTML="";
+  lines.forEach((l,i)=>{
+    const p=document.createElement("p");
+    p.className="line"; p.textContent=l.text;
+    p.onclick=()=>{ if(l.t!==null){a.currentTime=l.t;a.play();} };
+    box.appendChild(p);
+  });
+}
+
+function update(){
+  let idx=-1;
+  for(let i=0;i<lines.length;i++){ if(lines[i].t!==null && a.currentTime>=lines[i].t) idx=i; }
+  if(idx===cur) return;
+  cur=idx;
+  [...box.children].forEach((p,i)=>{
+    p.classList.toggle("on",i===idx);
+    p.classList.toggle("past",i<idx);
+  });
+  if(idx>=0){
+    const p=box.children[idx];
+    box.scrollTo({top:p.offsetTop-box.clientHeight/2+p.clientHeight/2,behavior:"smooth"});
+  }
+}
+
+fetch("letra.txt").then(r=>r.ok?r.text():Promise.reject()).then(t=>{
+  lines=parse(t); render();
+  const needEven=lines.some(l=>l.t===null);
+  if(needEven){
+    if(a.readyState>=1) spreadEvenly(); else a.addEventListener("loadedmetadata",spreadEvenly,{once:true});
+  }
+}).catch(()=>box.innerHTML='<p class="line on">Agrega el archivo letra.txt</p>');
+
+a.addEventListener("timeupdate",update);
+a.addEventListener("seeked",update);
+
+// Autoplay: los navegadores a veces lo bloquean, entonces pedimos un toque
+a.play().catch(()=>{ start.style.display="flex"; });
+start.onclick=()=>{ a.play(); start.style.display="none"; };
+</script>
+</body>
+</html>
