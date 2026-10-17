@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi buen amor</title>
+<style>
+  :root{
+    --bg:#1d1530; --panel:#2a1f45; --text:#f3e9ff; --muted:#b9a7d6; --accent:#ffb48a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; justify-content:center; align-items:flex-start;
+    background:radial-gradient(circle at 50% 0%, #3a2a66 0%, var(--bg) 60%);
+    color:var(--text); font-family:Georgia,"Times New Roman",serif; padding:24px 16px;
+  }
+  .card{width:100%; max-width:480px}
+  h1{font-size:2rem; margin:0 0 4px; font-weight:normal; font-style:italic}
+  .sub{color:var(--muted); margin:0 0 20px; font-family:system-ui,sans-serif; font-size:.9rem}
+  audio{width:100%; margin-bottom:20px}
+  .lyrics{
+    background:var(--panel); border-radius:20px; padding:24px 22px;
+    max-height:60vh; overflow-y:auto; line-height:1.9; font-size:1.1rem;
+    text-align:center; border:1px solid rgba(255,180,138,.25);
+    box-shadow:0 10px 40px rgba(0,0,0,.35);
+    scrollbar-width:thin; scrollbar-color:var(--accent) transparent;
+  }
+  .lyrics{white-space:pre-wrap}
+  @media (prefers-reduced-motion:no-preference){ .lyrics{scroll-behavior:smooth} }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Mi buen amor</h1>
+    <p class="sub">Letra</p>
+
+    <audio controls preload="metadata" src="lana.mp3"></audio>
+
+    <section class="lyrics" id="letra" aria-label="Letra de la canción">Cargando letra…</section>
+  </main>
+  <script>
+    fetch("letra.txt")
+      .then(r => r.ok ? r.text() : Promise.reject())
+      .then(t => document.getElementById("letra").textContent = t.trim())
+      .catch(() => document.getElementById("letra").textContent = "Aún no hay letra. Agrega el archivo letra.txt.");
+  </script>
+</body>
+</html>
